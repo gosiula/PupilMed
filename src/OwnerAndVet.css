@@ -1,0 +1,210 @@
+/* pasek górny */
+.owner-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #9acb95;
+  height: 10vh;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.owner-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  transition: background-color 0.3s;
+}
+
+.current-button {
+  background: none;
+  border: none;
+  color: #42893b;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  transition: background-color 0.3s;
+}
+
+.owner-button:hover {
+  background-color: #80b87a;
+}
+
+.owner-icon {
+  margin-right: 8px;
+  font-size: 1.8rem;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heart-with-paw {
+  position: relative;
+  display: inline-block;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 30px;
+}
+
+.heart-icon {
+  color: #ffffff;
+  font-size: 2.5rem;
+  margin-left: 10px;
+}
+
+.paw-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-30%, -57%);
+  color: #9acb95;
+  font-size: 1.5rem;
+}
+
+/* napisy */
+.text1 {
+  font-size: 1.5rem !important;
+  font-weight: normal;
+  color: #000000 !important;
+  margin-top: 30px !important;
+  text-align: left;
+  margin-left: 150px;
+}
+
+/* kalendarz */
+.visits-content {
+  padding: 20px;
+}
+
+.react-datepicker__day {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  line-height: 36px;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.react-datepicker__day--selected {
+  border: 2px solid #42893b;
+  background-color: #9acb95;
+  color: white;
+}
+
+.react-datepicker__day:hover {
+  border: 2px solid #42893b;
+  background-color: #e1f4df;
+}
+
+.date-picker-bar {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 300px;
+  margin: 20px 20px 20px 150px;
+  background-color: white;
+  border: 2px solid #42893b;
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.date-text {
+  flex-grow: 1;
+  text-align: center;
+  color: black;
+  margin-bottom: 0px;
+  font-size: 1.2rem;
+  justify-content: center;
+}
+
+.calendar-icon {
+  color: #42893b;
+  font-size: 2rem;
+  margin-left: 10px;
+  margin-top: 0;
+  justify-content: center;
+}
+
+.date-picker-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 20px;
+  padding-left: 150px;
+}
+
+.react-datepicker {
+  font-family: Arial, sans-serif;
+  border: 2px solid #42893b;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.react-datepicker__header {
+  background-color: #e1f4df;
+  border-bottom: 2px solid #42893b;
+}
+
+.react-datepicker__current-month {
+  color: #42893b;
+}
+
+.react-datepicker__navigation-icon::before {
+  border-color: #42893b;
+}
+
+.react-datepicker__day--selected {
+  background-color: #42893b !important;
+  color: white !important;
+}
+
+.react-datepicker__day:hover {
+  background-color: #e1f4df !important;
+  color: #42893b !important;
+}
+
+.react-datepicker__day--keyboard-selected {
+  background-color: #9acb95 !important;
+  color: white !important;
+}
+
+/* wizyty */
+.visit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  margin-bottom: 0px;
+}
+
+.visit-date {
+  font-size: 1.3rem;
+  color: #2b5b26;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.visit-time {
+  font-size: 1.1rem;
+  color: #42893b;
+  font-weight: bold;
+  margin-bottom: 20px;
+}

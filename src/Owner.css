@@ -1,0 +1,228 @@
+/* wspólne */
+.header {
+  color: black;
+  font-size: 2rem;
+  margin-bottom: 100px;
+}
+
+/* Owner */
+.visit-details {
+  margin-right: 10px;
+  background-color: #e1f4df;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  padding-top: 10px;
+  width: 60%;
+  cursor: pointer;
+  margin: 20px auto;
+}
+
+.visit-icon {
+  margin-right: 10px;
+  color: white;
+  font-size: 45px;
+}
+
+/* Owner Account */
+.owner-info-container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.owner-info-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.owner-info-left {
+  flex: 1;
+}
+
+.green-header {
+  color: #42893b;
+  margin: 0;
+}
+
+.owner-info-text {
+  margin: 0;
+  font-size: 20px;
+}
+
+.owner-info-right {
+  flex: 1;
+  text-align: left;
+}
+
+/* Owner Choose Animal */
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.animal-button {
+  background-color: #e1f4df;
+  color: #2b5b26;
+  border: none;
+  padding: 10px 20px;
+  font-size: 26px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.animal-button:hover {
+  background-color: #9acb95;
+}
+
+.choose-animal-container {
+  background: linear-gradient(to bottom, #ffffff, #9acb95);
+  height: 85.5vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 80px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.logo-container-choose-animal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+/* Owner Logout */
+.buttons-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 300px;
+  padding-right: 300px;
+  margin-bottom: 0px;
+}
+
+.logout-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20vh;
+}
+
+.logout-button:hover {
+  background-color: #45a049;
+}
+
+.logout-button {
+  background-color: #2b5b26;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: normal;
+  padding: 15px 32px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-self: center;
+  margin-top: 100px;
+  justify-content: center;
+  align-items: center;
+}
+
+.change-animal-button:hover {
+  background-color: #9acb95;
+}
+
+.change-animal-button {
+  background-color: #42893b;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: normal;
+  padding: 15px 32px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-self: center;
+  margin-top: 100px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Owner Recommendations */
+.recommendation-item {
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.recommendation-details {
+  margin-right: 10px;
+  background-color: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  padding-top: 10px;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.recommendation-icon {
+  margin-right: 10px;
+  color: #9acb95;
+  font-size: 45px;
+}
+
+/* Owner Visit */
+.visit-date-info {
+  font-size: 1.5rem;
+  color: #42893b;
+  font-weight: bold;
+  margin-left: 100px;
+  margin-top: 30px;
+}
+
+.visit-date-info2 {
+  font-size: 1.3rem;
+  color: #2b5b26;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.visit-info {
+  font-size: 1rem;
+  color: #000000;
+  line-height: 1.4;
+  margin-left: 150px;
+}
+
+.visit-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin: 20px;
+}
+
+.visit-info p {
+  margin-bottom: 5px;
+}
+
+.visit-details-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+.visit-info {
+  width: 45%;
+}

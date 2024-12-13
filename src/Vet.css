@@ -1,0 +1,307 @@
+/* Vet */
+.visit-details {
+  background-color: #e1f4df;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  padding-top: 10px;
+  width: 40%;
+  cursor: pointer;
+  margin-left: 150px;
+}
+
+.calendar-and-add-button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-visit-button {
+  background-color: #42893b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-right: 150px;
+  top: 15px;
+  padding: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+  transition: background-color 0.3s;
+}
+
+.add-visit-button:hover {
+  background-color: #35732e;
+}
+
+/* nagłówki przy dodawaniu / modyfikowaniu / usuwaniu */
+.header-container {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-top: 50px;
+  margin-left: 100px;
+}
+
+.back-icon {
+  color: white;
+  font-size: 20px;
+}
+
+.text2 {
+  font-size: 1.5rem !important;
+  font-weight: normal;
+  color: #2b5b26 !important;
+  text-align: left;
+  margin-right: 0px;
+  font-weight: bold;
+}
+
+.back-button {
+  background-color: #2b5b26;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-right: 0px;
+  top: 15px;
+  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: #1f431c;
+}
+
+/* wpisywanie danych */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin-top: 150px;
+}
+
+.form-container2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.input-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-label {
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.input-field {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+.input-field2 {
+  width: 500px;
+  height: 150px;
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  resize: none;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: left;
+  vertical-align: top;
+}
+
+.add-visit-button2 {
+  width: 80%;
+  padding: 15px;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 30px;
+  background-color: #42893b;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 60px;
+}
+
+.add-visit-button2:hover {
+  background-color: #35732e;
+}
+
+.error-text {
+  color: red;
+  font-size: 12px;
+  margin: 5px 0 0 0;
+  height: 16px;
+  line-height: 16px;
+  visibility: hidden;
+}
+
+.error-text.visible {
+  visibility: visible;
+}
+
+.error-input {
+  border-color: red;
+}
+
+.confirm-button {
+  background-color: #42893b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  cursor: pointer;
+  padding: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+}
+
+.confirm-button:hover {
+  background-color: #35732e;
+}
+
+.confirmation-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 53%;
+  margin: 0 auto;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.text3 {
+  font-size: 1.5rem !important;
+  font-weight: normal;
+  color: #000000 !important;
+  margin-top: 30px !important;
+  text-align: left;
+}
+
+.paw-prints-container {
+  position: relative;
+  right: 0;
+}
+
+.paw-print {
+  font-size: 45px;
+  color: #e1f4df;
+  position: absolute;
+  rotate: 20deg;
+  margin-right: 150px;
+}
+
+.paw-print-1 {
+  top: 0;
+  right: 6%;
+}
+
+.paw-print-2 {
+  top: 50px;
+  right: 15%;
+}
+
+.paw-print-3 {
+  top: 130px;
+  right: 10%;
+}
+
+.paw-print-4 {
+  top: 200px;
+  right: 18%;
+}
+
+/* Vet Visit */
+.info-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.visit-date-info2 {
+  font-size: 1.3rem;
+  color: black;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.visit-info {
+  font-size: 1rem;
+  color: #000000;
+  line-height: 1.4;
+  margin-left: 150px;
+  margin-right: 100px;
+}
+
+.visit-button {
+  background-color: #42893b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  cursor: pointer;
+  padding: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+  transition: background-color 0.3s;
+}
+
+.visit-button:hover {
+  background-color: #35732e;
+}
+
+.recommendation-button {
+  background-color: #2b5b26;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  cursor: pointer;
+  padding: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+  transition: background-color 0.3s;
+}
+
+.recommendation-button:hover {
+  background-color: #35732e;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  width: 70%;
+  gap: 30px;
+  margin-bottom: 50px;
+}
