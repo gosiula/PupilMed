@@ -8,6 +8,7 @@ import { FaDog } from "react-icons/fa6";
 import { GoHeartFill } from "react-icons/go";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import OwnerHeader from "./OwnerHeader";
 import "./Owner.css";
 import "../OwnerAndVet.css";
 
@@ -69,47 +70,8 @@ function Owner() {
 
   return (
     <div style={{ backgroundColor: "#ffffff", height: "100vh" }}>
-      <div className="owner-header">
-        <button className="current-button" onClick={() => navigate("/owner")}>
-          <LuCalendarCheck className="owner-icon" />
-          Wizyty
-        </button>
-        <button
-          className="owner-button"
-          onClick={() => navigate("/pets")}
-        >
-          <FaDog className="owner-icon" />
-          Zwierzęta
-        </button>
-        <button
-            className="owner-button"
-            onClick={() => navigate("/owneraccount")}
-        >
-          <GiMedicines className="owner-icon" />
-          Zalecenia
-        </button>
-        <button
-          className="owner-button"
-          onClick={() => navigate("/owneraccount")}
-        >
-          <MdAccountCircle className="owner-icon" />
-          Konto
-        </button>
-        <button
-          className="owner-button"
-          onClick={() => navigate("/ownerlogout")}
-        >
-          <MdLogout className="owner-icon" />
-          Wyloguj
-        </button>
-        <div className="logo-container">
-          <p className="logo-text">PupilMed</p>
-          <div className="heart-with-paw">
-            <GoHeartFill className="heart-icon" />
-            <IoPaw className="paw-icon" />
-          </div>
-        </div>
-      </div>
+
+      <OwnerHeader />
 
       <div className="visits-content">
         <div className="date-picker-bar" onClick={toggleDatePicker}>

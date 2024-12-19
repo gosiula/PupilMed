@@ -228,33 +228,62 @@
 }
 
 .pet-item {
+  display: flex;
   justify-content: center;
   padding: 10px 0;
 }
 
 .pet-details {
-  margin-right: 10px;
-  background-color: white;
+  background-color: #e1f4df;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 20px;
-  padding-top: 10px;
-  width: 60%;
-  margin: 0 auto;
-}
-
-.pet-icon {
-  margin-right: 10px;
-  color: #9acb95;
-  font-size: 45px;
+  padding: 30px; /* Wewnętrzne wcięcia */
+  width: 60%; /* Szerokość kontenera */
+  margin: 20px auto; /* Wyśrodkowanie z marginesem */
+  position: relative; /* Do umieszczenia ikony */
 }
 
 .pet-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0;
-  margin-bottom: 0px;
+  margin-bottom: 10px;
+  color: #1f431c;
+  font-weight: bold;
+}
+
+.pet-name {
+  font-size: 1.5rem;
+  color: #2b5b26;
+  font-weight: bold;
+  margin-left: 100px;
+  margin-top: 30px;
+}
+
+.pets-icon {
+  font-size: 3.5rem;
+  color: #ffffff;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.pet-details p {
+  margin: 5px 0;
+  color: #333;
+  font-size: 1rem;
+}
+
+.pet-details:hover {
+  transform: translateY(-5px); /* Delikatne podniesienie */
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3); /* Większy cień */
+}
+
+.pet-details:active {
+  filter: brightness(90%); /* Delikatne przyciemnienie */
+}
+
+a {
+  text-decoration: none; /* Usunięcie podkreślenia */
+  color: inherit; /* Dziedziczenie koloru tekstu */
 }

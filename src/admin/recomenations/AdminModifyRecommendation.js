@@ -5,8 +5,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { IoPaw } from "react-icons/io5";
 import { GoHeartFill } from "react-icons/go";
 import { FaArrowLeft } from "react-icons/fa";
-import "../OwnerAndVet.css";
-import "./Vet.css";
+import "../../OwnerAndVet.css";
+import "../Admin.css";
 
 const recommendation_info = {
   zalecenie:
@@ -19,7 +19,7 @@ const fieldMapping = {
 
 const pola = Object.keys(fieldMapping);
 
-function VetModifyRecommendation() {
+function AdminModifyRecommendation() {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -63,7 +63,7 @@ function VetModifyRecommendation() {
     e.preventDefault();
 
     if (validate()) {
-      navigate("/vetconfirmmodifyrecommendation", {
+      navigate("/admin-confirm-modify-recommendation", {
         state: { visitDate, visitHour, formData },
       });
     }
@@ -72,18 +72,18 @@ function VetModifyRecommendation() {
   return (
     <div style={{ backgroundColor: "#ffffff", height: "100vh" }}>
       <div className="owner-header">
-        <button className="current-button" onClick={() => navigate("/vet")}>
+        <button className="current-button" onClick={() => navigate("/admin")}>
           <LuCalendarCheck className="owner-icon" />
           Wizyty
         </button>
         <button
           className="owner-button"
-          onClick={() => navigate("/vetaccount")}
+          onClick={() => navigate("/admin-account")}
         >
           <MdAccountCircle className="owner-icon" />
           Konto
         </button>
-        <button className="owner-button" onClick={() => navigate("/vetlogout")}>
+        <button className="owner-button" onClick={() => navigate("/admin-logout")}>
           <MdLogout className="owner-icon" />
           Wyloguj
         </button>
@@ -100,7 +100,7 @@ function VetModifyRecommendation() {
         <button
           className="back-button"
           onClick={() => {
-            navigate("/vetvisit", {
+            navigate("/admin-visit", {
               state: { visitDate, visitHour },
             });
           }}
@@ -147,4 +147,4 @@ function VetModifyRecommendation() {
   );
 }
 
-export default VetModifyRecommendation;
+export default AdminModifyRecommendation;

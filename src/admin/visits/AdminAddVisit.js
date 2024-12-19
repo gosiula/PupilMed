@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { IoPaw } from "react-icons/io5";
 import { GoHeartFill } from "react-icons/go";
 import { FaArrowLeft } from "react-icons/fa";
-import "../OwnerAndVet.css";
-import "./Vet.css";
+import "../../OwnerAndVet.css";
+import "../Admin.css";
 
 // przykładowe typy wizyt
 const visitTypes = {
@@ -83,7 +83,6 @@ function AdminAddVisit() {
     setFormData((prevData) => {
       const updatedData = { ...prevData, [id]: value };
 
-      // automatyczne ustawienie ceny na podstawie rodzaju wizyty
       if (id === "rodzajwizyty" && visitTypes[value]) {
         updatedData.cena = visitTypes[value];
       }
@@ -104,25 +103,25 @@ function AdminAddVisit() {
     e.preventDefault();
 
     if (validate()) {
-      navigate("/vetconfirmaddvisit", { state: { formData } });
+      navigate("/admin-confirm-add-visit", { state: { formData } });
     }
   };
 
   return (
     <div style={{ backgroundColor: "#ffffff", height: "100vh" }}>
       <div className="owner-header">
-        <button className="current-button" onClick={() => navigate("/vet")}>
+        <button className="current-button" onClick={() => navigate("/admin")}>
           <LuCalendarCheck className="owner-icon" />
           Wizyty
         </button>
         <button
           className="owner-button"
-          onClick={() => navigate("/vetaccount")}
+          onClick={() => navigate("/admin-account")}
         >
           <MdAccountCircle className="owner-icon" />
           Konto
         </button>
-        <button className="owner-button" onClick={() => navigate("/vetlogout")}>
+        <button className="owner-button" onClick={() => navigate("/admin-logout")}>
           <MdLogout className="owner-icon" />
           Wyloguj
         </button>
@@ -136,7 +135,7 @@ function AdminAddVisit() {
       </div>
 
       <div className="header-container">
-        <button className="back-button" onClick={() => navigate("/vet")}>
+        <button className="back-button" onClick={() => navigate("/admin")}>
           <FaArrowLeft className="back-icon" />
         </button>
         <p className="text2">Dodawanie wizyty</p>

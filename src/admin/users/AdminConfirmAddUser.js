@@ -5,11 +5,11 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { IoPaw } from "react-icons/io5";
 import { GoHeartFill } from "react-icons/go";
 import { FaArrowLeft } from "react-icons/fa";
-import "../../OwnerAndVet.css";
+// import "../../OwnerAndVet.css";
 import "../Admin.css";
 import AdminHeader from "../AdminHeader";
 
-function AdminConfirmAddVisit() {
+function AdminConfirmAddUser() {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -22,7 +22,7 @@ function AdminConfirmAddVisit() {
       <div className="header-container">
         <button
           className="back-button"
-          onClick={() => navigate("/admin-add-visit")}
+          onClick={() => navigate("/admin-add-user")}
         >
           <FaArrowLeft className="back-icon" />
         </button>
@@ -31,16 +31,15 @@ function AdminConfirmAddVisit() {
 
       <div className="confirmation-container">
         <p className="text3">
-          Czy na pewno chcesz dodać nową wizyte w dniu {formData.datawizyty} o
-          godzinie {formData.godzinawizyty} dla numeru telefonu{" "}
-          {formData.numertelefonu}?
+            Czy na pewno chcesz dodać nowego użytkownika {formData.imie} {formData.nazwisko} o numerze telefonu
+            {formData.numer_telefonu}?
         </p>
 
         <button
           className="confirm-button"
           onClick={() => {
             navigate("/admin-success", {
-              state: { message: "Sukces! Wizyta została dodana!" },
+              state: { message: "Sukces! Użytkownik został dodany!" },
             });
           }}
         >
@@ -51,4 +50,4 @@ function AdminConfirmAddVisit() {
   );
 }
 
-export default AdminConfirmAddVisit;
+export default AdminConfirmAddUser;

@@ -4,11 +4,11 @@ import { MdAccountCircle, MdLogout } from "react-icons/md";
 import { useNavigate, useLocation } from "react-router-dom";
 import { IoPaw } from "react-icons/io5";
 import { GoHeartFill } from "react-icons/go";
-import "../OwnerAndVet.css";
-import "./Vet.css";
+import "../../OwnerAndVet.css";
+import "../Admin.css";
 import AdminHeader from "../AdminHeader";
 
-function VetSuccess() {
+function AdminSuccess() {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -17,12 +17,13 @@ function VetSuccess() {
   return (
     <div style={{ backgroundColor: "#ffffff", height: "100vh" }}>
       <AdminHeader/>
+
       <div className="confirmation-container">
         <p className="text3">{message}</p>
         <button
           className="confirm-button"
           onClick={() => {
-            navigate("/vet");
+            navigate("/admin");
           }}
         >
           Powrót do strony głównej
@@ -39,4 +40,4 @@ function VetSuccess() {
   );
 }
 
-export default VetSuccess;
+export default AdminSuccess;

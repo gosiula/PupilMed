@@ -8,28 +8,57 @@ import {
   Routes,
   useNavigate,
 } from "react-router-dom";
-import Owner from "./Owner";
-import OwnerRecommendations from "./OwnerRecommendations";
-import OwnerAccount from "./OwnerAccount";
-import OwnerLogout from "./OwnerLogout";
-import OwnerVisit from "./OwnerVisit";
-import OwnerChooseAnimal from "./OwnerChooseAnimal";
-import Admin from "./Admin";
-import Vet from "./Vet";
-import VetAccount from "./VetAccount";
-import VetLogout from "./VetLogout";
-import VetAddVisit from "./VetAddVisit";
-import VetConfirmAddVisit from "./VetConfirmAddVisit";
-import VetSuccess from "./VetSuccess";
-import VetVisit from "./VetVisit";
-import VetAddRecommendation from "./VetAddRecommendation";
-import VetConfirmAddRecommendation from "./VetConfirmAddRecommendation";
-import VetModifyRecommendation from "./VetModifyRecommendation";
-import VetConfirmModifyRecommendation from "./VetConfirmModifyRecommendation";
-import VetModifyVisit from "./VetModifyVisit";
-import VetConfirmModifyVisit from "./VetConfirmModifyVisit";
-import VetConfirmDeleteVisit from "./VetConfirmDeleteVisit";
-import VetConfirmDeleteRecommendation from "./VetConfirmDeleteRecommendation";
+import Owner from "./owner/Owner";
+import { adminRoutes } from "./AdminRoutes";
+import OwnerRecommendations from "./owner/OwnerRecommendations";
+import Pets from "./owner/Pets";
+import PetInfo from "./owner/PetInfo";
+import OwnerAccount from "./owner/OwnerAccount";
+import OwnerLogout from "./owner/OwnerLogout";
+import OwnerVisit from "./owner/OwnerVisit";
+import OwnerChooseAnimal from "./owner/OwnerChooseAnimal";
+import Admin from "./admin/Admin";
+import Vet from "./vet/Vet";
+import VetAccount from "./vet/VetAccount";
+import VetLogout from "./vet/VetLogout";
+import VetAddVisit from "./vet/VetAddVisit";
+import VetConfirmAddVisit from "./vet/VetConfirmAddVisit";
+import VetSuccess from "./vet/VetSuccess";
+import VetVisit from "./vet/VetVisit";
+import AdminAddRecommendation from "./admin/recomenations/AdminAddRecommendation";
+import AdminConfirmAddRecommendation from "./admin/recomenations/AdminConfirmAddRecommendation";
+import AdminModifyRecommendation from "./admin/recomenations/AdminModifyRecommendation";
+import AdminConfirmModifyRecommendation from "./admin/recomenations/AdminConfirmModifyRecommendation";
+import VetModifyVisit from "./vet/VetModifyVisit";
+import VetConfirmModifyVisit from "./vet/VetConfirmModifyVisit";
+import VetConfirmDeleteVisit from "./vet/VetConfirmDeleteVisit";
+import AdminConfirmDeleteRecommendation from "./admin/recomenations/AdminConfirmDeleteRecommendation";
+import AdminLogout from "./admin/AdminLogout";
+import AdminVisit from "./admin/visits/AdminVisit";
+import AdminAddVisit from "./admin/visits/AdminAddVisit";
+import AdminConfirmAddVisit from "./admin/visits/AdminConfirmAddVisit";
+import AdminSuccess from "./admin/visits/AdminSuccess";
+import AdminModifyVisit from "./admin/visits/AdminModifyVisit";
+import AdminConfirmModifyVisit from "./admin/visits/AdminConfirmModifyVisit";
+import AdminConfirmDeleteVisit from "./admin/visits/AdminConfirmDeleteVisit";
+import VetAddRecommendation from "./vet/VetAddRecommendation";
+import VetConfirmAddRecommendation from "./vet/VetConfirmAddRecommendation";
+import VetModifyRecommendation from "./vet/VetModifyRecommendation";
+import VetConfirmDeleteRecommendation from "./vet/VetConfirmDeleteRecommendation";
+import VetConfirmModifyRecommendation from "./vet/VetConfirmModifyRecommendation";
+import AdminPet from "./admin/pets/AdminPet";
+import AdminAddPet from "./admin/pets/AdminAddPet";
+import AdminModifyPets from "./admin/pets/AdminModifyPets";
+import AdminConfirmAddPet from "./admin/pets/AdminConfirmAddPet";
+import AdminConfirmModifyPet from "./admin/pets/AdminConfirmModifyPet";
+import AdminConfirmDeletePet from "./admin/pets/AdminConfirmDeletePet";
+import AdminUser from "./admin/users/AdminUser";
+import AdminConfirmDeleteUser from "./admin/users/AdminConfirmDeleteUser";
+import AdminModifyUser from "./admin/users/AdminModifyUser";
+import AdminConfirmModifyUser from "./admin/users/AdminConfirmModifyUser";
+import AdminAddUser from "./admin/users/AdminAddUser";
+import AdminConfirmAddUser from "./admin/users/AdminConfirmAddUser";
+import AdminPetInfo from "./admin/pets/AdminPetInfo";
 
 // przykładowi użytkownicy
 const users = [
@@ -91,7 +120,7 @@ function App() {
       <header>
         <div className="main-white-box">
           <p className="big-text">Witaj w aplikacji</p>
-          <p className="big-text">PupilMed!</p>
+          <p className="big-text">PupilMed</p>
           <p className="small-text">Przejdź dalej, aby się zalogować.</p>
           <button className="login-button" onClick={handleLoginClick}>
             Przejdź do logowania
@@ -123,11 +152,7 @@ function Login() {
       if (loggedInUser.typ === "admin") {
         navigate("/admin");
       } else if (loggedInUser.typ === "wlasciciel") {
-        if (loggedInUser.zwierzeta && loggedInUser.zwierzeta.length > 1) {
-          navigate("/ownerchooseanimal");
-        } else {
           navigate("/owner");
-        }
       } else if (loggedInUser.typ === "weterynarz") {
         navigate("/vet");
       }
@@ -144,11 +169,7 @@ function Login() {
       if (user.typ === "admin") {
         navigate("/admin");
       } else if (user.typ === "wlasciciel") {
-        if (user.zwierzeta && user.zwierzeta.length > 1) {
-          navigate("/ownerchooseanimal");
-        } else {
           navigate("/owner");
-        }
       } else if (user.typ === "weterynarz") {
         navigate("/vet");
       }
@@ -213,6 +234,258 @@ export default function AppWrapper() {
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/login" element={<Login />} />
+          <Route
+              path="/admin"
+              element={<PrivateRoute allowedTypes={["admin"]} component={Admin} />}
+          />
+          <Route
+              path="/admin-visit"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={AdminVisit}
+                  />
+              }
+          />
+          <Route
+              path="/admin-add-visit"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={AdminAddVisit}
+                  />
+              }
+          />
+          <Route
+              path="/admin-confirm-add-visit"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={AdminConfirmAddVisit}
+                  />
+              }
+          />
+          <Route
+              path="/admin-modify-visit"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={AdminModifyVisit}
+                  />
+              }
+          />
+          <Route
+              path="/admin-confirm-modify-visit"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={AdminConfirmModifyVisit}
+                  />
+              }
+          />
+          <Route
+              path="/admin-confirm-delete-visit"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={AdminConfirmDeleteVisit}
+                  />
+              }
+          />
+          <Route
+              path="/admin-success"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={AdminSuccess}
+                  />
+              }
+          />
+          <Route
+              path="/admin-add-recommendation"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={AdminAddRecommendation}
+                  />
+              }
+          />
+          <Route
+              path="/admin-confirm-add-recommendation"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={AdminConfirmAddRecommendation}
+                  />
+              }
+          />
+          <Route
+              path="/admin-modify-recommendation"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={AdminModifyRecommendation}
+                  />
+              }
+          />
+          <Route
+              path="/admin-confirm-modify-recommendation"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={AdminConfirmModifyRecommendation}
+                  />
+              }
+          />
+          <Route
+              path="/admin-confirm-delete-recommendation"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={AdminConfirmDeleteRecommendation}
+                      />
+                      }
+                  />
+          <Route
+              path="/admin-add-pet"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={AdminAddPet}
+                  />
+              }
+          />
+          <Route
+              path="/admin-pets"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={AdminPet}
+                  />
+              }
+              />
+          <Route
+              path="/admin-modify-pet"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={AdminModifyPets}
+                  />
+              }
+          />
+          <Route
+              path="/admin-confirm-add-pet"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={AdminConfirmAddPet}
+                  />
+              }
+          />
+          <Route
+              path="/admin-confirm-modify-pet"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={AdminConfirmModifyPet}
+                  />
+              }
+          />
+          <Route
+              path="/admin-delete-pet"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={AdminConfirmDeletePet}
+                  />
+              }
+          />
+          <Route
+              path="/admin-users"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={AdminUser}
+                  />
+              }
+          />
+          <Route
+              path="/admin-delete-user"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={AdminConfirmDeleteUser}
+                  />
+              }
+          />
+          <Route
+              path="/admin-modify-user"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={AdminModifyUser}
+                  />
+              }
+          />
+          <Route
+              path="/admin-confirm-modify-user"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={AdminConfirmModifyUser}
+                  />
+              }
+          />
+          <Route
+              path="/admin-add-user"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={AdminAddUser}
+                  />
+              }
+          />
+          <Route
+              path="/admin-confirm-add-user"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={AdminConfirmAddUser}
+                  />
+              }
+          />
+          <Route
+              path="/admin-pets-info"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={AdminPetInfo}
+                  />
+              }
+          />
+          {/*<Route*/}
+          {/*    path="/admin-recommendations"*/}
+          {/*    element={*/}
+          {/*        <PrivateRoute*/}
+          {/*            allowedTypes={["admin"]}*/}
+          {/*            component={AdminRecommendations}*/}
+          {/*        />*/}
+          {/*    }*/}
+          {/*/>*/}
+          <Route
+              path="/admin"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={Admin} />}
+          />
+          <Route
+              path="/admin-logout"
+              element={
+                  <PrivateRoute
+                      allowedTypes={["admin"]}
+                      component={AdminLogout} />}
+          />
         <Route
           path="/owner"
           element={
@@ -228,14 +501,23 @@ export default function AppWrapper() {
             />
           }
         />
+        {/*<Route*/}
+        {/*  path="/ownerrecommendations"*/}
+        {/*  element={*/}
+        {/*    <PrivateRoute*/}
+        {/*      allowedTypes={["wlasciciel"]}*/}
+        {/*      component={OwnerRecommendations}*/}
+        {/*    />*/}
+        {/*  }*/}
+        {/*/>*/}
         <Route
-          path="/ownerrecommendations"
-          element={
-            <PrivateRoute
-              allowedTypes={["wlasciciel"]}
-              component={OwnerRecommendations}
-            />
-          }
+            path="/pets"
+            element={
+              <PrivateRoute
+                  allowedTypes={["wlasciciel"]}
+                  component={Pets}
+              />
+            }
         />
         <Route
           path="/owneraccount"
@@ -256,6 +538,15 @@ export default function AppWrapper() {
           }
         />
         <Route
+            path="/pets/info"
+            element={
+              <PrivateRoute
+                  allowedTypes={["wlasciciel"]}
+                  component={PetInfo}
+              />
+            }
+        />
+        <Route
           path="/ownervisit"
           element={
             <PrivateRoute
@@ -263,10 +554,6 @@ export default function AppWrapper() {
               component={OwnerVisit}
             />
           }
-        />
-        <Route
-          path="/admin"
-          element={<PrivateRoute allowedTypes={["admin"]} component={Admin} />}
         />
         <Route
           path="/vet"

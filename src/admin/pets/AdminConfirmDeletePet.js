@@ -7,13 +7,14 @@ import { GoHeartFill } from "react-icons/go";
 import { FaArrowLeft } from "react-icons/fa";
 import "../../OwnerAndVet.css";
 import "../Admin.css";
+import "./Pets.css";
 import AdminHeader from "../AdminHeader";
 
-function AdminConfirmDeleteVisit() {
+function AdminConfirmDeletePet() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { visitDate, visitHour } = location.state || {};
+  const { pet } = location.state || {};
 
   return (
     <div style={{ backgroundColor: "#ffffff", height: "100vh" }}>
@@ -23,7 +24,7 @@ function AdminConfirmDeleteVisit() {
         <button
           className="back-button"
           onClick={() => {
-            navigate("/admin-visit", { state: { visitDate, visitHour } });
+            navigate("/admin-pets", { state: { pet } });
           }}
         >
           <FaArrowLeft className="back-icon" />
@@ -33,15 +34,14 @@ function AdminConfirmDeleteVisit() {
 
       <div className="confirmation-container">
         <p className="text3">
-          Czy na pewno chcesz usunąć wizytę w dniu {visitDate} o godzinie{" "}
-          {visitHour}?
+          Czy na pewno chcesz usunąć zwierze { pet.name }?
         </p>
 
         <button
           className="confirm-button"
           onClick={() => {
             navigate("/admin-success", {
-              state: { message: "Sukces! Wizyta została usunięta!" },
+              state: { message: "Sukces! Zwierze zostało usunięte!" },
             });
           }}
         >
@@ -52,4 +52,4 @@ function AdminConfirmDeleteVisit() {
   );
 }
 
-export default AdminConfirmDeleteVisit;
+export default AdminConfirmDeletePet;

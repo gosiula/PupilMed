@@ -5,10 +5,10 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { IoPaw } from "react-icons/io5";
 import { GoHeartFill } from "react-icons/go";
 import { FaArrowLeft } from "react-icons/fa";
-import "../OwnerAndVet.css";
-import "./Vet.css";
+import "../../OwnerAndVet.css";
+import "../Admin.css";
 
-function VetConfirmDeleteRecommendation() {
+function AdminConfirmDeleteRecommendation() {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -17,18 +17,18 @@ function VetConfirmDeleteRecommendation() {
   return (
     <div style={{ backgroundColor: "#ffffff", height: "100vh" }}>
       <div className="owner-header">
-        <button className="current-button" onClick={() => navigate("/vet")}>
+        <button className="current-button" onClick={() => navigate("/admin")}>
           <LuCalendarCheck className="owner-icon" />
           Wizyty
         </button>
         <button
           className="owner-button"
-          onClick={() => navigate("/vetaccount")}
+          onClick={() => navigate("/admin-account")}
         >
           <MdAccountCircle className="owner-icon" />
           Konto
         </button>
-        <button className="owner-button" onClick={() => navigate("/vetlogout")}>
+        <button className="owner-button" onClick={() => navigate("/admin-logout")}>
           <MdLogout className="owner-icon" />
           Wyloguj
         </button>
@@ -45,7 +45,7 @@ function VetConfirmDeleteRecommendation() {
         <button
           className="back-button"
           onClick={() => {
-            navigate("/vetvisit", { state: { visitDate, visitHour } });
+            navigate("/admin-visit", { state: { visitDate, visitHour } });
           }}
         >
           <FaArrowLeft className="back-icon" />
@@ -62,7 +62,7 @@ function VetConfirmDeleteRecommendation() {
         <button
           className="confirm-button"
           onClick={() => {
-            navigate("/vetsuccess", {
+            navigate("/admin-success", {
               state: { message: "Sukces! Zalecenie zostało usunięte!" },
             });
           }}
@@ -74,4 +74,4 @@ function VetConfirmDeleteRecommendation() {
   );
 }
 
-export default VetConfirmDeleteRecommendation;
+export default AdminConfirmDeleteRecommendation;

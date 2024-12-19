@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import OwnerHeader from "./OwnerHeader";
 import "./Owner.css";
 import "../OwnerAndVet.css";
 
@@ -93,40 +94,7 @@ function OwnerVisit() {
 
   return (
     <div style={{ backgroundColor: "#ffffff", height: "100vh" }}>
-      <div className="owner-header">
-        <button className="current-button" onClick={() => navigate("/owner")}>
-          <LuCalendarCheck className="owner-icon" />
-          Wizyty
-        </button>
-        <button
-          className="owner-button"
-          onClick={() => navigate("/ownerrecommendations")}
-        >
-          <GiMedicines className="owner-icon" />
-          Zalecenia
-        </button>
-        <button
-          className="owner-button"
-          onClick={() => navigate("/owneraccount")}
-        >
-          <MdAccountCircle className="owner-icon" />
-          Konto
-        </button>
-        <button
-          className="owner-button"
-          onClick={() => navigate("/ownerlogout")}
-        >
-          <MdLogout className="owner-icon" />
-          Wyloguj
-        </button>
-        <div className="logo-container">
-          <p className="logo-text">PupilMed</p>
-          <div className="heart-with-paw">
-            <GoHeartFill className="heart-icon" />
-            <IoPaw className="paw-icon" />
-          </div>
-        </div>
-      </div>
+      <OwnerHeader />
 
       <p className="visit-date-info">Wizyta {visitDate}</p>
       <div className="visit-container">

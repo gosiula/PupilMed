@@ -1,66 +1,67 @@
 
-.pets-container {
+.users-container {
     background-color: #ffffff;
     height: 100vh;
     position: relative;
 }
 
-.pet-item {
+.user-item {
     margin-bottom: 20px;
     position: relative;
 }
 
-.pet-link {
+.user-link {
     text-decoration: none;
     color: inherit;
 }
 
-.pet-details {
+.user-details {
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 10px;
     margin-bottom: 20px;
-    width: 100%;
+    width: 60%;
 }
 
-.pet-header {
+.user-header {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
 }
 
-.pet-name {
+.user-name {
     font-weight: bold;
     font-size: 18px;
 }
 
-.pets-icon {
-    margin-left: 10px;
-    font-size: 24px;
-}
+/*.users-icon {*/
+/*    margin-left: 10px;*/
+/*    font-size: 1.3rem;*/
+/*    color: #ffffff;*/
+/*}*/
 
-.pet-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-}
+/*.pet-buttons {*/
+/*    display: flex;*/
+/*    gap: 10px;*/
+/*    margin-top: 10px;*/
+/*}*/
 
-.modify-btn,
-.delete-btn {
-    padding: 10px 20px;
-    font-size: 14px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
+/*.modify-btn,*/
+/*.delete-btn {*/
+/*    padding: 10px 20px;*/
+/*    font-size: 10px;*/
+/*    border: none;*/
+/*    border-radius: 5px;*/
+/*    cursor: pointer;*/
+/*}*/
 
 .modify-btn {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #ffffff;
+    color: #4CAF50;
 }
 
 .delete-btn {
-    background-color: #f44336;
+    background-color: #4CAF50;
     color: white;
 }
 
@@ -78,3 +79,4 @@
     align-items: center;
     justify-content: center;
 }
+

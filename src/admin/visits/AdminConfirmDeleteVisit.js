@@ -5,8 +5,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { IoPaw } from "react-icons/io5";
 import { GoHeartFill } from "react-icons/go";
 import { FaArrowLeft } from "react-icons/fa";
-import "../OwnerAndVet.css";
-import "./Vet.css";
+import "../../OwnerAndVet.css";
+import "../Admin.css";
+import AdminHeader from "../AdminHeader";
 
 function AdminConfirmDeleteVisit() {
   const navigate = useNavigate();
@@ -16,36 +17,13 @@ function AdminConfirmDeleteVisit() {
 
   return (
     <div style={{ backgroundColor: "#ffffff", height: "100vh" }}>
-      <div className="owner-header">
-        <button className="current-button" onClick={() => navigate("/vet")}>
-          <LuCalendarCheck className="owner-icon" />
-          Wizyty
-        </button>
-        <button
-          className="owner-button"
-          onClick={() => navigate("/vetaccount")}
-        >
-          <MdAccountCircle className="owner-icon" />
-          Konto
-        </button>
-        <button className="owner-button" onClick={() => navigate("/vetlogout")}>
-          <MdLogout className="owner-icon" />
-          Wyloguj
-        </button>
-        <div className="logo-container">
-          <p className="logo-text">PupilMed</p>
-          <div className="heart-with-paw">
-            <GoHeartFill className="heart-icon" />
-            <IoPaw className="paw-icon" />
-          </div>
-        </div>
-      </div>
+      <AdminHeader/>
 
       <div className="header-container">
         <button
           className="back-button"
           onClick={() => {
-            navigate("/vetvisit", { state: { visitDate, visitHour } });
+            navigate("/admin-visit", { state: { visitDate, visitHour } });
           }}
         >
           <FaArrowLeft className="back-icon" />
@@ -62,7 +40,7 @@ function AdminConfirmDeleteVisit() {
         <button
           className="confirm-button"
           onClick={() => {
-            navigate("/vetsuccess", {
+            navigate("/admin-success", {
               state: { message: "Sukces! Wizyta została usunięta!" },
             });
           }}

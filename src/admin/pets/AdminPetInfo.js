@@ -5,9 +5,10 @@ import { MdAccountCircle, MdLogout } from "react-icons/md";
 import {useLocation, useNavigate} from "react-router-dom";
 import { IoPaw } from "react-icons/io5";
 import { GoHeartFill } from "react-icons/go";
-import "./Owner.css";
-import "../OwnerAndVet.css";
-import OwnerHeader from "./OwnerHeader";
+import "../Admin.css";
+import "../../OwnerAndVet.css";
+import OwnerHeader from "../AdminHeader";
+import AdminHeader from "../AdminHeader";
 
 
 // przykładowe zalecenia
@@ -27,21 +28,21 @@ function PetsInfo() {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const { pets } = location.state || {};
+    const { pet } = location.state || {};
 
     useEffect(() => {
-        if (!pets) {
+        if (!pet) {
             navigate('/error');
         }
-    }, [pets, navigate]);
+    }, [pet, navigate]);
 
-    if (!pets) return null;
+    if (!pet) return null;
 
     return (
         <div style={{ backgroundColor: "#ffffff", height: "100vh" }}>
-            <OwnerHeader />
+            <AdminHeader />
 
-            <p className="text1">Zalecenia dla zwierzaka "{pets.name}"</p>
+            <p className="text1">Zalecenia dla zwierzaka "{pet.name}"</p>
             {recommendations.map((recommendation, index) => (
                 <div key={index} className="recommendation-item">
                     <div className="recommendation-details">

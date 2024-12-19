@@ -5,15 +5,15 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { IoPaw } from "react-icons/io5";
 import { GoHeartFill } from "react-icons/go";
 import { FaArrowLeft } from "react-icons/fa";
-import "../../OwnerAndVet.css";
+// import "../../OwnerAndVet.css";
 import "../Admin.css";
 import AdminHeader from "../AdminHeader";
 
-function AdminConfirmModifyVisit() {
+function AdminConfirmModifyUser() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { visitDate, visitHour } = location.state || {};
+  const { user } = location.state || {};
 
   return (
     <div style={{ backgroundColor: "#ffffff", height: "100vh" }}>
@@ -23,7 +23,7 @@ function AdminConfirmModifyVisit() {
         <button
           className="back-button"
           onClick={() => {
-            navigate("/admin-modify-visit", { state: { visitDate, visitHour } });
+            navigate("/admin-modify-visit", { state: { user } });
           }}
         >
           <FaArrowLeft className="back-icon" />
@@ -33,15 +33,15 @@ function AdminConfirmModifyVisit() {
 
       <div className="confirmation-container">
         <p className="text3">
-          Czy na pewno chcesz modyfikować wizytę w dniu {visitDate} o godzinie{" "}
-          {visitHour}?
+          Czy na pewno chcesz modyfikować użytkownika {user.imie} {user.nazwisko} o numerze telefonu
+          {user.numer_telefonu}?
         </p>
 
         <button
           className="confirm-button"
           onClick={() => {
             navigate("/admin-success", {
-              state: { message: "Sukces! Wizyta została zmodyfikowana!" },
+              state: { message: "Sukces! Użytkownik został zmodyfikowany!" },
             });
           }}
         >
@@ -52,4 +52,4 @@ function AdminConfirmModifyVisit() {
   );
 }
 
-export default AdminConfirmModifyVisit;
+export default AdminConfirmModifyUser;

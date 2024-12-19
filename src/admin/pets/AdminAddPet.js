@@ -7,70 +7,53 @@ import { GoHeartFill } from "react-icons/go";
 import { FaArrowLeft } from "react-icons/fa";
 import "../../OwnerAndVet.css";
 import "../Admin.css";
+import "./Pets.css";
+import AdminHeader from "../AdminHeader";
 
-// przykładowe typy wizyt
-const visitTypes = {
-  "Wizyta kontrolna": 50,
-  Szczepienie: 100,
-  Sterylizacja: 300,
-  "Czyszczenie zębów": 200,
-};
+const kindTypeMapping = [
+  { kind: "Buldog", type: "Pies" },
+  { kind: "Bengalski", type: "Kot" },
+  { kind: "Kanarek", type: "Ptak" },
+];
 
-const fieldMapping = {
-  "Data wizyty": "datawizyty",
-  "Godzina wizyty": "godzinawizyty",
-  "Numer telefonu właściciela": "numertelefonu",
-  "Imię zwierzęcia": "imiezwierzecia",
-};
-
-const pola = Object.keys(fieldMapping);
-
-function AdminAddVisit() {
+function AdminAddPet() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    datawizyty: "",
-    godzinawizyty: "",
-    rodzajwizyty: "",
-    cena: "",
-    numertelefonu: "",
-    imiezwierzecia: "",
+    name: "",
+    age: "",
+    type: "",
+    kind: "",
+    additional_info: "",
+    customKind: "",
+    customType: "",
   });
 
+  const [isCustomKind, setIsCustomKind] = useState(false);
   const [errors, setErrors] = useState({});
 
   const validate = () => {
     let newErrors = {};
 
-    const dateRegex = /^\d{2}\.\d{2}\.\d{4}$/;
-    if (!formData.datawizyty || !dateRegex.test(formData.datawizyty)) {
-      newErrors.datawizyty = "Podano złą datę.";
+    if (!formData.name) {
+      newErrors.name = "Podaj imię zwierzaka.";
     }
 
-    const timeRegex = /^\d{2}:\d{2}$/;
-    if (!formData.godzinawizyty || !timeRegex.test(formData.godzinawizyty)) {
-      newErrors.godzinawizyty = "Podano złą godzinę.";
+    if (!formData.age || isNaN(formData.age) || parseInt(formData.age) <= 0) {
+      newErrors.age = "Podaj poprawny wiek zwierzaka.";
     }
 
-    if (!formData.rodzajwizyty) {
-      newErrors.rodzajwizyty = "Wybierz rodzaj wizyty.";
+    if (!formData.kind && !isCustomKind) {
+      newErrors.kind = "Wybierz rasę zwierzaka.";
     }
 
-    if (
-      !formData.cena ||
-      isNaN(formData.cena) ||
-      parseFloat(formData.cena) <= 0
-    ) {
-      newErrors.cena = "Cena wizyty jest niepoprawna.";
-    }
-
-    const phoneRegex = /^(?:\+48\s?)?\d{3}\s?\d{3}\s?\d{3}$/;
-    if (!formData.numertelefonu || !phoneRegex.test(formData.numertelefonu)) {
-      newErrors.numertelefonu = "Podano niepoprawny numer telefonu.";
-    }
-
-    if (!formData.imiezwierzecia) {
-      newErrors.imiezwierzecia = "Podano niepoprawne imię zwierzęcia.";
+    if (isCustomKind) {
+      if (!formData.customKind) {
+        newErrors.customKind = "Podaj rasę zwierzaka.";
+      }
+      if (!formData.customType) {
+        newErrors.customType = "Podaj gatunek zwierzaka.";
+      }
     }
 
     setErrors(newErrors);
@@ -83,8 +66,10 @@ function AdminAddVisit() {
     setFormData((prevData) => {
       const updatedData = { ...prevData, [id]: value };
 
-      if (id === "rodzajwizyty" && visitTypes[value]) {
-        updatedData.cena = visitTypes[value];
+      // Automatyczne ustawienie typu na podstawie wybranej rasy, jeśli nie jest custom
+      if (id === "kind" && !isCustomKind) {
+        const matchedKind = kindTypeMapping.find((item) => item.kind === value);
+        updatedData.type = matchedKind ? matchedKind.type : "";
       }
 
       return updatedData;
@@ -99,118 +84,177 @@ function AdminAddVisit() {
     }
   };
 
+  const handleCustomKindToggle = (e) => {
+    const isChecked = e.target.checked;
+    setIsCustomKind(isChecked);
+    if (isChecked) {
+      setFormData((prevData) => ({
+        ...prevData,
+        kind: "",
+        type: "",
+        customKind: "",
+        customType: "",
+      }));
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        customKind: "",
+        customType: "",
+      }));
+    }
+    setErrors({});
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (validate()) {
-      navigate("/admin-confirm-add-visit", { state: { formData } });
+      navigate("/admin-confirm-add-pet", {
+        state: { formData },
+      });
     }
   };
 
   return (
-    <div style={{ backgroundColor: "#ffffff", height: "100vh" }}>
-      <div className="owner-header">
-        <button className="current-button" onClick={() => navigate("/admin")}>
-          <LuCalendarCheck className="owner-icon" />
-          Wizyty
-        </button>
-        <button
-          className="owner-button"
-          onClick={() => navigate("/admin-account")}
-        >
-          <MdAccountCircle className="owner-icon" />
-          Konto
-        </button>
-        <button className="owner-button" onClick={() => navigate("/admin-logout")}>
-          <MdLogout className="owner-icon" />
-          Wyloguj
-        </button>
-        <div className="logo-container">
-          <p className="logo-text">PupilMed</p>
-          <div className="heart-with-paw">
-            <GoHeartFill className="heart-icon" />
-            <IoPaw className="paw-icon" />
-          </div>
+      <div style={{ backgroundColor: "#ffffff", height: "100vh" }}>
+        <AdminHeader />
+
+        <div className="header-container">
+          <button
+              className="back-button"
+              onClick={() => navigate("/admin-pets")}
+          >
+            <FaArrowLeft className="back-icon" />
+          </button>
+          <p className="text2">Dodawanie zwierzaka</p>
+        </div>
+
+        <div className="form-container">
+          <form onSubmit={handleSubmit}>
+            <div className="input-container">
+              <label htmlFor="name" className="input-label">
+                Imię zwierzaka:
+              </label>
+              <input
+                  id="name"
+                  type="text"
+                  className={`input-field ${errors.name ? "error-input" : ""}`}
+                  value={formData.name}
+                  onChange={handleInputChange}
+              />
+              {errors.name && <p className="error-text visible">{errors.name}</p>}
+            </div>
+
+            <div className="input-container">
+              <label htmlFor="age" className="input-label">
+                Wiek zwierzaka:
+              </label>
+              <input
+                  id="age"
+                  type="number"
+                  className={`input-field ${errors.age ? "error-input" : ""}`}
+                  value={formData.age}
+                  onChange={handleInputChange}
+              />
+              {errors.age && <p className="error-text visible">{errors.age}</p>}
+            </div>
+
+            <div className="input-container">
+              <label htmlFor="kind" className="input-label">
+                Rasa zwierzaka:
+              </label>
+              {!isCustomKind ? (
+                  <select
+                      id="kind"
+                      className={`input-field ${errors.kind ? "error-input" : ""}`}
+                      value={formData.kind}
+                      onChange={handleInputChange}
+                  >
+                    <option value="">Wybierz rasę</option>
+                    {kindTypeMapping.map((item) => (
+                        <option key={item.kind} value={item.kind}>
+                          {item.kind}
+                        </option>
+                    ))}
+                  </select>
+              ) : (
+                  <input
+                      id="customKind"
+                      type="text"
+                      className={`input-field ${
+                          errors.customKind ? "error-input" : ""
+                      }`}
+                      value={formData.customKind}
+                      onChange={handleInputChange}
+                      placeholder="Podaj rasę zwierzaka"
+                  />
+              )}
+              {errors.kind && <p className="error-text visible">{errors.kind}</p>}
+              {errors.customKind && (
+                  <p className="error-text visible">{errors.customKind}</p>
+              )}
+            </div>
+
+            <div className="input-container">
+              <label htmlFor="type" className="input-label">
+                Gatunek zwierzaka:
+              </label>
+              {!isCustomKind ? (
+                  <input
+                      id="type"
+                      type="text"
+                      className={`input-field ${errors.type ? "error-input" : ""}`}
+                      value={formData.type}
+                      readOnly
+                  />
+              ) : (
+                  <input
+                      id="customType"
+                      type="text"
+                      className={`input-field ${
+                          errors.customType ? "error-input" : ""
+                      }`}
+                      value={formData.customType}
+                      onChange={handleInputChange}
+                      placeholder="Podaj gatunek zwierzaka"
+                  />
+              )}
+              {errors.type && <p className="error-text visible">{errors.type}</p>}
+              {errors.customType && (
+                  <p className="error-text visible">{errors.customType}</p>
+              )}
+            </div>
+
+            <div className="input-container">
+              <label className="input-label">
+                <input
+                    type="checkbox"
+                    checked={isCustomKind}
+                    onChange={handleCustomKindToggle}
+                />{" "}
+                Rasa spoza listy
+              </label>
+            </div>
+
+            <div className="input-container">
+              <label htmlFor="additional_info" className="input-label">
+                Dodatkowe informacje:
+              </label>
+              <textarea
+                  id="additional_info"
+                  className="input-field"
+                  value={formData.additional_info}
+                  onChange={handleInputChange}
+              />
+            </div>
+
+            <button type="submit" className="add-visit-button2">
+              Dodaj zwierzaka
+            </button>
+          </form>
         </div>
       </div>
-
-      <div className="header-container">
-        <button className="back-button" onClick={() => navigate("/admin")}>
-          <FaArrowLeft className="back-icon" />
-        </button>
-        <p className="text2">Dodawanie wizyty</p>
-      </div>
-
-      <div className="form-container">
-        <form onSubmit={handleSubmit}>
-          {pola.map((pole, index) => {
-            const fieldName = fieldMapping[pole];
-            return (
-              <div key={index} className="input-container">
-                <label htmlFor={fieldName} className="input-label">
-                  {pole}:
-                </label>
-                <input
-                  id={fieldName}
-                  type="text"
-                  className={`input-field ${errors[fieldName] ? "error-input" : ""}`}
-                  value={formData[fieldName] || ""}
-                  onChange={handleInputChange}
-                />
-                {errors[fieldName] && (
-                  <p
-                    className={`error-text ${errors[fieldName] ? "visible" : ""}`}
-                  >
-                    {errors[fieldName]}
-                  </p>
-                )}
-              </div>
-            );
-          })}
-
-          <div className="input-container">
-            <label htmlFor="rodzajwizyty" className="input-label">
-              Rodzaj wizyty:
-            </label>
-            <select
-              id="rodzajwizyty"
-              className={`input-field ${errors.rodzajwizyty ? "error-input" : ""}`}
-              value={formData.rodzajwizyty}
-              onChange={handleInputChange}
-            >
-              <option value="">Wybierz rodzaj wizyty</option>
-              {Object.keys(visitTypes).map((type) => (
-                <option key={type} value={type}>
-                  {type}
-                </option>
-              ))}
-            </select>
-            {errors.rodzajwizyty && (
-              <p className="error-text visible">{errors.rodzajwizyty}</p>
-            )}
-          </div>
-
-          <div className="input-container">
-            <label htmlFor="cena" className="input-label">
-              Cena:
-            </label>
-            <input
-              id="cena"
-              type="text"
-              className={`input-field ${errors.cena ? "error-input" : ""}`}
-              value={formData.cena}
-              onChange={handleInputChange}
-            />
-            {errors.cena && <p className="error-text visible">{errors.cena}</p>}
-          </div>
-
-          <button type="submit" className="add-visit-button2">
-            Dodaj wizytę
-          </button>
-        </form>
-      </div>
-    </div>
   );
 }
 
-export default AdminAddVisit;
+export default AdminAddPet;

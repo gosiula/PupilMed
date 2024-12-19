@@ -7,6 +7,8 @@ import { IoPaw } from "react-icons/io5";
 import { GoHeartFill } from "react-icons/go";
 import "./Owner.css";
 import "../OwnerAndVet.css";
+import OwnerHeader from "./OwnerHeader";
+
 
 // przykładowe zalecenia
 const recommendations = [
@@ -26,40 +28,7 @@ function OwnerRecommendations() {
 
   return (
     <div style={{ backgroundColor: "#ffffff", height: "100vh" }}>
-      <div className="owner-header">
-        <button className="owner-button" onClick={() => navigate("/owner")}>
-          <LuCalendarCheck className="owner-icon" />
-          Wizyty
-        </button>
-        <button
-          className="current-button"
-          onClick={() => navigate("/ownerrecommendations")}
-        >
-          <GiMedicines className="owner-icon" />
-          Zalecenia
-        </button>
-        <button
-          className="owner-button"
-          onClick={() => navigate("/owneraccount")}
-        >
-          <MdAccountCircle className="owner-icon" />
-          Konto
-        </button>
-        <button
-          className="owner-button"
-          onClick={() => navigate("/ownerlogout")}
-        >
-          <MdLogout className="owner-icon" />
-          Wyloguj
-        </button>
-        <div className="logo-container">
-          <p className="logo-text">PupilMed</p>
-          <div className="heart-with-paw">
-            <GoHeartFill className="heart-icon" />
-            <IoPaw className="paw-icon" />
-          </div>
-        </div>
-      </div>
+    <OwnerHeader />
 
       <p className="text1">Zalecenia</p>
       {recommendations.map((recommendation, index) => (

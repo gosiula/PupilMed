@@ -7,9 +7,10 @@ import { GoHeartFill } from "react-icons/go";
 import { FaArrowLeft } from "react-icons/fa";
 import "../../OwnerAndVet.css";
 import "../Admin.css";
+import "./Pets.css";
 import AdminHeader from "../AdminHeader";
 
-function AdminConfirmAddVisit() {
+function AdminConfirmAddPet() {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -31,16 +32,16 @@ function AdminConfirmAddVisit() {
 
       <div className="confirmation-container">
         <p className="text3">
-          Czy na pewno chcesz dodać nową wizyte w dniu {formData.datawizyty} o
-          godzinie {formData.godzinawizyty} dla numeru telefonu{" "}
-          {formData.numertelefonu}?
+          Czy na pewno chcesz dodać nowe zwierze o danych: {formData.name},
+            {formData.age} lat, gatunek {formData.type}, {formData.kind}, dodatkowe informacje:
+            "{formData.additional_info}"?
         </p>
 
         <button
           className="confirm-button"
           onClick={() => {
             navigate("/admin-success", {
-              state: { message: "Sukces! Wizyta została dodana!" },
+              state: { message: "Sukces! Zwierze zostało dodane!" },
             });
           }}
         >
@@ -51,4 +52,4 @@ function AdminConfirmAddVisit() {
   );
 }
 
-export default AdminConfirmAddVisit;
+export default AdminConfirmAddPet;

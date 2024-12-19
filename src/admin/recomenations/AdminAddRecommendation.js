@@ -5,8 +5,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { IoPaw } from "react-icons/io5";
 import { GoHeartFill } from "react-icons/go";
 import { FaArrowLeft } from "react-icons/fa";
-import "../OwnerAndVet.css";
-import "./Vet.css";
+import "../../OwnerAndVet.css";
+import "../Admin.css";
 
 const fieldMapping = {
   Zalecenie: "zalecenie",
@@ -14,7 +14,7 @@ const fieldMapping = {
 
 const pola = Object.keys(fieldMapping);
 
-function VetAddRecommendation() {
+function AdminAddRecommendation() {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -58,7 +58,7 @@ function VetAddRecommendation() {
     e.preventDefault();
 
     if (validate()) {
-      navigate("/vetconfirmaddrecommendation", {
+      navigate("/admin-confirm-add-recommendation", {
         state: { visitDate, visitHour, formData },
       });
     }
@@ -67,18 +67,18 @@ function VetAddRecommendation() {
   return (
     <div style={{ backgroundColor: "#ffffff", height: "100vh" }}>
       <div className="owner-header">
-        <button className="current-button" onClick={() => navigate("/vet")}>
+        <button className="current-button" onClick={() => navigate("/admin")}>
           <LuCalendarCheck className="owner-icon" />
           Wizyty
         </button>
         <button
           className="owner-button"
-          onClick={() => navigate("/vetaccount")}
+          onClick={() => navigate("/admin-account")}
         >
           <MdAccountCircle className="owner-icon" />
           Konto
         </button>
-        <button className="owner-button" onClick={() => navigate("/vetlogout")}>
+        <button className="owner-button" onClick={() => navigate("/admin-logout")}>
           <MdLogout className="owner-icon" />
           Wyloguj
         </button>
@@ -95,7 +95,7 @@ function VetAddRecommendation() {
         <button
           className="back-button"
           onClick={() => {
-            navigate("/vetvisit", {
+            navigate("/admin-visit", {
               state: { visitDate, visitHour },
             });
           }}
@@ -142,4 +142,4 @@ function VetAddRecommendation() {
   );
 }
 
-export default VetAddRecommendation;
+export default AdminAddRecommendation;

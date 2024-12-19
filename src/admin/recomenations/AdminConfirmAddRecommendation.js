@@ -5,10 +5,10 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { IoPaw } from "react-icons/io5";
 import { GoHeartFill } from "react-icons/go";
 import { FaArrowLeft } from "react-icons/fa";
-import "../OwnerAndVet.css";
-import "./Vet.css";
+import "../../OwnerAndVet.css";
+import "../Admin.css";
 
-function VetConfirmAddRecommendation() {
+function AdminConfirmAddRecommendation() {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -17,18 +17,18 @@ function VetConfirmAddRecommendation() {
   return (
     <div style={{ backgroundColor: "#ffffff", height: "100vh" }}>
       <div className="owner-header">
-        <button className="current-button" onClick={() => navigate("/vet")}>
+        <button className="current-button" onClick={() => navigate("/admin")}>
           <LuCalendarCheck className="owner-icon" />
           Wizyty
         </button>
         <button
           className="owner-button"
-          onClick={() => navigate("/vetaccount")}
+          onClick={() => navigate("/admin-account")}
         >
           <MdAccountCircle className="owner-icon" />
           Konto
         </button>
-        <button className="owner-button" onClick={() => navigate("/vetlogout")}>
+        <button className="owner-button" onClick={() => navigate("/admin-logout")}>
           <MdLogout className="owner-icon" />
           Wyloguj
         </button>
@@ -45,7 +45,7 @@ function VetConfirmAddRecommendation() {
         <button
           className="back-button"
           onClick={() => {
-            navigate("/vetaddrecommendation", {
+            navigate("/admin-add-recommendation", {
               state: { visitDate, visitHour },
             });
           }}
@@ -64,7 +64,7 @@ function VetConfirmAddRecommendation() {
         <button
           className="confirm-button"
           onClick={() => {
-            navigate("/vetsuccess", {
+            navigate("/admin-success", {
               state: { message: "Sukces! Zalecenie zostało dodane!" },
             });
           }}
@@ -76,4 +76,4 @@ function VetConfirmAddRecommendation() {
   );
 }
 
-export default VetConfirmAddRecommendation;
+export default AdminConfirmAddRecommendation;

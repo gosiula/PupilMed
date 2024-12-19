@@ -5,9 +5,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { IoPaw } from "react-icons/io5";
 import { GoHeartFill } from "react-icons/go";
 import { FaArrowLeft } from "react-icons/fa";
-import "../OwnerAndVet.css";
-import "./Admin.css";
-import AdminHeader from "./AdminHeader";
+import "../../OwnerAndVet.css";
+import "../Admin.css";
+import AdminHeader from "../AdminHeader";
 
 const visit_info = {
   godzina: "14:30",
@@ -37,7 +37,7 @@ function AdminVisit() {
       <AdminHeader />
 
       <div className="header-container">
-        <button className="back-button" onClick={() => navigate("/vet")}>
+        <button className="back-button" onClick={() => navigate("/admin")}>
           <FaArrowLeft className="back-icon" />
         </button>
         <p className="text2">Wizyta {visitDate}</p>
@@ -74,7 +74,7 @@ function AdminVisit() {
             <button
               className="visit-button"
               onClick={() => {
-                navigate("/vetmodifyvisit", {
+                navigate("/admin-modify-visit", {
                   state: { visitDate, visitHour },
                 });
               }}
@@ -85,7 +85,7 @@ function AdminVisit() {
             <button
               className="visit-button"
               onClick={() => {
-                navigate("/vetconfirmdeletevisit", {
+                navigate("/admin-confirm-delete-visit", {
                   state: { visitDate, visitHour },
                 });
               }}
@@ -104,7 +104,7 @@ function AdminVisit() {
                 <button
                   className="recommendation-button"
                   onClick={() => {
-                    navigate("/vetmodifyrecommendation", {
+                    navigate("/admin-modify-recommendation", {
                       state: { visitDate, visitHour },
                     });
                   }}
@@ -114,7 +114,7 @@ function AdminVisit() {
                 <button
                   className="recommendation-button"
                   onClick={() => {
-                    navigate("/vetconfirmdeleterecommendation", {
+                    navigate("/admin-confirm-delete-recommendation", {
                       state: { visitDate, visitHour },
                     });
                   }}
@@ -126,11 +126,12 @@ function AdminVisit() {
           ) : (
             <>
               <p>Brak dodanych zaleceń.</p>
+
               <div className="button-container">
                 <button
                   className="recommendation-button"
                   onClick={() => {
-                    navigate("/vetaddrecommendation", {
+                    navigate("/admin-add-recommendation", {
                       state: { visitDate, visitHour },
                     });
                   }}

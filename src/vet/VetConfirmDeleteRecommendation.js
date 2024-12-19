@@ -5,10 +5,10 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { IoPaw } from "react-icons/io5";
 import { GoHeartFill } from "react-icons/go";
 import { FaArrowLeft } from "react-icons/fa";
-import "../../OwnerAndVet.css";
-import "../Vet.css";
+import "../OwnerAndVet.css";
+import "./Vet.css";
 
-function AdminConfirmDeleteRecommendation() {
+function VetConfirmDeleteRecommendation() {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -17,18 +17,18 @@ function AdminConfirmDeleteRecommendation() {
   return (
     <div style={{ backgroundColor: "#ffffff", height: "100vh" }}>
       <div className="owner-header">
-        <button className="current-button" onClick={() => navigate("/admin")}>
+        <button className="current-button" onClick={() => navigate("/vet")}>
           <LuCalendarCheck className="owner-icon" />
           Wizyty
         </button>
         <button
           className="owner-button"
-          onClick={() => navigate("/admin-account")}
+          onClick={() => navigate("/vetaccount")}
         >
           <MdAccountCircle className="owner-icon" />
           Konto
         </button>
-        <button className="owner-button" onClick={() => navigate("/admin-logout")}>
+        <button className="owner-button" onClick={() => navigate("/vetlogout")}>
           <MdLogout className="owner-icon" />
           Wyloguj
         </button>
@@ -45,7 +45,7 @@ function AdminConfirmDeleteRecommendation() {
         <button
           className="back-button"
           onClick={() => {
-            navigate("/admin-visit", { state: { visitDate, visitHour } });
+            navigate("/vetvisit", { state: { visitDate, visitHour } });
           }}
         >
           <FaArrowLeft className="back-icon" />
@@ -62,7 +62,7 @@ function AdminConfirmDeleteRecommendation() {
         <button
           className="confirm-button"
           onClick={() => {
-            navigate("/admin-success", {
+            navigate("/vetsuccess", {
               state: { message: "Sukces! Zalecenie zostało usunięte!" },
             });
           }}
@@ -74,4 +74,4 @@ function AdminConfirmDeleteRecommendation() {
   );
 }
 
-export default AdminConfirmDeleteRecommendation;
+export default VetConfirmDeleteRecommendation;

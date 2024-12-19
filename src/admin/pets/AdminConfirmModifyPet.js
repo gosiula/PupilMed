@@ -7,13 +7,14 @@ import { GoHeartFill } from "react-icons/go";
 import { FaArrowLeft } from "react-icons/fa";
 import "../../OwnerAndVet.css";
 import "../Admin.css";
+import "./Pets.css";
 import AdminHeader from "../AdminHeader";
 
-function AdminConfirmModifyVisit() {
+function AdminConfirmModifyPet() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { visitDate, visitHour } = location.state || {};
+  const { formData } = location.state || {};
 
   return (
     <div style={{ backgroundColor: "#ffffff", height: "100vh" }}>
@@ -23,7 +24,7 @@ function AdminConfirmModifyVisit() {
         <button
           className="back-button"
           onClick={() => {
-            navigate("/admin-modify-visit", { state: { visitDate, visitHour } });
+            navigate("/admin-modify-visit", { state: { formData } });
           }}
         >
           <FaArrowLeft className="back-icon" />
@@ -33,15 +34,14 @@ function AdminConfirmModifyVisit() {
 
       <div className="confirmation-container">
         <p className="text3">
-          Czy na pewno chcesz modyfikować wizytę w dniu {visitDate} o godzinie{" "}
-          {visitHour}?
+          Czy na pewno chcesz modyfikować zwierze {formData.name}?
         </p>
 
         <button
           className="confirm-button"
           onClick={() => {
             navigate("/admin-success", {
-              state: { message: "Sukces! Wizyta została zmodyfikowana!" },
+              state: { message: "Sukces! Zwierze zostało zmodyfikowane!" },
             });
           }}
         >
@@ -52,4 +52,4 @@ function AdminConfirmModifyVisit() {
   );
 }
 
-export default AdminConfirmModifyVisit;
+export default AdminConfirmModifyPet;

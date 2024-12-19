@@ -5,8 +5,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { IoPaw } from "react-icons/io5";
 import { GoHeartFill } from "react-icons/go";
 import { FaArrowLeft } from "react-icons/fa";
-import "../OwnerAndVet.css";
-import "./Vet.css";
+import "../../OwnerAndVet.css";
+import "../Admin.css";
+import AdminHeader from "../AdminHeader";
 
 const visit_info = {
   godzina: "14:30",
@@ -97,7 +98,6 @@ function AdminModifyVisit() {
     setFormData((prevData) => {
       const updatedData = { ...prevData, [id]: value };
 
-      // automatyczne ustawienie ceny na podstawie rodzaju wizyty
       if (id === "rodzajwizyty" && visitTypes[value]) {
         updatedData.cena = visitTypes[value];
       }
@@ -118,7 +118,7 @@ function AdminModifyVisit() {
     e.preventDefault();
 
     if (validate()) {
-      navigate("/vetconfirmmodifyvisit", {
+      navigate("/admin-confirm-modify-visit", {
         state: { formData, visitDate, visitHour },
       });
     }
@@ -126,38 +126,10 @@ function AdminModifyVisit() {
 
   return (
     <div style={{ backgroundColor: "#ffffff", height: "100vh" }}>
-      <div className="owner-header">
-        <button
-          className="current-button"
-          onClick={() => {
-            navigate("/vetvisit", { state: { visitDate, visitHour } });
-          }}
-        >
-          <LuCalendarCheck className="owner-icon" />
-          Wizyty
-        </button>
-        <button
-          className="owner-button"
-          onClick={() => navigate("/vetaccount")}
-        >
-          <MdAccountCircle className="owner-icon" />
-          Konto
-        </button>
-        <button className="owner-button" onClick={() => navigate("/vetlogout")}>
-          <MdLogout className="owner-icon" />
-          Wyloguj
-        </button>
-        <div className="logo-container">
-          <p className="logo-text">PupilMed</p>
-          <div className="heart-with-paw">
-            <GoHeartFill className="heart-icon" />
-            <IoPaw className="paw-icon" />
-          </div>
-        </div>
-      </div>
+      <AdminHeader />
 
       <div className="header-container">
-        <button className="back-button" onClick={() => navigate("/vet")}>
+        <button className="back-button" onClick={() => navigate("/admin")}>
           <FaArrowLeft className="back-icon" />
         </button>
         <p className="text2">
