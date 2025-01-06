@@ -3,6 +3,7 @@ export const visit_info = {
   godzina: "14:30",
   typ_wizyty: "Wizyta kontrolna",
   wlasciciel: "Maria Kowalska",
+  weterynarz: "Adam Nowak",
   numer_telefonu_wlasciciela: "123123132",
   numer_telefonu_weterynarza: "111222333",
   cena: 100,

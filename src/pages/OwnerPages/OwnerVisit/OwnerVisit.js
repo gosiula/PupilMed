@@ -91,11 +91,7 @@ const OwnerVisit = () => {
             <strong>Typ wizyty:</strong> {visit_info.typ_wizyty}
           </p>
           <p>
-            <strong>Właściciel:</strong> {visit_info.wlasciciel}
-          </p>
-          <p>
-            <strong>Numer właściciela:</strong>{" "}
-            {visit_info.numer_telefonu_wlasciciela}
+            <strong>Weterynarz:</strong> {visit_info.weterynarz}
           </p>
           <p>
             <strong>Numer weterynarza:</strong>{" "}

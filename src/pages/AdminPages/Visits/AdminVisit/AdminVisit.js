@@ -33,6 +33,9 @@ const AdminVisit = () => {
             <strong>Właściciel:</strong> {visit_info.wlasciciel}
           </p>
           <p>
+            <strong>Weterynarz:</strong> {visit_info.weterynarz}
+          </p>
+          <p>
             <strong>Numer właściciela:</strong>{" "}
             {visit_info.numer_telefonu_wlasciciela}
           </p>
