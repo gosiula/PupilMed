@@ -1,0 +1,63 @@
+.animal-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.animal-input-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.animal-input-label {
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.animal-input-field {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.go-add-animal-button {
+  width: 80%;
+  padding: 15px;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 30px;
+  background-color: #35732e;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 60px;
+}
+
+.go-add-animal-button:hover {
+  background-color: #42893b;
+}
+
+.animal-error-text {
+  color: red;
+  font-size: 12px;
+  margin: 5px 0 0 0;
+  height: 16px;
+  line-height: 16px;
+  visibility: hidden;
+}
+
+.animal-error-text.visible {
+  visibility: visible;
+}
+
+.animal-error-input {
+  border-color: red;
+}

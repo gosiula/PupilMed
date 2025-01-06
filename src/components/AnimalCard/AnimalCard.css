@@ -1,0 +1,73 @@
+.pet-item {
+  margin-bottom: 30px;
+}
+
+.pet-details {
+  background-color: #e1f4df;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  padding: 20px;
+  margin: 20px auto;
+  width: 40%;
+  border-radius: 15px;
+  position: relative;
+}
+
+.pet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #2b5b26;
+  padding: 0px 0px;
+}
+
+.name-field {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.pets-icon {
+  font-size: 3rem;
+  color: white;
+}
+
+.pet-details p {
+  margin: 10px 0;
+  line-height: 1;
+  margin-left: 30px;
+}
+
+.pet-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+  margin-left: 30px;
+}
+
+.modify-btn,
+.delete-btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modify-btn {
+  background-color: #ffffff;
+  color: #35732e;
+}
+
+.modify-btn:hover {
+  color: #42893b;
+  background-color: #f4f9f4;
+}
+
+.delete-btn {
+  background-color: #35732e;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #42893b;
+}

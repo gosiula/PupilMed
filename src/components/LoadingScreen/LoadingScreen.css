@@ -1,0 +1,37 @@
+.app-background-gradient {
+  text-align: center;
+  height: 100vh;
+  background: linear-gradient(to bottom, #9acb95, #9acb95, #5f895b);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  background-attachment: fixed;
+}
+
+.logo-text-loading {
+  font-size: 5rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 30px;
+}
+
+.heart-with-paw {
+  position: relative;
+  display: inline-block;
+}
+
+.paw-icon-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-45%, -55%);
+  font-size: 4.5rem;
+  color: #9acb95;
+}
+
+.heart-icon-loading {
+  color: #ffffff;
+  font-size: 7.5rem;
+  margin-left: 10px;
+}

@@ -1,0 +1,46 @@
+.vet-info-container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.vet-info-section {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0px;
+}
+
+.vet-info-left,
+.vet-info-right {
+  flex: 1;
+  max-width: 30%;
+}
+
+.vet-green-header {
+  color: #42893b;
+  margin: 0;
+}
+
+.vet-info-text {
+  margin: 0;
+  font-size: 20px;
+}
+
+.vet-change-password-button {
+  background-color: #2b5b26;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  cursor: pointer;
+  padding: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+  margin-left: 150px;
+}
+
+.vet-change-password-button:hover {
+  background-color: #35732e;
+}

@@ -1,0 +1,74 @@
+.user-item {
+  margin-bottom: 30px;
+}
+
+.user-details {
+  background-color: #ffffff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  padding: 20px;
+  margin: 20px auto;
+  width: 40%;
+  border-radius: 15px;
+  position: relative;
+}
+
+.user-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #2b5b26;
+  padding: 0px 0px;
+}
+
+.user-name-field {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.user-icon {
+  font-size: 2rem;
+  color: #42893b;
+  margin-right: 20px;
+}
+
+.user-details p {
+  margin: 10px 0;
+  line-height: 1;
+  margin-left: 30px;
+}
+
+.user-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+  margin-left: 30px;
+}
+
+.user-modify-btn,
+.user-delete-btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.user-modify-btn {
+  background-color: #e1f4df;
+  color: #35732e;
+}
+
+.user-modify-btn:hover {
+  color: #42893b;
+  background-color: #ecf4eb;
+}
+
+.user-delete-btn {
+  background-color: #35732e;
+  color: white;
+}
+
+.user-delete-btn:hover {
+  background-color: #42893b;
+}

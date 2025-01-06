@@ -1,0 +1,12 @@
+.info-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.visit-date-info2 {
+  font-size: 1.3rem;
+  color: #2b5b26;
+  font-weight: bold;
+  margin-top: 10px;
+}

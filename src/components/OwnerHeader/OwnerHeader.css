@@ -1,0 +1,75 @@
+.owner-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #9acb95;
+  height: 10vh;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.owner-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  transition: background-color 0.3s;
+}
+
+.owner-current-button {
+  background: none;
+  border: none;
+  color: #42893b;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  transition: background-color 0.3s;
+}
+
+.owner-button:hover {
+  background-color: #80b87a;
+}
+
+.owner-icon {
+  margin-right: 8px;
+  font-size: 1.8rem;
+}
+
+.owner-logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.owner-heart-with-paw {
+  position: relative;
+  display: inline-block;
+}
+
+.owner-logo-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 30px;
+}
+
+.owner-heart-icon {
+  color: #ffffff;
+  font-size: 2.5rem;
+  margin-left: 10px;
+}
+
+.owner-paw-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-30%, -57%);
+  color: #9acb95;
+  font-size: 1.5rem;
+}

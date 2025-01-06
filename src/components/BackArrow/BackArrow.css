@@ -1,0 +1,41 @@
+.header-container {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-top: 50px;
+  margin-left: 100px;
+}
+
+.back-icon {
+  color: white;
+  font-size: 20px;
+}
+
+.header-title {
+  font-size: 1.5rem !important;
+  font-weight: normal;
+  color: #2b5b26 !important;
+  text-align: left;
+  margin-right: 0px;
+  font-weight: bold;
+}
+
+.back-button {
+  background-color: #2b5b26;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-right: 0px;
+  top: 15px;
+  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: #1f431c;
+}

@@ -1,0 +1,63 @@
+.vet-calendar-and-add-button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.vet-add-visit-button {
+  background-color: #42893b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-right: 150px;
+  padding: 20px 40px;
+  transition: background-color 0.3s;
+  margin-top: 15px;
+}
+
+.vet-add-visit-button:hover {
+  background-color: #35732e;
+}
+
+.vet-input-label {
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.vet-visits-content {
+  padding: 20px;
+}
+
+.vet-text1 {
+  font-size: 1.5rem !important;
+  font-weight: normal;
+  color: #000000 !important;
+  margin-top: 30px !important;
+  text-align: left;
+  margin-left: 150px;
+}
+
+.vet-go-add-visit-button {
+  background-color: #35732e;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-right: 150px;
+  padding: 20px 40px;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
+
+.vet-go-add-visit-button:hover {
+  background-color: #42893b;
+}

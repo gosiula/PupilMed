@@ -1,0 +1,32 @@
+.paw-prints-container {
+  position: relative;
+  right: 0;
+}
+
+.paw-print {
+  font-size: 45px;
+  color: #e1f4df;
+  position: absolute;
+  rotate: 20deg;
+  margin-right: 150px;
+}
+
+.paw-print-1 {
+  top: 0;
+  right: 6%;
+}
+
+.paw-print-2 {
+  top: 50px;
+  right: 15%;
+}
+
+.paw-print-3 {
+  top: 130px;
+  right: 10%;
+}
+
+.paw-print-4 {
+  top: 200px;
+  right: 18%;
+}

@@ -1,0 +1,18 @@
+.confirm-success-button {
+  background-color: #35732e;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  cursor: pointer;
+  padding: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+}
+
+.confirm-success-button:hover {
+  background-color: #42893b;
+}

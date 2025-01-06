@@ -1,0 +1,70 @@
+.user-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.user-input-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.user-type-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.user-input-label {
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.user-input-field {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.go-add-user-button {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 30px;
+  background-color: #35732e;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 60px;
+}
+
+.go-add-user-button:hover {
+  background-color: #42893b;
+}
+
+.user-error-text {
+  color: red;
+  font-size: 12px;
+  margin: 5px 0 0 0;
+  height: 16px;
+  line-height: 16px;
+  visibility: hidden;
+}
+
+.user-error-text.visible {
+  visibility: visible;
+}
+
+.user-error-input {
+  border-color: red;
+}
