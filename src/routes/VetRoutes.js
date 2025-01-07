@@ -26,7 +26,7 @@ const VetRoutes = () => (
     <Route path="/account/change_password" element={<VetChangePassword />} />
     <Route path="/account/change_password/confirm" element={<VetConfirmChangePassword />} />
     <Route path="/logout" element={<VetLogout />} />
-    <Route path="/visits/visit/:visitDateAndHour" element={<VetVisit />} />
+    <Route path="/visits/visit" element={<VetVisit />} />
     <Route path="/visits/vet-add-visit" element={<VetAddVisit />} />
     <Route path="/visits/vet-add-visit/confirm" element={<VetConfirmAddVisit />} />
     <Route path="/visits/visit/modify/:visitDateAndHour" element={<VetModifyVisit />} />

@@ -12,7 +12,7 @@ const VetConfirmModifyVisit = () => {
   const formData = location.state?.formData || {};
 
   const handleConfirm = () => {
-    localStorage.clear();
+    // localStorage.clear();
     navigate("/vet/success", {
       state: {
         message: "Sukces! Wizyta została zmodyfikowana!",

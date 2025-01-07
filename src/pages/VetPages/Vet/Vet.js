@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import VetHeader from "../../../components/VetHeader/VetHeader";
 import CalendarPicker from "../../../components/CalendarPicker/CalendarPicker";
@@ -8,6 +8,57 @@ import { formatDate } from "../../../utils/formatDate";
 import "./Vet.css";
 
 function Vet() {
+
+  const [visits, setVisits] = useState([]);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchVisits = async () => {
+      try {
+        const authData = JSON.parse(localStorage.getItem("authData"));
+        const token = authData?.token;
+
+        if (!token) {
+          throw new Error("Token not found");
+        }
+
+        console.log("Token:", token);
+
+        const resp = await fetch("http://localhost:8080/vet/visits", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          },
+        });
+
+        if (!resp.ok) {
+          throw new Error(`Failed to fetch visits: ${resp.statusText}`);
+        }
+
+        const json = await resp.json();
+        console.log("JSON response:", json);
+
+        if (!Array.isArray(json)) {
+          throw new Error("Response is not an array");
+        }
+
+        setVisits(json);
+      } catch (error) {
+        console.error("Error fetching visits:", error);
+        setError("Niepoprawne dane");
+      }
+    };
+
+
+    fetchVisits();
+    }, []);
+
+  useEffect(() => {
+    console.log("Updated visits:", visits);
+  }, [visits]);
+
+
   const navigate = useNavigate();
 
   const initialDateRange = useMemo(() => {
@@ -24,12 +75,12 @@ function Vet() {
     setDateRange(update);
   };
 
-  const handleVisitClick = (visitDate, visitHour) => {
-    const formattedDate = visitDate.replaceAll("/", "-");
-    const formattedHour = visitHour.replaceAll(":", "-");
+  const handleVisitClick = (visitID) => {
+    // const formattedDate = visitDate.replaceAll("/", "-");
+    // const formattedHour = visitHour.replaceAll(":", "-");
 
-    navigate(`/vet/visits/visit/${formattedDate}_${formattedHour}`, {
-      state: { visitDate, visitHour },
+    navigate(`/vet/visits/visit`, {
+      state: { visitID },
     });
   };
 
@@ -56,12 +107,12 @@ function Vet() {
           Wizyty {startDate ? formatDate(startDate) : ""} -{" "}
           {endDate ? formatDate(endDate) : ""}
         </p>
-        {admin_visits.map((visit, index) => (
+        {visits.map((visit, index) => (
           <VisitDetails
             key={index}
             visit={visit}
             userType={"vet"}
-            onClick={() => handleVisitClick(visit.data, visit.godzina)}
+            onClick={() => handleVisitClick(visit.id)}
           />
         ))}
       </div>

@@ -12,7 +12,7 @@ const AdminConfirmAddRecommendation = () => {
   const { stateVisitDate, stateVisitHour } = location.state || {};
 
   const handleConfirm = () => {
-    localStorage.clear();
+    // localStorage.clear();
     navigate("/admin/success", {
       state: {
         message: "Sukces! Zalecenie zostało dodane!",

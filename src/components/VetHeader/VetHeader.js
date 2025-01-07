@@ -38,7 +38,7 @@ const VetHeader = () => {
           }`}
           onClick={() => {
             navigate(item.path);
-            localStorage.clear();
+            // localStorage.clear();
           }}
         >
           {item.icon}

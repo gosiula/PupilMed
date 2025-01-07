@@ -131,7 +131,7 @@ const VisitForm = ({
     const handleNavigate = () => {
       if (window.location.pathname !== navigateTo) {
         fields.forEach((field) => localStorage.removeItem(field));
-        localStorage.clear();
+        // localStorage.clear();
       }
     };
 

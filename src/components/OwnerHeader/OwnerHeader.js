@@ -46,7 +46,7 @@ const OwnerHeader = () => {
           }`}
           onClick={() => {
             navigate(item.path);
-            localStorage.clear();
+            // localStorage.clear();
           }}
         >
           {item.icon}

@@ -6,8 +6,8 @@ const Logout = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.clear();
-    localStorage.removeItem("isLoggedIn");
+    // localStorage.clear();
+    localStorage.removeItem("authData");
     navigate("/");
   };
 

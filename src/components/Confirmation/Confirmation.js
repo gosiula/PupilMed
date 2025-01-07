@@ -3,7 +3,7 @@ import "./Confirmation.css";
 
 const Confirmation = ({ onConfirm, title }) => {
   const handleConfirm = () => {
-    localStorage.clear();
+    // localStorage.clear();
     if (onConfirm) {
       onConfirm();
     }

@@ -64,7 +64,7 @@ const UserForm = ({
   useEffect(() => {
     const handleNavigate = () => {
       if (window.location.pathname !== navigateTo) {
-        localStorage.clear();
+        // localStorage.clear();
       }
     };
 

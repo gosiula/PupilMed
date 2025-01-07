@@ -24,8 +24,8 @@ const AnimalCard = ({
         return <FaCat className="pets-icon" />;
       case "żółw":
         return <GiTurtle className="pets-icon" />;
-      case "królik":
-        return <LuRabbit className="pets-icon" />;
+      // case "królik":
+      //   return <LuRabbit className="pets-icon" />;
       case "papuga":
         return <LuBird className="pets-icon" />;
       default:

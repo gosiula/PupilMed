@@ -15,7 +15,7 @@ const AdminConfirmModifyAnimal = () => {
     : ["", ""];
 
   const handleConfirm = () => {
-    localStorage.clear();
+    // localStorage.clear();
     navigate("/admin/success", {
       state: {
         message: "Sukces! Zwierzę zostało zmodyfikowane!",

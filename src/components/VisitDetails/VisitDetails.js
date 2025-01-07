@@ -13,15 +13,15 @@ const VisitDetails = ({ visit, onClick, userType }) => {
   return (
     <div className={className} onClick={() => onClick(visit.data)}>
       <div className="visit-header">
-        <p className="visit-date">Wizyta {visit.data}</p>
+        <p className="visit-date">Wizyta {visit.date}</p>
         <IoPaw className="visit-icon" />
       </div>
-      <p className="visit-time">Godzina: {visit.godzina}</p>
+      <p className="visit-time">Godzina: {visit.hour}</p>
       {userType === "admin" && (
         <div>
           <p>Weterynarz: {visit.weterynarz}</p>
           <p>
-            Klinika: {visit.nazwa_kliniki}, {visit.adres}
+            Klinika: {visit.nazwa_kliniki}, {visit.address}
           </p>
         </div>
       )}

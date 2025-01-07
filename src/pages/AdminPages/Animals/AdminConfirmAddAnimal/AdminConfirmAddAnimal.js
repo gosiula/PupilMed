@@ -15,7 +15,7 @@ const AdminConfirmAddAnimal = () => {
     : ["", ""];
 
   const handleConfirm = () => {
-    localStorage.clear();
+    // localStorage.clear();
     navigate("/admin/success", {
       state: {
         message: "Sukces! Zwierzę zostało dodane!",

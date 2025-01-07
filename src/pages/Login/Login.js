@@ -13,33 +13,65 @@ function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const loggedInUser = JSON.parse(localStorage.getItem("isLoggedIn"));
-    if (loggedInUser) {
-      if (loggedInUser.typ === "admin") {
+    const auth = JSON.parse(localStorage.getItem("authData"));
+    if (auth && auth.role) {
+      if (auth.role === "ADMIN") {
         navigate("/admin/visits");
-      } else if (loggedInUser.typ === "wlasciciel") {
+      } else if (auth.role === "OWNER") {
+        console.log("hi im owner and ill go to /owner")
         navigate("/owner/visits");
-      } else if (loggedInUser.typ === "weterynarz") {
+      } else if (auth.role === "VET") {
         navigate("/vet/visits");
       }
     }
   }, [navigate]);
 
-  const handleLogin = () => {
-    if (!phone || !password) {
-      setError("Podaj numer telefonu i hasło.");
-      return;
-    }
+
+  const handleLogin = async () => {
     try {
-      const user = login({ phone, password });
-      if (user.typ === "admin") navigate("/admin/visits");
-      else if (user.typ === "wlasciciel") navigate("/owner/visits");
-      else if (user.typ === "weterynarz") navigate("/vet/visits");
-    } catch (err) {
-      setError(err.message);
+      const body = {
+        username: phone,
+        password: password
+      };
+
+      const resp = await fetch("http://localhost:8080/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+
+      if (!resp.ok) {
+        setError("Niepoprawny numer telefonu lub hasło");
+        return;
+      }
+
+      const json = await resp.json();
+      console.log(json)
+      localStorage.setItem("authData", JSON.stringify(json));
+
+      // Parsowanie danych i sprawdzanie roli
+      const authData = JSON.parse(localStorage.getItem("authData"));
+      if (authData && authData.role) {
+        console.log(authData.role)
+        console.log(typeof authData.role)
+        if (authData.role === "ADMIN") {
+          navigate("/admin/visits");
+        } else if (authData.role === "OWNER") {
+          console.log("hi im owner and ill go to /owner")
+          navigate("/owner/visits");
+        } else if (authData.role === "VET") {
+          navigate("/vet/visits");
+        } else {
+          setError("Nieznana rola użytkownika");
+        }
+      } else {
+        setError("Niepoprawne dane logowania");
+      }
+    } catch (error) {
+      console.error("Błąd logowania:", error);
+      setError("Wystąpił błąd podczas logowania");
     }
   };
-
   return (
     <div className="app-background-gradient">
       <header>

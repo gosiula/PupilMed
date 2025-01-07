@@ -44,7 +44,7 @@ const AdminHeader = () => {
           }`}
           onClick={() => {
             navigate(item.path);
-            localStorage.clear();
+            // localStorage.clear();
           }}
         >
           {item.icon}

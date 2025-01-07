@@ -12,7 +12,7 @@ const AdminConfirmDeleteUser = () => {
   const formData = location.state?.user || {};
 
   const handleConfirm = () => {
-    localStorage.clear();
+    // localStorage.clear();
     navigate("/admin/success", {
       state: {
         message: "Sukces! Użytkownik został usunięty!",

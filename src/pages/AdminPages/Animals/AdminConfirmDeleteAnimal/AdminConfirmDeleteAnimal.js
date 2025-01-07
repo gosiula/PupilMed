@@ -15,7 +15,7 @@ const AdminConfirmDeleteAnimal = () => {
     : ["", ""];
 
   const handleConfirm = () => {
-    localStorage.clear();
+    // localStorage.clear();
     navigate("/admin/success", {
       state: {
         message: "Sukces! Zwierzę zostało usunięte!",

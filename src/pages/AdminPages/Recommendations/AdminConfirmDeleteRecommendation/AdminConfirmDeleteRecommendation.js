@@ -12,7 +12,7 @@ const AdminConfirmDeleteRecommendation = () => {
   const formData = location.state?.formData || {};
 
   const handleConfirm = () => {
-    localStorage.clear();
+    // localStorage.clear();
     navigate("/admin/success", {
       state: {
         message: "Sukces! Zalecenie zostało usunięte!",

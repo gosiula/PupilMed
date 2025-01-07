@@ -9,7 +9,7 @@ const VetConfirmChangePassword = () => {
   const navigate = useNavigate();
 
   const handleConfirm = () => {
-    localStorage.clear();
+    // localStorage.clear();
     navigate("/vet/success", {
       state: {
         message: "Sukces! Hasło zostało zmienione!",
