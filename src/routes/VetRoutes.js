@@ -29,8 +29,8 @@ const VetRoutes = () => (
     <Route path="/visits/visit" element={<VetVisit />} />
     <Route path="/visits/vet-add-visit" element={<VetAddVisit />} />
     <Route path="/visits/vet-add-visit/confirm" element={<VetConfirmAddVisit />} />
-    <Route path="/visits/visit/modify/:visitDateAndHour" element={<VetModifyVisit />} />
-    <Route path="/visits/visit/modify/confirm/:visitDateAndHour" element={<VetConfirmModifyVisit />} />
+    <Route path="/visits/visit/modify" element={<VetModifyVisit />} />
+    <Route path="/visits/visit/modify/confirm" element={<VetConfirmModifyVisit />} />
     <Route path="/visits/visit/delete/:visitDateAndHour" element={<VetConfirmDeleteVisit />} />
     <Route path="/visits/recommendation/add/:visitDateAndHour" element={<VetAddRecommendation />} />
     <Route path="/visits/recommendation/add/confirm/:visitDateAndHour" element={<VetConfirmAddRecommendation />} />

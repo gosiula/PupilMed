@@ -16,7 +16,7 @@ const Recommendation = ({
   return (
       <div className="visit-info3">
         <p className="visit-date-info2">Zalecenia:</p>
-        {recommendation_info ? (
+        {recommendation_info != null ? (
             <>
               <p>{recommendation_info}</p> {/* Wyświetlamy tekst rekomendacji */}
               <div className="button-container2">

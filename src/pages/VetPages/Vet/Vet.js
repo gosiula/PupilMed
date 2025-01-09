@@ -52,10 +52,6 @@ function Vet() {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`,
         },
-        // params: {
-        //   "startDate": `${startDateFormatted}`,
-        //   "endDate": `${endDateFormatted}`,
-        // },
       });
 
       if (!resp.ok) {
@@ -88,7 +84,6 @@ function Vet() {
   const handleVisitClick = (visitID) => {
     // const formattedDate = visitDate.replaceAll("/", "-");
     // const formattedHour = visitHour.replaceAll(":", "-");
-
     navigate(`/vet/visits/visit`, {
       state: { visitID },
     });
@@ -129,6 +124,8 @@ function Vet() {
     </div>
   );
 }
-
+//TODO musi przechowywac id wizyty
+//TODO mozna dodac ze wyskakuje ci lista zwierzat powiazanych z wlascicielem i z niej wybierasz
+//TODO Error fetching visits: TypeError: Cannot read properties of null (reading 'toISOString')
 export default Vet;
 

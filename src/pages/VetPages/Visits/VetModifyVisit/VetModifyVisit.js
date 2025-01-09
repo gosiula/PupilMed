@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useLocation, useParams } from "react-router-dom";
 import BackArrow from "../../../../components/BackArrow/BackArrow";
 import VisitForm from "../../../../components/VisitForm/VisitForm";
@@ -8,19 +8,8 @@ import { visit_info } from "../../../../data/visit_info";
 import "./VetModifyVisit.css";
 
 const VetModifyVisit = () => {
-  const location = useLocation();
-  const { visitDateAndHour } = useParams();
-
-  const [visitDate, visitHour] = visitDateAndHour
-    ? visitDateAndHour.split("_")
-    : ["", ""];
-
-  const { visitDate: stateVisitDate, visitHour: stateVisitHour } =
-    location.state || {};
-
-  const finalVisitDate = stateVisitDate || visitDate || "";
-  const finalVisitHour =
-    stateVisitHour.replace(":", "-") || "" || visitHour.replace(":", "-") || "";
+    const location = useLocation();
+    const { visit } = location.state || {};
 
   return (
     <div className="admin-modify-visit">
@@ -28,10 +17,10 @@ const VetModifyVisit = () => {
       <BackArrow title="Modyfikacja wizyty" />
       <VisitForm
         fields={[
-          "data",
-          "godzina",
-          "numer_telefonu_wlasciciela",
-          "imie_zwierzecia",
+          "date",
+          "hour",
+          "ownerPhoneNumber",
+          "petName",
         ]}
         fieldLabels={{
           data: "Data wizyty",
@@ -46,8 +35,8 @@ const VetModifyVisit = () => {
           imie_zwierzecia: "imię zwierzęcia",
         }}
         visitTypes={visit_types}
-        navigateTo={`/vet/visits/visit/modify/confirm/${finalVisitDate}_${finalVisitHour}`}
-        savedForm={visit_info}
+        navigateTo={`/vet/visits/visit/modify/confirm`}
+        savedForm={visit}
         buttonText="Modyfikuj wizytę"
         type="modify"
       />

@@ -18,34 +18,34 @@ const VisitForm = ({
     return { ...acc, [field]: storedValue || "" };
   }, {});
 
-  const initialTypwizyty = localStorage.getItem("typ_wizyty") || "";
-  const initialCena = localStorage.getItem("cena") || "";
+  const initialTypwizyty = localStorage.getItem("visitType") || "";
+  const initialCena = localStorage.getItem("price") || "";
 
   const [formData, setFormData] = useState({
     ...initialFormData,
-    typ_wizyty: initialTypwizyty,
-    cena: initialCena,
+    visitType: initialTypwizyty,
+    price: initialCena,
   });
 
   const [errors, setErrors] = useState({});
   const [initialLoad, setInitialLoad] = useState(true);
 
   useEffect(() => {
-    if (visitTypes[formData.typ_wizyty] && initialLoad) {
+    if (visitTypes[formData.visitType] && initialLoad) {
       setFormData((prev) => ({
         ...prev,
       }));
       setInitialLoad(false);
     } else if (
-      formData.typ_wizyty !== initialTypwizyty &&
-      visitTypes[formData.typ_wizyty]
+      formData.visitType !== initialTypwizyty &&
+      visitTypes[formData.visitType]
     ) {
       setFormData((prev) => ({
         ...prev,
-        cena: visitTypes[formData.typ_wizyty],
+        price: visitTypes[formData.visitType],
       }));
     }
-  }, [formData.typ_wizyty, visitTypes, initialTypwizyty]);
+  }, [formData.visitType, visitTypes, initialTypwizyty]);
 
   useEffect(() => {
     if (
@@ -64,8 +64,8 @@ const VisitForm = ({
       localStorage.setItem(field, formData[field]);
     });
 
-    localStorage.setItem("typ_wizyty", formData.typ_wizyty);
-    localStorage.setItem("cena", formData.cena);
+    localStorage.setItem("visitType", formData.visitType);
+    localStorage.setItem("price", formData.price);
   }, [formData, fields]);
 
   const validate = () => {
@@ -79,7 +79,7 @@ const VisitForm = ({
       numer_telefonu_wlasciciela:
         /^(\+48\s?\d{3}\s?\d{3}\s?\d{3}|\+48\d{9}|\d{9}|\d{3}\s?\d{3}\s?\d{3})$/,
       imie_zwierzecia: /^.+$/,
-      cena: /^\d+([.,]\d{1,2})?$/, // Akceptuje kropkę i przecinek
+      price: /^\d+([.,]\d{1,2})?$/, // Akceptuje kropkę i przecinek
     };
 
     fields.forEach((field) => {
@@ -91,14 +91,14 @@ const VisitForm = ({
       }
     });
 
-    if (!formData.typ_wizyty) {
-      newErrors.typ_wizyty = "Wybierz typ wizyty.";
+    if (!formData.visitType) {
+      newErrors.visitType = "Wybierz typ wizyty.";
     }
 
-    if (!formData.cena) {
-      newErrors.cena = "Podaj cenę.";
-    } else if (!regexMap.cena.test(formData.cena)) {
-      newErrors.cena = "Nieprawidłowe dane.";
+    if (!formData.price) {
+      newErrors.price = "Podaj cenę.";
+    } else if (!regexMap.price.test(formData.price)) {
+      newErrors.price = "Nieprawidłowe dane.";
     }
 
     setErrors(newErrors);
@@ -107,13 +107,13 @@ const VisitForm = ({
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    const sanitizedValue = id === "cena" ? value.replace(",", ".") : value;
+    const sanitizedValue = id === "price" ? value.replace(",", ".") : value;
 
     setFormData((prev) => ({
       ...prev,
       [id]: sanitizedValue,
-      ...(id === "typ_wizyty" && visitTypes[value] && !savedForm?.cena
-        ? { cena: visitTypes[value] }
+      ...(id === "visitType" && visitTypes[value] && !savedForm?.cena
+        ? { price: visitTypes[value] }
         : {}),
     }));
 
@@ -165,15 +165,15 @@ const VisitForm = ({
         ))}
 
         <div className="input-container">
-          <label htmlFor="typ_wizyty" className="input-label">
+          <label htmlFor="visitType" className="input-label">
             Typ wizyty:
           </label>
           <select
-            id="typ_wizyty"
+            id="visitType"
             className={`visit-input-field ${
-              errors.typ_wizyty ? "error-input" : ""
+              errors.visitType ? "error-input" : ""
             }`}
-            value={formData.typ_wizyty || ""}
+            value={formData.visitType || ""}
             onChange={handleInputChange}
           >
             <option value="">Wybierz typ wizyty</option>
@@ -183,23 +183,23 @@ const VisitForm = ({
               </option>
             ))}
           </select>
-          {errors.typ_wizyty && (
-            <p className="error-text visible">{errors.typ_wizyty}</p>
+          {errors.visitType && (
+            <p className="error-text visible">{errors.visitType}</p>
           )}
         </div>
 
         <div className="input-container">
-          <label htmlFor="cena" className="input-label">
+          <label htmlFor="price" className="input-label">
             Cena:
           </label>
           <input
-            id="cena"
+            id="price"
             type="text"
-            className={`visit-input-field ${errors.cena ? "error-input" : ""}`}
-            value={formData.cena || ""}
+            className={`visit-input-field ${errors.price ? "error-input" : ""}`}
+            value={formData.price || ""}
             onChange={handleInputChange}
           />
-          {errors.cena && <p className="error-text visible">{errors.cena}</p>}
+          {errors.price && <p className="error-text visible">{errors.price}</p>}
         </div>
 
         <button type="submit" className="add-visit-button">

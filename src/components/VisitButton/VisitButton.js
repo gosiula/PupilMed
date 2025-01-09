@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import "./VisitButton.css";
 
 const VisitButtons = ({
-  visitDate,
+                          visitDate,
   visitHour,
-  formData,
+  formData, visit,
   modifyPath,
   deletePath,
 }) => {
@@ -16,7 +16,8 @@ const VisitButtons = ({
       <button
         className="visit-button"
         onClick={() => {
-          navigate(modifyPath, { state: { visitDate, visitHour } });
+            console.log("Navigate to modifyPath:", modifyPath, visit);
+            navigate(modifyPath, { state: { visit } });
         }}
       >
         Modyfikuj wizytę
