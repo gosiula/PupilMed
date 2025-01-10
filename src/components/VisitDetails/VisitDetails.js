@@ -21,16 +21,19 @@ const VisitDetails = ({ visit, onClick, userType }) => {
       <p className="visit-time">Godzina: {formatTime(visit?.hour)}</p>
       {userType === "admin" && (
         <div>
-          <p>Weterynarz: {visit?.weterynarz}</p>
           <p>
-            Klinika: {visit?.nazwa_kliniki}, {visit?.address}
+            Weterynarz: {visit?.vet?.name} {visit?.vet?.surname}
+          </p>
+          <p>
+            Właściciel: {visit?.pet?.ownerID?.name}{" "}
+            {visit?.pet?.ownerID?.surname}
           </p>
         </div>
       )}
       {userType === "owner" && (
         <div>
           <p>
-            Pupil: {visit?.typ_zwierzecia} {visit?.imie_zwierzecia}
+            Pupil: {visit?.pet} {visit?.pet}
           </p>
         </div>
       )}

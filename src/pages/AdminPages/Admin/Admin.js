@@ -1,16 +1,24 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminHeader from "../../../components/AdminHeader/AdminHeader";
 import CalendarPicker from "../../../components/CalendarPicker/CalendarPicker";
 import VisitDetails from "../../../components/VisitDetails/VisitDetails";
-import { admin_visits } from "../../../data/admin_visits";
 import { formatDate } from "../../../utils/formatDate";
+import { formatDateForBackend } from "../../../utils/formatDateForBackend";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import "./Admin.css";
 
 function Admin() {
   const navigate = useNavigate();
 
   const initialDateRange = useMemo(() => {
+    const storedStartDate = localStorage.getItem("startDate");
+    const storedEndDate = localStorage.getItem("endDate");
+
+    if (storedStartDate && storedEndDate) {
+      return [new Date(storedStartDate), new Date(storedEndDate)];
+    }
+
     const today = new Date();
     const endDate = new Date(today);
     endDate.setDate(today.getDate() + 7);
@@ -19,6 +27,61 @@ function Admin() {
 
   const [dateRange, setDateRange] = useState(initialDateRange);
   const [startDate, endDate] = dateRange;
+
+  const [visits, setVisits] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchVisits();
+  }, [startDate, endDate]);
+
+  const fetchVisits = async () => {
+    try {
+      setLoading(true);
+      const authData = JSON.parse(localStorage.getItem("authData"));
+      const token = authData?.token;
+
+      if (!token) {
+        throw new Error("Token not found");
+      }
+
+      const startDateFormatted = formatDateForBackend(startDate);
+      const endDateFormatted = formatDateForBackend(endDate);
+
+      const resp = await fetch(
+        `http://localhost:8080/admin/visits-by-date?startDate=${startDateFormatted}&endDate=${endDateFormatted}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!resp.ok) {
+        throw new Error(`Failed to fetch visits: ${resp.statusText}`);
+      }
+
+      const json = await resp.json();
+
+      if (!Array.isArray(json)) {
+        throw new Error("Response is not an array");
+      }
+
+      const sortedVisits = json.sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        return dateA - dateB;
+      });
+
+      setVisits(sortedVisits);
+    } catch (error) {
+      console.error("Error fetching visits:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleDateChange = (update) => {
     setDateRange(update);
@@ -39,8 +102,8 @@ function Admin() {
       <div className="visits-content">
         <div className="calendar-and-add-button-container">
           <CalendarPicker
-            startDate={startDate}
-            endDate={endDate}
+            initialStartDate={startDate}
+            initialEndDate={endDate}
             onDateChange={handleDateChange}
           />
 
@@ -56,14 +119,22 @@ function Admin() {
           Wizyty {startDate ? formatDate(startDate) : ""} -{" "}
           {endDate ? formatDate(endDate) : ""}
         </p>
-        {admin_visits.map((visit, index) => (
-          <VisitDetails
-            key={index}
-            visit={visit}
-            userType={"admin"}
-            onClick={() => handleVisitClick(visit.data, visit.godzina)}
-          />
-        ))}
+        {loading ? (
+          <div className="spinner">
+            <AiOutlineLoading3Quarters className="loading-icon" />
+          </div>
+        ) : (
+          <div>
+            {visits.map((visit, index) => (
+              <VisitDetails
+                key={index}
+                visit={visit}
+                userType={"admin"}
+                onClick={() => handleVisitClick(visit.date, visit.hour)}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

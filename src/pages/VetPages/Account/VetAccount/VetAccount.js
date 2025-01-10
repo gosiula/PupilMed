@@ -45,9 +45,6 @@ function VetAccount() {
     fetchVisits();
   }, []);
 
-  useEffect(() => {
-    console.log("Account:", account);
-  }, [account]);
 
   const vetData = [
     {

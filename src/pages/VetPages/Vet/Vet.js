@@ -70,7 +70,13 @@ function Vet() {
         throw new Error("Response is not an array");
       }
 
-      setVisits(json);
+      const sortedVisits = json.sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        return dateA - dateB;
+      });
+
+      setVisits(sortedVisits);
     } catch (error) {
       console.error("Error fetching visits:", error);
     } finally {
