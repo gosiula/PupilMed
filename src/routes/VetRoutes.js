@@ -31,12 +31,12 @@ const VetRoutes = () => (
     <Route path="/visits/vet-add-visit/confirm" element={<VetConfirmAddVisit />} />
     <Route path="/visits/visit/modify" element={<VetModifyVisit />} />
     <Route path="/visits/visit/modify/confirm" element={<VetConfirmModifyVisit />} />
-    <Route path="/visits/visit/delete/:visitDateAndHour" element={<VetConfirmDeleteVisit />} />
-    <Route path="/visits/recommendation/add/:visitDateAndHour" element={<VetAddRecommendation />} />
-    <Route path="/visits/recommendation/add/confirm/:visitDateAndHour" element={<VetConfirmAddRecommendation />} />
-    <Route path="/visits/recommendation/modify/:visitDateAndHour" element={<VetModifyRecommendation />} />
-    <Route path="/visits/recommendation/modify/confirm/:visitDateAndHour" element={<VetConfirmModifyRecommendation />} />
-    <Route path="/visits/recommendation/delete/:visitDateAndHour" element={<VetConfirmDeleteRecommendation />} />
+    <Route path="/visits/visit/delete" element={<VetConfirmDeleteVisit />} />
+    <Route path="/visits/recommendation/add" element={<VetAddRecommendation />} />
+    <Route path="/visits/recommendation/add/confirm" element={<VetConfirmAddRecommendation />} />
+    <Route path="/visits/recommendation/modify" element={<VetModifyRecommendation />} />
+    <Route path="/visits/recommendation/modify/confirm" element={<VetConfirmModifyRecommendation />} />
+    <Route path="/visits/recommendation/delete" element={<VetConfirmDeleteRecommendation />} />
 
   </Routes>
 );

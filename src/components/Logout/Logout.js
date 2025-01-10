@@ -6,8 +6,8 @@ const Logout = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // localStorage.clear();
     localStorage.removeItem("authData");
+    localStorage.clear();
     navigate("/");
   };
 

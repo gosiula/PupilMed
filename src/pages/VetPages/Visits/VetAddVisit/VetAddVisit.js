@@ -12,26 +12,27 @@ const VetAddVisit = () => {
       <BackArrow title="Dodawanie wizyty" />
       <VisitForm
         fields={[
-          "data",
-          "godzina",
-          "numer_telefonu_wlasciciela",
-          "imie_zwierzecia",
+          "date",
+          "hour",
+          "ownerPhoneNumber",
+          "petName",
         ]}
         fieldLabels={{
-          data: "Data wizyty",
-          godzina: "Godzina wizyty",
-          numer_telefonu_wlasciciela: "Numer telefonu właściciela",
-          imie_zwierzecia: "Imię zwierzęcia",
+          date: "Data wizyty",
+          hour: "Godzina wizyty",
+          ownerPhoneNumber: "Numer telefonu właściciela",
+          petName: "Imię zwierzęcia",
         }}
         fieldErrors={{
-          data: "datę wizyty",
-          godzina: "godzinę wizyty",
-          numer_telefonu_wlasciciela: "numer telefonu właściciela",
-          imie_zwierzecia: "imię zwierzęcia",
+          date: "datę wizyty",
+          hour: "godzinę wizyty",
+          ownerPhoneNumber: "numer telefonu właściciela",
+          petName: "imię zwierzęcia",
         }}
         visitTypes={visit_types}
         navigateTo="/vet/visits/vet-add-visit/confirm"
         savedForm={null}
+        visitID={null}
         buttonText="Dodaj wizytę"
         type="add"
       />

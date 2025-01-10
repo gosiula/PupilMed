@@ -1,5 +1,7 @@
 import React from "react";
 import { IoPaw } from "react-icons/io5";
+import { formatDate } from "../../utils/formatDate";
+import { formatTime } from "../../utils/formatTime";
 import "./VisitDetails.css";
 
 const VisitDetails = ({ visit, onClick, userType }) => {
@@ -11,23 +13,25 @@ const VisitDetails = ({ visit, onClick, userType }) => {
       : "visit-details-owner";
 
   return (
-    <div className={className} onClick={() => onClick(visit.data)}>
+    <div className={className} onClick={() => onClick(visit?.data)}>
       <div className="visit-header">
-        <p className="visit-date">Wizyta {visit.date}</p>
+        <p className="visit-date">Wizyta {formatDate(visit?.date)}</p>
         <IoPaw className="visit-icon" />
       </div>
-      <p className="visit-time">Godzina: {visit.hour}</p>
+      <p className="visit-time">Godzina: {formatTime(visit?.hour)}</p>
       {userType === "admin" && (
         <div>
-          <p>Weterynarz: {visit.weterynarz}</p>
+          <p>Weterynarz: {visit?.weterynarz}</p>
           <p>
-            Klinika: {visit.nazwa_kliniki}, {visit.address}
+            Klinika: {visit?.nazwa_kliniki}, {visit?.address}
           </p>
         </div>
       )}
       {userType === "owner" && (
         <div>
-          <p>Pupil: {visit.typ_zwierzecia} {visit.imie_zwierzecia}</p>
+          <p>
+            Pupil: {visit?.typ_zwierzecia} {visit?.imie_zwierzecia}
+          </p>
         </div>
       )}
     </div>

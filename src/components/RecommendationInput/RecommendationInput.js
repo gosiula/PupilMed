@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./RecommendationInput.css";
 
 const RecommendationInput = ({
   savedRecommendation,
   buttonText,
-  onSubmit,
-  date,
-  hour,
+  navigateTo,
+  visitID,
+  visitDate,
+  visitHour,
 }) => {
+  const navigate = useNavigate();
+
   const initialRecommendation =
-    localStorage.getItem("zalecenie") || savedRecommendation || "";
+    localStorage.getItem("recommendation") || savedRecommendation || "";
 
   const [recommendation, setRecommendation] = useState(initialRecommendation);
   const [error, setError] = useState("");
 
   useEffect(() => {
     if (recommendation) {
-      localStorage.setItem("zalecenie", recommendation);
+      localStorage.setItem("recommendation", recommendation);
     }
   }, [recommendation]);
 
@@ -25,27 +29,28 @@ const RecommendationInput = ({
     setError("");
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     if (!recommendation.trim()) {
       setError("Uzupełnij zalecenie.");
       return;
     }
-    if (onSubmit) {
-      onSubmit(recommendation);
-    }
+
+    console.log(visitID);
+
+    navigate(navigateTo, {
+      state: {
+        recommendation,
+        visitID,
+        visitDate,
+        visitHour,
+      },
+    });
   };
 
   useEffect(() => {
     const handleNavigate = () => {
-      if (
-        window.location.pathname === `/admin/visits/visit/${date}_${hour}` ||
-        window.location.pathname === "/admin/visits" ||
-        window.location.pathname === "/admin/animals" ||
-        window.location.pathname === "/admin/users" ||
-        window.location.pathname === "/admin/logout"
-      ) {
-        localStorage.removeItem("zalecenie");
+      if (window.location.pathname !== navigateTo) {
+        localStorage.removeItem("recommendation");
       }
     };
 

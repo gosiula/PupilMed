@@ -12,9 +12,9 @@ import OwnerConfirmChangePassword from "../pages/OwnerPages/Account/OwnerConfirm
 const OwnerRoutes = () => (
   <Routes>
     <Route path="/visits" element={<Owner />} />
-    <Route path="/visits/visit/:visitDataAndHour" element={<OwnerVisit />} />
+    <Route path="/visits/visit" element={<OwnerVisit />} />
     <Route path="/animals" element={<OwnerAnimals />} />
-    <Route path="/animals/recommendation/:petName" element={<OwnerRecommendations />} />
+    <Route path="/animals/recommendation" element={<OwnerRecommendations />} />
     <Route path="/account" element={<OwnerAccount />} />
     <Route path="/account/change_password" element={<OwnerChangePassword />} />
     <Route path="/account/change_password/confirm" element={<OwnerConfirmChangePassword />} />

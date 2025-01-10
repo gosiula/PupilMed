@@ -37,8 +37,14 @@ const VetHeader = () => {
             location.pathname.startsWith(item.path) ? "vet-current-button" : ""
           }`}
           onClick={() => {
+            localStorage.removeItem("date");
+            localStorage.removeItem("hour");
+            localStorage.removeItem("ownerPhoneNumber");
+            localStorage.removeItem("petName");
+            localStorage.removeItem("visitType");
+            localStorage.removeItem("price");
+            localStorage.removeItem("recommendation");
             navigate(item.path);
-            // localStorage.clear();
           }}
         >
           {item.icon}

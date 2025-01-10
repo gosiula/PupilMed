@@ -9,16 +9,41 @@ const VetConfirmDeleteVisit = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const formData = location.state?.formData || {};
+  const { formData, visitID } = location?.state;
 
-  const handleConfirm = () => {
-    // localStorage.clear();
-    navigate("/vet/success", {
-      state: {
-        message: "Sukces! Wizyta została usunięta!",
-        navigateTo: "/vet/visits",
-      },
-    });
+  const handleConfirm = async () => {
+    try {
+      const authData = JSON.parse(localStorage.getItem("authData"));
+      const token = authData?.token;
+
+      if (!token) {
+        throw new Error("Token not found");
+      }
+
+      const response = await fetch(
+        `http://localhost:8080/vet/delete-visit?visitID=${visitID}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Nie udało się usunąć wizyty: ${errorText}`);
+      }
+
+      navigate("/vet/success", {
+        state: {
+          message: "Sukces! Wizyta została usunięta!",
+          navigateTo: "/vet/visits",
+        },
+      });
+    } catch (error) {
+      alert(`Nie udało się usunąć wizyty: ${error.message}`);
+    }
   };
 
   return (
@@ -27,7 +52,7 @@ const VetConfirmDeleteVisit = () => {
       <BackArrow title="Potwierdzenie" />
       <Confirmation
         onConfirm={handleConfirm}
-        title={`Czy na pewno chcesz usunąć wizytę w dniu ${formData.data} o godzinie ${formData.godzina} dla właściciela o numerze ${formData.numer_telefonu_wlasciciela} oraz weterynarza o numerze ${formData.numer_telefonu_weterynarza}?`}
+        title={`Czy na pewno chcesz usunąć wizytę w dniu ${formData?.date} o godzinie ${formData?.hour} dla właściciela o numerze ${formData?.ownerPhoneNumber}?`}
       />
     </div>
   );

@@ -9,16 +9,41 @@ const VetConfirmDeleteRecommendation = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const formData = location.state?.formData || {};
+  const { visitID, visitDate, visitHour } = location?.state;
 
-  const handleConfirm = () => {
-    // localStorage.clear();
-    navigate("/vet/success", {
-      state: {
-        message: "Sukces! Zalecenie zostało usunięte!",
-        navigateTo: "/vet/visits",
-      },
-    });
+  const handleConfirm = async () => {
+    try {
+      const authData = JSON.parse(localStorage.getItem("authData"));
+      const token = authData?.token;
+
+      if (!token) {
+        throw new Error("Token not found");
+      }
+
+      const response = await fetch(
+        `http://localhost:8080/vet/delete-recommendation?visitID=${visitID}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Nie udało się usunąć zalecenia: ${errorText}`);
+      }
+
+      navigate("/vet/success", {
+        state: {
+          message: "Sukces! Zalecenie zostało usunięte!",
+          navigateTo: "/vet/visits",
+        },
+      });
+    } catch (error) {
+      alert(`Nie udało się usunąć zalecenia: ${error.message}`);
+    }
   };
 
   return (
@@ -27,7 +52,7 @@ const VetConfirmDeleteRecommendation = () => {
       <BackArrow title="Potwierdzenie" />
       <Confirmation
         onConfirm={handleConfirm}
-        title={`Czy na pewno chcesz usunąć zalecenie dla wizyty w dniu ${formData.data} o godzinie ${formData.godzina} dla właściciela o numerze ${formData.numer_telefonu_wlasciciela} oraz weterynarza o numerze ${formData.numer_telefonu_weterynarza}?`}
+        title={`Czy na pewno chcesz usunąć zalecenie dla wizyty w dniu ${visitDate} o godzinie ${visitHour}?`}
       />
     </div>
   );

@@ -1,15 +1,25 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import VetHeader from "../../../components/VetHeader/VetHeader";
 import CalendarPicker from "../../../components/CalendarPicker/CalendarPicker";
 import VisitDetails from "../../../components/VisitDetails/VisitDetails";
 import { formatDate } from "../../../utils/formatDate";
+import { formatDateForBackend } from "../../../utils/formatDateForBackend";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import "./Vet.css";
+import "../../../App.css";
 
 function Vet() {
   const navigate = useNavigate();
 
   const initialDateRange = useMemo(() => {
+    const storedStartDate = localStorage.getItem("startDate");
+    const storedEndDate = localStorage.getItem("endDate");
+
+    if (storedStartDate && storedEndDate) {
+      return [new Date(storedStartDate), new Date(storedEndDate)];
+    }
+
     const today = new Date();
     const endDate = new Date(today);
     endDate.setDate(today.getDate() + 7);
@@ -20,18 +30,15 @@ function Vet() {
   const [startDate, endDate] = dateRange;
 
   const [visits, setVisits] = useState([]);
-  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchVisits();
-    }, [startDate,endDate]);
+  }, [startDate, endDate]);
 
-  useEffect(() => {
-    console.log("Date: ", startDate, " ", endDate);
-    console.log("Updated visits:", visits);
-  }, [visits]);
   const fetchVisits = async () => {
     try {
+      setLoading(true);
       const authData = JSON.parse(localStorage.getItem("authData"));
       const token = authData?.token;
 
@@ -42,24 +49,22 @@ function Vet() {
       const startDateFormatted = formatDateForBackend(startDate);
       const endDateFormatted = formatDateForBackend(endDate);
 
-      console.log("Token:", token);
-      console.log("Token:", startDateFormatted);
-      console.log("Token:", endDateFormatted);
-
-      const resp = await fetch(`http://localhost:8080/vet/visits-by-date?startDate=${startDateFormatted}&endDate=${endDateFormatted}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
-        },
-      });
+      const resp = await fetch(
+        `http://localhost:8080/vet/visits-by-date?startDate=${startDateFormatted}&endDate=${endDateFormatted}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (!resp.ok) {
         throw new Error(`Failed to fetch visits: ${resp.statusText}`);
       }
 
       const json = await resp.json();
-      console.log("JSON response:", json);
 
       if (!Array.isArray(json)) {
         throw new Error("Response is not an array");
@@ -68,12 +73,9 @@ function Vet() {
       setVisits(json);
     } catch (error) {
       console.error("Error fetching visits:", error);
-      setError("Niepoprawne dane");
+    } finally {
+      setLoading(false);
     }
-  };
-
-  const formatDateForBackend = (date) => {
-    return date.toISOString().split("T")[0];
   };
 
   const handleDateChange = (update) => {
@@ -82,8 +84,6 @@ function Vet() {
   };
 
   const handleVisitClick = (visitID) => {
-    // const formattedDate = visitDate.replaceAll("/", "-");
-    // const formattedHour = visitHour.replaceAll(":", "-");
     navigate(`/vet/visits/visit`, {
       state: { visitID },
     });
@@ -95,8 +95,8 @@ function Vet() {
       <div className="vet-visits-content">
         <div className="vet-calendar-and-add-button-container">
           <CalendarPicker
-            startDate={startDate}
-            endDate={endDate}
+            initialStartDate={startDate}
+            initialEndDate={endDate}
             onDateChange={handleDateChange}
           />
 
@@ -112,20 +112,25 @@ function Vet() {
           Wizyty {startDate ? formatDate(startDate) : ""} -{" "}
           {endDate ? formatDate(endDate) : ""}
         </p>
-        {visits.map((visit, index) => (
-          <VisitDetails
-            key={index}
-            visit={visit}
-            userType={"vet"}
-            onClick={() => handleVisitClick(visit.id)}
-          />
-        ))}
+        {loading ? (
+          <div className="spinner">
+            <AiOutlineLoading3Quarters className="loading-icon" />
+          </div>
+        ) : (
+          <div>
+            {visits.map((visit, index) => (
+              <VisitDetails
+                key={index}
+                visit={visit}
+                userType={"vet"}
+                onClick={() => handleVisitClick(visit.id)}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
 }
-//TODO musi przechowywac id wizyty
-//TODO mozna dodac ze wyskakuje ci lista zwierzat powiazanych z wlascicielem i z niej wybierasz
-//TODO Error fetching visits: TypeError: Cannot read properties of null (reading 'toISOString')
-export default Vet;
 
+export default Vet;

@@ -9,6 +9,7 @@ const VisitForm = ({
   visitTypes,
   navigateTo,
   savedForm,
+  visitID,
   buttonText,
 }) => {
   const navigate = useNavigate();
@@ -72,14 +73,14 @@ const VisitForm = ({
     const newErrors = {};
 
     const regexMap = {
-      data: /^\d{2}\.\d{2}\.\d{4}$/,
-      godzina: /^\d{2}:\d{2}$/,
-      numer_telefonu_weterynarza:
+      date: /^\d{2}\.\d{2}\.\d{4}$/,
+      hour: /^\d{2}:\d{2}$/,
+      ownerPhoneNumber:
         /^(\+48\s?\d{3}\s?\d{3}\s?\d{3}|\+48\d{9}|\d{9}|\d{3}\s?\d{3}\s?\d{3})$/,
-      numer_telefonu_wlasciciela:
+      vetPhoneNumber:
         /^(\+48\s?\d{3}\s?\d{3}\s?\d{3}|\+48\d{9}|\d{9}|\d{3}\s?\d{3}\s?\d{3})$/,
-      imie_zwierzecia: /^.+$/,
-      price: /^\d+([.,]\d{1,2})?$/, // Akceptuje kropkę i przecinek
+      petName: /^.+$/,
+      price: /^\d+([.,]\d{1,2})?$/,
     };
 
     fields.forEach((field) => {
@@ -123,7 +124,7 @@ const VisitForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      navigate(navigateTo, { state: { formData } });
+      navigate(navigateTo, { state: { formData, visitID } });
     }
   };
 
@@ -131,7 +132,8 @@ const VisitForm = ({
     const handleNavigate = () => {
       if (window.location.pathname !== navigateTo) {
         fields.forEach((field) => localStorage.removeItem(field));
-        // localStorage.clear();
+        localStorage.removeItem("visitType");
+        localStorage.removeItem("price");
       }
     };
 

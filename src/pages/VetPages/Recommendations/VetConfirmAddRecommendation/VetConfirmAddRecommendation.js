@@ -9,16 +9,50 @@ const VetConfirmAddRecommendation = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { stateVisitDate, stateVisitHour } = location.state || {};
+  const { visitDate, visitHour, visitID, recommendation } = location?.state;
 
-  const handleConfirm = () => {
-    // localStorage.clear();
-    navigate("/vet/success", {
-      state: {
-        message: "Sukces! Zalecenie zostało dodane!",
-        navigateTo: "/vet/visits",
-      },
-    });
+  const handleConfirm = async () => {
+    try {
+      const authData = JSON.parse(localStorage.getItem("authData"));
+      const token = authData?.token;
+
+      if (!token) {
+        throw new Error("Token not found");
+      }
+
+      const payload = {
+        visitID: visitID,
+        recommendation: recommendation,
+      };
+
+      const response = await fetch(
+        "http://localhost:8080/vet/add-recommendation",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Nie udało się dodać zalecenia: ${errorText}`);
+      }
+
+      localStorage.removeItem("recommendation");
+
+      navigate("/vet/success", {
+        state: {
+          message: "Sukces! Zalecenie zostało dodane!",
+          navigateTo: "/vet/visits",
+        },
+      });
+    } catch (error) {
+      alert(`Nie udało się dodać zalecenia: ${error.message}`);
+    }
   };
 
   return (
@@ -27,7 +61,7 @@ const VetConfirmAddRecommendation = () => {
       <BackArrow title="Potwierdzenie" />
       <Confirmation
         onConfirm={handleConfirm}
-        title={`Czy na pewno chcesz dodać nowe zalecenie dla wizyty w dniu ${stateVisitDate} o godzinie ${stateVisitHour}?`}
+        title={`Czy na pewno chcesz dodać nowe zalecenie dla wizyty w dniu ${visitDate} o godzinie ${visitHour}?`}
       />
     </div>
   );

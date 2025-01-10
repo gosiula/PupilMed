@@ -31,47 +31,47 @@ import AdminLogout from "../pages/AdminPages/AdminLogout/AdminLogout";
 const AdminRoutes = () => (
   <Routes>
     <Route path="/visits" element={<Admin />} />
-    <Route path="/visits/visit/:visitDateAndHour" element={<AdminVisit />} />
+    <Route path="/visits/visit" element={<AdminVisit />} />
     <Route path="/visits/admin-add-visit" element={<AdminAddVisit />} />
     <Route
       path="/visits/admin-add-visit/confirm"
       element={<AdminConfirmAddVisit />}
     />
     <Route
-      path="/visits/visit/modify/:visitDateAndHour"
+      path="/visits/visit/modify"
       element={<AdminModifyVisit />}
     />
     <Route
-      path="/visits/visit/modify/confirm/:visitDateAndHour"
+      path="/visits/visit/modify/confirm"
       element={<AdminConfirmModifyVisit />}
     />
     <Route
-      path="/visits/visit/delete/:visitDateAndHour"
+      path="/visits/visit/delete"
       element={<AdminConfirmDeleteVisit />}
     />
     <Route
-      path="/visits/recommendation/add/:visitDateAndHour"
+      path="/visits/recommendation/add"
       element={<AdminAddRecommendation />}
     />
     <Route
-      path="/visits/recommendation/add/confirm/:visitDateAndHour"
+      path="/visits/recommendation/add/confirm"
       element={<AdminConfirmAddRecommendation />}
     />
     <Route
-      path="/visits/recommendation/modify/:visitDateAndHour"
+      path="/visits/recommendation/modify"
       element={<AdminModifyRecommendation />}
     />
     <Route
-      path="/visits/recommendation/modify/confirm/:visitDateAndHour"
+      path="/visits/recommendation/modify/confirm"
       element={<AdminConfirmModifyRecommendation />}
     />
     <Route
-      path="/visits/recommendation/delete/:visitDateAndHour"
+      path="/visits/recommendation/delete"
       element={<AdminConfirmDeleteRecommendation />}
     />
     <Route path="/animals" element={<AdminAnimals />} />
     <Route
-      path="/animals/animal/:animalInfo"
+      path="/animals/animal"
       element={<AdminAnimalRecommendations />}
     />
     <Route path="/animals/add-animal" element={<AdminAddAnimal />} />
@@ -80,27 +80,27 @@ const AdminRoutes = () => (
       element={<AdminConfirmAddAnimal />}
     />
     <Route
-      path="/animals/delete/:animalInfo"
+      path="/animals/delete"
       element={<AdminConfirmDeleteAnimal />}
     />
-    <Route path="/animals/modify/:animalInfo" element={<AdminModifyAnimal />} />
+    <Route path="/animals/modify" element={<AdminModifyAnimal />} />
     <Route
-      path="/animals/modify/confirm/:animalInfo"
+      path="/animals/modify/confirm"
       element={<AdminConfirmModifyAnimal />}
     />
     <Route path="/users" element={<AdminUsers />} />
     <Route path="/users/add-user" element={<AdminAddUser />} />
     <Route path="/users/add-user/confirm" element={<AdminConfirmAddUser />} />
     <Route
-      path="/users/user/modify/:phoneNumer"
+      path="/users/user/modify"
       element={<AdminModifyUser />}
     />
     <Route
-      path="/users/user/modify/confirm/:phoneNumber"
+      path="/users/user/modify/confirm"
       element={<AdminConfirmModifyUser />}
     />
     <Route
-      path="/users/user/delete/:phoneNumber"
+      path="/users/user/delete"
       element={<AdminConfirmDeleteUser />}
     />
     <Route path="/success" element={<AdminSuccess />} />
