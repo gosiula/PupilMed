@@ -42,7 +42,12 @@ const ChangePasswordForm = ({ navigateTo }) => {
       formData.confirmNewPassword &&
       formData.newPassword === formData.confirmNewPassword
     ) {
-      navigate(navigateTo);
+      navigate(navigateTo, {
+        state: {
+          currentPassword: formData?.currentPassword,
+          newPassword: formData?.newPassword,
+        },
+      });
     }
   };
 

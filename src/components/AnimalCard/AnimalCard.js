@@ -2,7 +2,9 @@ import React from "react";
 import { FaDog, FaCat, FaPaw } from "react-icons/fa6";
 import { GiTurtle } from "react-icons/gi";
 import { LuRabbit, LuBird } from "react-icons/lu";
+import { formatAge } from "../../utils/formatAge";
 import { useNavigate } from "react-router-dom";
+import { formatDate } from "../../utils/formatDate";
 import "./AnimalCard.css";
 
 const AnimalCard = ({
@@ -37,17 +39,22 @@ const AnimalCard = ({
     <div className="pet-item">
       <div
         className="pet-details"
-        onClick={() => navigate(navigateTo, { state: { pet } })}
+        onClick={() =>
+          navigate(navigateTo, {
+            state: { petID: pet?.id, petName: pet?.name },
+          })
+        }
         style={{ cursor: "pointer" }}
       >
         <div className="pet-header">
           <p className="name-field">Zwierzę</p>
-          {getAnimalIcon(pet.typ_zwierzecia)}
+          {getAnimalIcon(pet?.species)}
         </div>
 
         {fields.map((field) => (
           <p key={field}>
-            {fieldLabels[field]}: {pet[field]}
+            {fieldLabels[field]}:{" "}
+            {field === "age" ? formatAge(pet[field]) : pet[field]}
           </p>
         ))}
 
@@ -56,7 +63,19 @@ const AnimalCard = ({
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                navigate(modifyPath, { state: { pet } });
+                navigate(modifyPath, {
+                  state: {
+                    petID: pet?.id,
+                    formData: {
+                      ownerPhoneNumber: pet?.ownerPhoneNumber,
+                      petName: pet?.name,
+                      additionalInfo: pet?.additionalInfo,
+                      petDob: formatDate(pet?.dateOfBirth),
+                      petBreed: pet?.breed,
+                      petSpecies: pet?.species,
+                    },
+                  },
+                });
               }}
               className="modify-btn"
             >
@@ -65,7 +84,13 @@ const AnimalCard = ({
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                navigate(deletePath, { state: { pet } });
+                navigate(deletePath, {
+                  state: {
+                    petID: pet?.id,
+                    petName: pet?.name,
+                    ownerPhoneNumber: pet?.ownerPhoneNumber,
+                  },
+                });
               }}
               className="delete-btn"
             >

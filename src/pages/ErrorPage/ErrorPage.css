@@ -1,0 +1,45 @@
+.error-page-text {
+  font-size: 1.5rem !important;
+  font-weight: normal;
+  color: #000000 !important;
+  margin-top: 30px !important;
+}
+
+.error-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  background-color: #ffffff;
+}
+
+.error-page-message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.error-page-icon {
+  font-size: 3rem;
+  color: #434343;
+}
+
+.error-page-back-button {
+  background-color: #35732e;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  cursor: pointer;
+  padding: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+}
+
+.error-page-back-button:hover {
+  background-color: #42893b;
+}

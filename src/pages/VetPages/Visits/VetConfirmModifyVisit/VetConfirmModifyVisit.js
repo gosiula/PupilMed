@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import BackArrow from "../../../../components/BackArrow/BackArrow";
 import Confirmation from "../../../../components/Confirmation/Confirmation";
@@ -10,7 +10,14 @@ const VetConfirmModifyVisit = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { formData, visitID } = location?.state;
+  const formData = location?.state?.formData;
+  const visitID = location?.state?.visitID;
+
+  useEffect(() => {
+    if (!visitID || !formData) {
+      navigate("/error");
+    }
+  }, [visitID, formData]);
 
   const handleConfirm = async () => {
     try {
@@ -25,7 +32,7 @@ const VetConfirmModifyVisit = () => {
 
       const payload = {
         id: visitID,
-        phoneNumer: formData.ownerPhoneNumber,
+        ownerPhoneNumber: formData.ownerPhoneNumber,
         petName: formData.petName,
         date: formatDateForBackend(formData.date),
         hour: formData.hour,

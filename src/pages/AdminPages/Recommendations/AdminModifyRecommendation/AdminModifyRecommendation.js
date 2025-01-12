@@ -1,49 +1,36 @@
-import React from "react";
-import { useLocation, useParams, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import BackArrow from "../../../../components/BackArrow/BackArrow";
 import RecommendationInput from "../../../../components/RecommendationInput/RecommendationInput";
 import AdminHeader from "../../../../components/AdminHeader/AdminHeader";
-import { recommendation_info } from "../../../../data/recommendation_info";
 import "./AdminModifyRecommendation.css";
 
 const AdminModifyRecommendation = () => {
-  const navigate = useNavigate();
   const location = useLocation();
-  const { visitDateAndHour } = useParams();
+  const navigate = useNavigate();
 
-  const [visitDate, visitHour] = visitDateAndHour
-    ? visitDateAndHour.split("_")
-    : ["", ""];
+  const visitID = location?.state?.visitID;
+  const visitDate = location?.state?.visitDate;
+  const visitHour = location?.state?.visitHour;
+  const recommendation_info = location?.state?.recommendation_info;
 
-  const { visitDate: stateVisitDate, visitHour: stateVisitHour } =
-    location.state || {};
-
-  const finalVisitDate = stateVisitDate || visitDate || "";
-  const finalVisitHour =
-    stateVisitHour.replace(":", "-") || "" || visitHour.replace(":", "-") || "";
-
-  const handleRecommendationSubmit = () => {
-    console.log(visitDate);
-    navigate(
-      `/admin/visits/recommendation/modify/confirm/${finalVisitDate}_${finalVisitHour}`,
-      {
-        state: { stateVisitDate, stateVisitHour },
-      }
-    );
-  };
+  useEffect(() => {
+    if (!visitDate || !visitHour || !recommendation_info || !visitID) {
+      navigate("/error");
+    }
+  }, [visitDate, visitHour, recommendation_info, visitID]);
 
   return (
     <div>
       <AdminHeader />
-      <BackArrow
-        title={`Modyfikacja zalecenia - ${stateVisitDate}, ${stateVisitHour}`}
-      />
+      <BackArrow title={`Modyfikacja zalecenia - ${visitDate}, ${visitHour}`} />
       <RecommendationInput
-        savedRecommendation={recommendation_info.zalecenie}
+        savedRecommendation={recommendation_info}
         buttonText="Modyfikuj zalecenie"
-        onSubmit={handleRecommendationSubmit}
-        date={finalVisitDate}
-        hour={finalVisitHour}
+        navigateTo={"/admin/visits/recommendation/modify/confirm"}
+        visitID={visitID}
+        visitDate={visitDate}
+        visitHour={visitHour}
       />
     </div>
   );

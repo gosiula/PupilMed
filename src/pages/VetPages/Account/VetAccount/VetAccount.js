@@ -50,13 +50,13 @@ function VetAccount() {
     {
       left: {
         header: "Imię i nazwisko",
-        value: `${account.name} ${account.surname}`,
+        value: `${account?.name} ${account?.surname}`,
       },
-      right: { header: "Nazwa kliniki", value: account.clinic_name },
+      right: { header: "Nazwa kliniki", value: account?.clinic_name },
     },
     {
-      left: { header: "Numer telefonu", value: account.phone_number },
-      right: { header: "Adres kliniki", value: account.clinic_address },
+      left: { header: "Numer telefonu", value: account?.phone_number },
+      right: { header: "Adres kliniki", value: account?.clinic_address },
     },
   ];
 

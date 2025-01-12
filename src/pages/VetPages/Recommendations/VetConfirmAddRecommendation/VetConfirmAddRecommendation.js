@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import BackArrow from "../../../../components/BackArrow/BackArrow";
 import Confirmation from "../../../../components/Confirmation/Confirmation";
@@ -9,7 +9,16 @@ const VetConfirmAddRecommendation = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { visitDate, visitHour, visitID, recommendation } = location?.state;
+  const visitID = location?.state?.visitID;
+  const visitDate = location?.state?.visitDate;
+  const visitHour = location?.state?.visitHour;
+  const recommendation = location?.state?.recommendation;
+
+  useEffect(() => {
+    if (!visitDate || !visitHour || !visitID || !recommendation) {
+      navigate("/error");
+    }
+  }, [visitDate, visitHour, visitID, recommendation]);
 
   const handleConfirm = async () => {
     try {

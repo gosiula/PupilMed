@@ -7,6 +7,7 @@ import { formatDate } from "../../../utils/formatDate";
 import { formatDateForBackend } from "../../../utils/formatDateForBackend";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import "./Admin.css";
+import "../../../App.css";
 
 function Admin() {
   const navigate = useNavigate();
@@ -45,8 +46,14 @@ function Admin() {
         throw new Error("Token not found");
       }
 
-      const startDateFormatted = formatDateForBackend(startDate);
-      const endDateFormatted = formatDateForBackend(endDate);
+      const adjustedStartDate = new Date(startDate);
+      adjustedStartDate.setDate(adjustedStartDate.getDate() + 1);
+
+      const adjustedEndDate = new Date(endDate);
+      adjustedEndDate.setDate(adjustedEndDate.getDate() + 1);
+
+      const startDateFormatted = formatDateForBackend(adjustedStartDate);
+      const endDateFormatted = formatDateForBackend(adjustedEndDate);
 
       const resp = await fetch(
         `http://localhost:8080/admin/visits-by-date?startDate=${startDateFormatted}&endDate=${endDateFormatted}`,
@@ -75,7 +82,17 @@ function Admin() {
         return dateA - dateB;
       });
 
-      setVisits(sortedVisits);
+      const transformedVisits = sortedVisits.map((visit) => ({
+        visitID: visit?.id,
+        date: visit?.date,
+        hour: visit?.hour,
+        vetName: visit?.vet?.name,
+        vetSurname: visit?.vet?.surname,
+        ownerName: visit?.pet?.ownerID?.name,
+        ownerSurname: visit?.pet?.ownerID?.surname,
+      }));
+
+      setVisits(transformedVisits);
     } catch (error) {
       console.error("Error fetching visits:", error);
     } finally {
@@ -87,12 +104,9 @@ function Admin() {
     setDateRange(update);
   };
 
-  const handleVisitClick = (visitDate, visitHour) => {
-    const formattedDate = visitDate.replaceAll("/", "-");
-    const formattedHour = visitHour.replaceAll(":", "-");
-
-    navigate(`/admin/visits/visit/${formattedDate}_${formattedHour}`, {
-      state: { visitDate, visitHour },
+  const handleVisitClick = (visitID) => {
+    navigate(`/admin/visits/visit`, {
+      state: { visitID },
     });
   };
 
@@ -130,7 +144,7 @@ function Admin() {
                 key={index}
                 visit={visit}
                 userType={"admin"}
-                onClick={() => handleVisitClick(visit.date, visit.hour)}
+                onClick={() => handleVisitClick(visit?.visitID)}
               />
             ))}
           </div>

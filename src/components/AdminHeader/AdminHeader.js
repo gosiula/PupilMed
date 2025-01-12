@@ -43,8 +43,17 @@ const AdminHeader = () => {
             location.pathname.startsWith(item.path) ? "current-button" : ""
           }`}
           onClick={() => {
+            localStorage.removeItem("date");
+            localStorage.removeItem("hour");
+            localStorage.removeItem("ownerPhoneNumber");
+            localStorage.removeItem("vetPhoneNumber");
+            localStorage.removeItem("petName");
+            localStorage.removeItem("visitType");
+            localStorage.removeItem("price");
+            localStorage.removeItem("recommendation");
+            localStorage.removeItem("animalForm");
+            localStorage.removeItem("userForm");
             navigate(item.path);
-            // localStorage.clear();
           }}
         >
           {item.icon}

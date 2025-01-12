@@ -1,5 +1,5 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import BackArrow from "../../../../components/BackArrow/BackArrow";
 import UserForm from "../../../../components/UserForm/UserForm";
 import AdminHeader from "../../../../components/AdminHeader/AdminHeader";
@@ -7,21 +7,33 @@ import { vet_user } from "../../../../data/vet_user";
 import "./AdminModifyUser.css";
 
 const AdminModifyUser = () => {
-  const fields = ["imie", "nazwisko", "numer_telefonu"];
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const fields = ["name", "surname", "phoneNumber"];
 
   const fieldLabels = {
-    imie: "Imię użytkownika",
-    nazwisko: "Nazwisko użytkownika",
-    numer_telefonu: "Numer telefonu użytkownika",
+    name: "Imię użytkownika",
+    surname: "Nazwisko użytkownika",
+    phoneNumber: "Numer telefonu użytkownika",
   };
 
   const fieldErrors = {
-    imie: "imię",
-    nazwisko: "nazwisko",
-    numer_telefonu: "numer telefonu",
+    name: "imię",
+    surname: "nazwisko",
+    phoneNumber: "numer telefonu",
   };
 
-  const { phoneNumber } = useParams();
+  const formData = location?.state?.formData;
+  const userID = location?.state?.userID;
+
+  useEffect(() => {
+    if (!formData || !userID) {
+      navigate("/error");
+    }
+  }, [formData, userID]);
+
+  console.log(formData)
 
   return (
     <div className="admin-add-animal">
@@ -31,9 +43,9 @@ const AdminModifyUser = () => {
         fields={fields}
         fieldLabels={fieldLabels}
         fieldErrors={fieldErrors}
-        savedForm={vet_user}
+        savedForm={formData}
         buttonText="Modyfikuj użytkownika"
-        navigateTo={`/admin/users/user/modify/confirm/${phoneNumber}`}
+        navigateTo={`/admin/users/user/modify/confirm`}
         type="modify"
       />
     </div>

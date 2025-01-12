@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import BackArrow from "../../../../components/BackArrow/BackArrow";
 import Confirmation from "../../../../components/Confirmation/Confirmation";
@@ -9,7 +9,15 @@ const VetConfirmDeleteRecommendation = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { visitID, visitDate, visitHour } = location?.state;
+  const visitID = location?.state?.visitID;
+  const visitDate = location?.state?.visitDate;
+  const visitHour = location?.state?.visitHour;
+
+  useEffect(() => {
+    if (!visitDate || !visitHour || !visitID) {
+      navigate("/error");
+    }
+  }, [visitDate, visitHour, visitID]);
 
   const handleConfirm = async () => {
     try {

@@ -46,8 +46,14 @@ function Owner() {
         throw new Error("Token not found");
       }
 
-      const startDateFormatted = formatDateForBackend(startDate);
-      const endDateFormatted = formatDateForBackend(endDate);
+      const adjustedStartDate = new Date(startDate);
+      adjustedStartDate.setDate(adjustedStartDate.getDate() + 1);
+
+      const adjustedEndDate = new Date(endDate);
+      adjustedEndDate.setDate(adjustedEndDate.getDate() + 1);
+
+      const startDateFormatted = formatDateForBackend(adjustedStartDate);
+      const endDateFormatted = formatDateForBackend(adjustedEndDate);
 
       const resp = await fetch(
         `http://localhost:8080/owner/visits-by-date?startDate=${startDateFormatted}&endDate=${endDateFormatted}`,
@@ -76,9 +82,16 @@ function Owner() {
         return dateA - dateB;
       });
 
-      setVisits(sortedVisits);
+      const transformedVisits = sortedVisits.map((visit) => ({
+        visitID: visit?.id,
+        date: visit?.date,
+        hour: visit?.hour,
+        petName: visit?.pet?.name,
+      }));
+
+      setVisits(transformedVisits);
     } catch (error) {
-      console.error("Error fetching visits:", error);
+      console.log("Error fetching visits:", error);
     } finally {
       setLoading(false);
     }
@@ -88,12 +101,9 @@ function Owner() {
     setDateRange(update);
   };
 
-  const handleVisitClick = (visitDate, visitHour) => {
-    const formattedDate = visitDate.replaceAll("/", "-");
-    const formattedHour = visitHour.replaceAll(":", "-");
-
-    navigate(`/owner/visits/visit/${formattedDate}_${formattedHour}`, {
-      state: { visitDate, visitHour },
+  const handleVisitClick = (visitID) => {
+    navigate(`/owner/visits/visit/`, {
+      state: { visitID },
     });
   };
 
@@ -124,7 +134,7 @@ function Owner() {
                 key={index}
                 visit={visit}
                 userType={"owner"}
-                onClick={() => handleVisitClick(visit?.date, visit?.hour)}
+                onClick={() => handleVisitClick(visit?.visitID)}
               />
             ))}
           </div>

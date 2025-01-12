@@ -37,10 +37,10 @@ const UserForm = ({
   );
 
   const regexMap = {
-    numer_telefonu:
+    phoneNumber:
       /^\(\+48\s?\d{3}\s?\d{3}\s?\d{3}|\+48\d{9}|\d{9}|\d{3}\s?\d{3}\s?\d{3}\)$/,
-    imie: /^.+$/,
-    nazwisko: /^.+$/,
+    name: /^.+$/,
+    surname: /^.+$/,
   };
 
   useEffect(() => {
@@ -49,14 +49,14 @@ const UserForm = ({
         ...prev,
         ...savedForm,
       }));
-      if (savedForm.typ === "weterynarz") {
-        setUserType("vet");
+      if (savedForm?.role === "VET") {
+        setUserType("VET");
         setClinicData({
           name: savedForm.nazwa_kliniki || "",
           address: savedForm.adres_kliniki || "",
         });
-      } else if (savedForm.typ === "wlasciciel") {
-        setUserType("owner");
+      } else if (savedForm?.role === "OWNER") {
+        setUserType("OWNER");
       }
     }
   }, [savedForm, initialFormData]);
@@ -64,7 +64,7 @@ const UserForm = ({
   useEffect(() => {
     const handleNavigate = () => {
       if (window.location.pathname !== navigateTo) {
-        // localStorage.clear();
+        localStorage.removeItem("userForm");
       }
     };
 
@@ -88,7 +88,7 @@ const UserForm = ({
 
     if (!userType) {
       newErrors.userType = "Wybierz typ użytkownika.";
-    } else if (userType === "vet") {
+    } else if (userType === "VET") {
       if (!clinicData.name) {
         newErrors.clinicName = "Podaj nazwę kliniki.";
       }
@@ -97,7 +97,7 @@ const UserForm = ({
       }
     }
 
-    if (!formData.newPassword) {
+    if (!formData.newPassword && type === "add") {
       newErrors.newPassword = "Podaj hasło.";
     }
 
@@ -124,16 +124,25 @@ const UserForm = ({
   const handleUserTypeChange = (type) => {
     setUserType(type);
     setErrors((prev) => ({ ...prev, userType: null }));
-    if (type === "owner") {
+    if (type === "OWNER") {
       setClinicData({ name: "", address: "" });
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validate()) {
+    if (validate() && type === "add") {
       navigate(navigateTo, {
-        state: { formData, userType, clinicData },
+        state: {
+          formData,
+          userType,
+          clinicData,
+          password: formData?.newPassword,
+        },
+      });
+    } else if (validate() && type === "modify") {
+      navigate(navigateTo, {
+        state: { formData, userType, clinicData, userID: savedForm?.id },
       });
     }
   };
@@ -161,9 +170,9 @@ const UserForm = ({
             <input
               type="radio"
               name="userType"
-              value="owner"
-              checked={userType === "owner"}
-              onChange={() => handleUserTypeChange("owner")}
+              value="OWNER"
+              checked={userType === "OWNER"}
+              onChange={() => handleUserTypeChange("OWNEER")}
               disabled={!(type === "add")}
             />
             Właściciel
@@ -172,9 +181,9 @@ const UserForm = ({
             <input
               type="radio"
               name="userType"
-              value="vet"
-              checked={userType === "vet"}
-              onChange={() => handleUserTypeChange("vet")}
+              value="VET"
+              checked={userType === "VET"}
+              onChange={() => handleUserTypeChange("VET")}
               disabled={!(type === "add")}
             />
             Weterynarz
@@ -205,7 +214,7 @@ const UserForm = ({
           </div>
         ))}
 
-        {userType === "vet" && (
+        {userType === "VET" && (
           <div className="clinic-info-container">
             <div className="user-input-container">
               <label htmlFor="clinicName" className="user-input-label">

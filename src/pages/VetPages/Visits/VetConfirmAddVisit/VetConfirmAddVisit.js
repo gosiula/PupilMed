@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import BackArrow from "../../../../components/BackArrow/BackArrow";
 import Confirmation from "../../../../components/Confirmation/Confirmation";
@@ -12,7 +12,11 @@ const VetConfirmAddVisit = () => {
 
   const formData = location?.state?.formData;
 
-  console.log(formData);
+  useEffect(() => {
+    if (!formData) {
+      navigate("/error");
+    }
+  }, [formData]);
 
   const handleConfirm = async () => {
     try {
@@ -24,7 +28,7 @@ const VetConfirmAddVisit = () => {
       }
 
       const payload = {
-        phoneNumer: formData.ownerPhoneNumber,
+        ownerPhoneNumber: formData.ownerPhoneNumber,
         petName: formData.petName,
         date: formatDateForBackend(formData.date),
         hour: formData.hour,

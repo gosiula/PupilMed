@@ -1,48 +1,35 @@
-import React from "react";
-import { useLocation, useParams, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import BackArrow from "../../../../components/BackArrow/BackArrow";
 import RecommendationInput from "../../../../components/RecommendationInput/RecommendationInput";
 import AdminHeader from "../../../../components/AdminHeader/AdminHeader";
 import "./AdminAddRecommendation.css";
 
 const AdminAddRecommendation = () => {
-  const navigate = useNavigate();
   const location = useLocation();
-  const { visitDateAndHour } = useParams();
+  const navigate = useNavigate();
 
-  const [visitDate, visitHour] = visitDateAndHour
-    ? visitDateAndHour.split("_")
-    : ["", ""];
+  const visitID = location?.state?.visitID;
+  const visitDate = location?.state?.visitDate;
+  const visitHour = location?.state?.visitHour;
 
-  const { visitDate: stateVisitDate, visitHour: stateVisitHour } =
-    location.state || {};
-
-  const finalVisitDate = stateVisitDate || visitDate || "";
-  const finalVisitHour =
-    stateVisitHour.replace(":", "-") || "" || visitHour.replace(":", "-") || "";
-
-  const handleRecommendationSubmit = () => {
-    console.log(visitDate);
-    navigate(
-      `/admin/visits/recommendation/add/confirm/${finalVisitDate}_${finalVisitHour}`,
-      {
-        state: { stateVisitDate, stateVisitHour },
-      }
-    );
-  };
+  useEffect(() => {
+    if (!visitDate || !visitHour || !visitID) {
+      navigate("/error");
+    }
+  }, [visitDate, visitHour, visitID]);
 
   return (
     <div>
       <AdminHeader />
-      <BackArrow
-        title={`Dodawanie zalecenia - ${stateVisitDate}, ${stateVisitHour}`}
-      />
+      <BackArrow title={`Dodawanie zalecenia - ${visitDate}, ${visitHour}`} />
       <RecommendationInput
         savedRecommendation={null}
         buttonText="Dodaj zalecenie"
-        onSubmit={handleRecommendationSubmit}
-        date={finalVisitDate}
-        hour={finalVisitHour}
+        navigateTo={"/admin/visits/recommendation/add/confirm"}
+        visitID={visitID}
+        visitDate={visitDate}
+        visitHour={visitHour}
       />
     </div>
   );

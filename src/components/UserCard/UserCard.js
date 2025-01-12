@@ -16,23 +16,26 @@ const UserCard = ({
 
   const getUserIcon = (type) => {
     switch (type.toLowerCase()) {
-      case "wlasciciel":
+      case "owner":
         return <FaUser className="user-icon" />;
-      case "weterynarz":
+      case "vet":
         return <FaUserDoctor className="user-icon" />;
       default:
         return <FaUser className="user-icon" />;
     }
   };
 
+  console.log(user?.id)
+
   return (
     <div className="user-item">
       <div className="user-details">
         <div className="user-header">
           <p className="user-name-field">
-            Użytkownik - {user.typ === "wlasciciel" ? "właściciel" : user.typ}
+            Użytkownik -{" "}
+            {user?.role === "OWNER" ? "właściciel" : "weterynarz"}
           </p>
-          {getUserIcon(user.typ)}
+          {getUserIcon(user?.role)}
         </div>
 
         {fields.map((field) => (
@@ -46,7 +49,9 @@ const UserCard = ({
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                navigate(modifyPath, { state: { user } });
+                navigate(modifyPath, {
+                  state: { formData: user, userID: user?.id },
+                });
               }}
               className="user-modify-btn"
             >
@@ -55,7 +60,9 @@ const UserCard = ({
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                navigate(deletePath, { state: { user } });
+                navigate(deletePath, {
+                  state: { formData: user, userID: user?.id },
+                });
               }}
               className="user-delete-btn"
             >

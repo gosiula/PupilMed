@@ -1,5 +1,5 @@
-import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import BackArrow from "../../../../components/BackArrow/BackArrow";
 import Confirmation from "../../../../components/Confirmation/Confirmation";
 import AdminHeader from "../../../../components/AdminHeader/AdminHeader";
@@ -7,21 +7,51 @@ import "./AdminConfirmDeleteAnimal.css";
 
 const AdminConfirmDeleteAnimal = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const { animalInfo } = useParams();
+  const ownerPhoneNumber = location?.state?.ownerPhoneNumber;
+  const petName = location?.state?.petID;
+  const petID = location?.state?.petName;
 
-  const [phoneNumber, animalName] = animalInfo
-    ? animalInfo.split("_")
-    : ["", ""];
+  useEffect(() => {
+    if (!petID || !petName || !ownerPhoneNumber) {
+      navigate("/error");
+    }
+  }, [petID, petName, ownerPhoneNumber]);
 
-  const handleConfirm = () => {
-    // localStorage.clear();
-    navigate("/admin/success", {
-      state: {
-        message: "Sukces! Zwierzę zostało usunięte!",
-        navigateTo: "/admin/animals",
-      },
-    });
+  const handleConfirm = async () => {
+    try {
+      const authData = JSON.parse(localStorage.getItem("authData"));
+      const token = authData?.token;
+
+      if (!token) {
+        throw new Error("Token not found");
+      }
+
+      const response = await fetch(
+        `http://localhost:8080/admin/delete-pet?petID=${petID}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Nie udało się usunąć zwierzęcia: ${errorText}`);
+      }
+
+      navigate("/admin/success", {
+        state: {
+          message: "Sukces! Zwierzę zostało usunięte!",
+          navigateTo: "/admin/animals",
+        },
+      });
+    } catch (error) {
+      alert(`Nie udało się usunąć zwierzęcia: ${error.message}`);
+    }
   };
 
   return (
@@ -30,7 +60,7 @@ const AdminConfirmDeleteAnimal = () => {
       <BackArrow title="Potwierdzenie" />
       <Confirmation
         onConfirm={handleConfirm}
-        title={`Czy na pewno chcesz usunąć zwierzę o imieniu ${animalName} należące do użytkownika o numerze telefonu ${phoneNumber}?`}
+        title={`Czy na pewno chcesz usunąć zwierzę o imieniu ${petName} należące do użytkownika o numerze telefonu ${ownerPhoneNumber}?`}
       />
     </div>
   );

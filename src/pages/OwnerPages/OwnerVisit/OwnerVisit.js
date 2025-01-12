@@ -1,8 +1,13 @@
 import React, { useState, useEffect, Suspense } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import OwnerHeader from "../../../components/OwnerHeader/OwnerHeader";
 import BackArrow from "../../../components/BackArrow/BackArrow";
-import { visit_info } from "../../../data/visit_info";
+import { formatDate } from "../../../utils/formatDate";
+import { formatTime } from "../../../utils/formatTime";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { formatAge } from "../../../utils/formatAge";
+import "./OwnerVisit.css";
+import "../../../App";
 // import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 // import L from "leaflet";
 // import "leaflet/dist/leaflet.css";
@@ -22,8 +27,68 @@ import { visit_info } from "../../../data/visit_info";
 
 const OwnerVisit = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
-  const { visitDate, visitHour } = location.state || {};
+  const [visit, setVisit] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  const visitID = location?.state?.visitID;
+
+  useEffect(() => {
+    if (!visitID) {
+      navigate("/error");
+    }
+  }, [visitID]);
+
+  useEffect(() => {
+    fetchVisit();
+  }, [visitID]);
+
+  const fetchVisit = async () => {
+    try {
+      setLoading(true);
+      const authData = JSON.parse(localStorage.getItem("authData"));
+      const token = authData?.token;
+
+      if (!token) {
+        throw new Error("Token not found");
+      }
+
+      const resp = await fetch(
+        `http://localhost:8080/owner/visit-details?visitID=${visitID}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!resp.ok) {
+        const errorDetails = await resp.text();
+        throw new Error(
+          `Nie udało się pobrać wizyt: ${resp.status} - ${errorDetails}`
+        );
+      }
+
+      const json = await resp.json();
+
+      if (json && json.date) {
+        json.date = formatDate(json.date);
+      }
+
+      if (json && json.hour) {
+        json.hour = formatTime(json.hour);
+      }
+
+      setVisit(json);
+    } catch (error) {
+      console.error("Nie udało się pobrać wizyt:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   //   const [coordinates, setCoordinates] = useState({
   //     lat: 52.2297,
@@ -79,39 +144,47 @@ const OwnerVisit = () => {
   return (
     <div style={{ backgroundColor: "#ffffff", height: "100vh" }}>
       <OwnerHeader />
-      <BackArrow title={`Wizyta ${visitDate}`} />
 
-      <div className="info-container">
-        <div className="visit-info">
-          <p className="visit-date-info2">Informacje o wizycie:</p>
-          <p>
-            <strong>Godzina:</strong> {visitHour}
-          </p>
-          <p>
-            <strong>Typ wizyty:</strong> {visit_info.typ_wizyty}
-          </p>
-          <p>
-            <strong>Weterynarz:</strong> {visit_info.weterynarz}
-          </p>
-          <p>
-            <strong>Numer weterynarza:</strong>{" "}
-            {visit_info.numer_telefonu_weterynarza}
-          </p>
-          <p>
-            <strong>Cena:</strong> {visit_info.cena} zł
-          </p>
-          <p>
-            <strong>Zwierzę:</strong> {visit_info.typ_zwierzecia}{" "}
-            {visit_info.imie_zwierzecia}
-          </p>
-          <p>
-            <strong>Rasa:</strong> {visit_info.rasa}
-          </p>
-          <p>
-            <strong>Wiek:</strong> {visit_info.wiek}
-          </p>
+      {loading ? (
+        <div className="spinner">
+          <AiOutlineLoading3Quarters className="loading-icon" />
         </div>
-        {/* <Suspense fallback={<div>Loading map...</div>}>
+      ) : (
+        <div>
+          <BackArrow title={`Wizyta ${visit?.date}`} />
+
+          <div className="info-container">
+            <div className="visit-info">
+              <p className="visit-date-info2">Informacje o wizycie:</p>
+              <p>
+                <strong>Godzina:</strong> {visit?.hour}
+              </p>
+              <p>
+                <strong>Typ wizyty:</strong> {visit?.visitType}
+              </p>
+              <p>
+                <strong>Weterynarz:</strong> {visit?.vetName}{" "}
+                {visit?.vetSurname}
+              </p>
+              <p>
+                <strong>Numer weterynarza:</strong> {visit?.vetPhoneNumber}
+              </p>
+              <p>
+                <strong>Cena:</strong>{" "}
+                {visit?.price ? `${visit.price} zł` : "Brak danych"}
+              </p>
+              <p>
+                <strong>Zwierzę:</strong> {visit?.petKind} {visit?.petName}
+              </p>
+              <p>
+                <strong>Rasa:</strong> {visit?.petType}
+              </p>
+              <p>
+                <strong>Wiek:</strong> {formatAge(visit?.petAge)}
+              </p>
+            </div>
+          </div>
+          {/* <Suspense fallback={<div>Loading map...</div>}>
           {isMapReady && (
             <MapContainer
               center={[coordinates.lat, coordinates.lng]}
@@ -128,7 +201,8 @@ const OwnerVisit = () => {
             </MapContainer>
           )}
         </Suspense> */}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

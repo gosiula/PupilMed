@@ -35,8 +35,6 @@ function OwnerAccount() {
 
         const json = await resp.json();
 
-        console.log(json);
-
         setAccount(json);
       } catch (error) {
         console.error("Error fetching account data:", error);
@@ -54,7 +52,7 @@ function OwnerAccount() {
         header: "Imię i nazwisko",
         value: `${account?.name} ${account?.surname}`,
       },
-      right: { header: "Numer telefonu", value: account?.phoneNumber },
+      right: { header: "Numer telefonu", value: `${account?.phone_number}` },
     },
   ];
 

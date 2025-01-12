@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AnimalForm.css";
-import { animal_data } from "../../data/animal_types";
 
 const AnimalForm = ({
   fields,
@@ -10,6 +9,8 @@ const AnimalForm = ({
   savedForm,
   buttonText,
   navigateTo,
+  animalData,
+  petID,
 }) => {
   const navigate = useNavigate();
 
@@ -39,13 +40,25 @@ const AnimalForm = ({
     const storedFormData = JSON.parse(localStorage.getItem("animalForm"));
 
     if (!storedFormData && savedForm) {
+      const isSpeciesCustom =
+        savedForm.petSpecies &&
+        !Object.keys(animalData).includes(savedForm.petSpecies);
+
+      const isBreedCustom =
+        savedForm.petBreed &&
+        (!savedForm.petSpecies ||
+          !animalData[savedForm.petSpecies]?.includes(savedForm.petBreed));
+
       setFormData((prev) => ({
         ...prev,
         ...savedForm,
       }));
-      if (savedForm.typ_zwierzecia) {
-        setAvailableBreeds(animal_data[savedForm.typ_zwierzecia] || []);
+      if (isSpeciesCustom || isBreedCustom) {
+        setIsCustomKind(true);
+      } else if (savedForm.petSpecies) {
+        setAvailableBreeds(animalData[savedForm.petSpecies] || []);
       }
+
       if (savedForm.customKind) {
         setIsCustomKind(savedForm.customKind);
       }
@@ -53,15 +66,15 @@ const AnimalForm = ({
   }, [savedForm]);
 
   useEffect(() => {
-    if (formData.typ_zwierzecia) {
-      setAvailableBreeds(animal_data[formData.typ_zwierzecia] || []);
+    if (formData.petSpecies) {
+      setAvailableBreeds(animalData[formData.petSpecies] || []);
     }
-  }, [formData.typ_zwierzecia]);
+  }, [formData.petSpecies]);
 
   useEffect(() => {
     const handleNavigate = () => {
       if (window.location.pathname !== navigateTo) {
-        // localStorage.clear();
+        localStorage.removeItem("animalForm");
       }
     };
 
@@ -83,12 +96,12 @@ const AnimalForm = ({
       }
     });
 
-    if (!formData.typ_zwierzecia) {
-      newErrors.typ_zwierzecia = "Wybierz gatunek zwierzęcia.";
+    if (!formData.petSpecies) {
+      newErrors.petSpecies = "Wybierz gatunek zwierzęcia.";
     }
 
-    if (!formData.rasa && !isCustomKind) {
-      newErrors.rasa = "Wybierz rasę zwierzęcia.";
+    if (!formData.petBreed && !isCustomKind) {
+      newErrors.petBreed = "Wybierz rasę zwierzęcia.";
     }
 
     setErrors(newErrors);
@@ -102,20 +115,20 @@ const AnimalForm = ({
   };
 
   const handleSpeciesChange = (e) => {
-    const typ_zwierzecia = e.target.value;
+    const petSpecies = e.target.value;
     setFormData((prev) => ({
       ...prev,
-      typ_zwierzecia,
-      rasa: "",
+      petSpecies,
+      petBreed: "",
     }));
-    setAvailableBreeds(animal_data[typ_zwierzecia] || []);
-    setErrors((prev) => ({ ...prev, rasa: null }));
+    setAvailableBreeds(animalData[petSpecies] || []);
+    setErrors((prev) => ({ ...prev, petBreed: null }));
   };
 
   const handleCustomKindToggle = (e) => {
     setIsCustomKind(e.target.checked);
     if (!e.target.checked) {
-      setFormData((prev) => ({ ...prev, rasa: "" }));
+      setFormData((prev) => ({ ...prev, petBreed: "" }));
     }
   };
 
@@ -123,7 +136,7 @@ const AnimalForm = ({
     e.preventDefault();
     if (validate()) {
       navigate(navigateTo, {
-        state: { formData },
+        state: { formData, petID },
       });
     }
   };
@@ -144,85 +157,85 @@ const AnimalForm = ({
     <div className="animal-form-container">
       <form onSubmit={handleSubmit} className="animal-form-layout">
         {fields.map((field, index) => {
-          if (field === "typ_zwierzecia") {
+          if (field === "petSpecies") {
             return (
               <div key={index} className="animal-input-container">
-                <label htmlFor="typ_zwierzecia" className="animal-input-label">
+                <label htmlFor="petSpecies" className="animal-input-label">
                   Gatunek zwierzęcia:
                 </label>
                 {isCustomKind ? (
                   <input
-                    id="typ_zwierzecia"
+                    id="petSpecies"
                     type="text"
-                    value={formData.typ_zwierzecia || ""}
+                    value={formData.petSpecies || ""}
                     onChange={handleInputChange}
                     className={`animal-input-field ${
-                      errors.typ_zwierzecia ? "animal-error-input" : ""
+                      errors.petSpecies ? "animal-error-input" : ""
                     }`}
                   />
                 ) : (
                   <select
-                    id="typ_zwierzecia"
-                    value={formData.typ_zwierzecia}
+                    id="petSpecies"
+                    value={formData.petSpecies}
                     onChange={handleSpeciesChange}
                     className={`animal-input-field ${
-                      errors.typ_zwierzecia ? "animal-error-input" : ""
+                      errors.petSpecies ? "animal-error-input" : ""
                     }`}
                   >
                     <option value="">Wybierz gatunek</option>
-                    {Object.keys(animal_data).map((typ_zwierzecia) => (
-                      <option key={typ_zwierzecia} value={typ_zwierzecia}>
-                        {typ_zwierzecia.charAt(0).toUpperCase() +
-                          typ_zwierzecia.slice(1)}
+                    {Object.keys(animalData).map((petSpecies) => (
+                      <option key={petSpecies} value={petSpecies}>
+                        {petSpecies.charAt(0).toUpperCase() +
+                          petSpecies.slice(1)}
                       </option>
                     ))}
                   </select>
                 )}
-                {errors.typ_zwierzecia && (
+                {errors.petSpecies && (
                   <p className="animal-error-text visible">
-                    {errors.typ_zwierzecia}
+                    {errors.petSpecies}
                   </p>
                 )}
               </div>
             );
           }
 
-          if (field === "rasa") {
+          if (field === "petBreed") {
             return (
               <div key={index} className="animal-input-container">
-                <label htmlFor="rasa" className="animal-input-label">
+                <label htmlFor="petBreed" className="animal-input-label">
                   Rasa zwierzęcia:
                 </label>
                 {isCustomKind ? (
                   <input
-                    id="rasa"
+                    id="petBreed"
                     type="text"
-                    value={formData.rasa || ""}
+                    value={formData.petBreed || ""}
                     onChange={handleInputChange}
                     className={`animal-input-field ${
-                      errors.rasa ? "animal-error-input" : ""
+                      errors.petBreed ? "animal-error-input" : ""
                     }`}
                   />
                 ) : (
                   <select
-                    id="rasa"
-                    value={formData.rasa || ""}
+                    id="petBreed"
+                    value={formData.petBreed || ""}
                     onChange={handleInputChange}
                     className={`animal-input-field ${
-                      errors.rasa ? "animal-error-input" : ""
+                      errors.petBreed ? "animal-error-input" : ""
                     }`}
-                    disabled={!formData.typ_zwierzecia}
+                    disabled={!formData.petSpecies}
                   >
                     <option value="">Wybierz rasę</option>
-                    {availableBreeds.map((rasa) => (
-                      <option key={rasa} value={rasa}>
-                        {rasa}
+                    {availableBreeds.map((petBreed) => (
+                      <option key={petBreed} value={petBreed}>
+                        {petBreed}
                       </option>
                     ))}
                   </select>
                 )}
-                {errors.rasa && (
-                  <p className="animal-error-text visible">{errors.rasa}</p>
+                {errors.petBreed && (
+                  <p className="animal-error-text visible">{errors.petBreed}</p>
                 )}
               </div>
             );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import VetHeader from "../../../../components/VetHeader/VetHeader";
 import BackArrow from "../../../../components/BackArrow/BackArrow";
 import VisitButton from "../../../../components/VisitButton/VisitButton";
@@ -13,11 +13,18 @@ import "../../../../App.css";
 
 const VetVisit = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [visit, setVisit] = useState({});
   const [loading, setLoading] = useState(true);
 
   const visitID = location?.state?.visitID;
+
+  useEffect(() => {
+    if (!visitID) {
+      navigate("/error");
+    }
+  }, [visitID]);
 
   useEffect(() => {
     fetchVisit();
@@ -78,40 +85,37 @@ const VetVisit = () => {
         </div>
       ) : (
         <div>
-          <BackArrow title={`Wizyta ${visit.date}`} />
+          <BackArrow title={`Wizyta ${visit?.date}`} />
 
           <div className="info-container">
             <div className="visit-info">
               <p className="visit-date-info2">Informacje o wizycie:</p>
               <p>
-                <strong>Godzina:</strong>{" "}
-                {visit?.hour ? formatTime(visit.hour) : "Brak danych"}
+                <strong>Godzina:</strong> {visit?.hour}
               </p>
               <p>
-                <strong>Typ wizyty:</strong> {visit?.visitType || "Brak danych"}
+                <strong>Typ wizyty:</strong> {visit?.visitType}
               </p>
               <p>
-                <strong>Właściciel:</strong> {visit?.ownerName || "Brak danych"}{" "}
-                {visit?.ownerSurname || ""}
+                <strong>Właściciel:</strong> {visit?.ownerName}{" "}
+                {visit?.ownerSurname}
               </p>
               <p>
-                <strong>Numer właściciela:</strong>{" "}
-                {visit?.ownerPhoneNumber || "Brak danych"}
+                <strong>Numer właściciela:</strong> {visit?.ownerPhoneNumber}
               </p>
               <p>
                 <strong>Cena:</strong>{" "}
                 {visit?.price ? `${visit.price} zł` : "Brak danych"}
               </p>
               <p>
-                <strong>Zwierzę:</strong> {visit?.petKind || "Brak danych"}{" "}
+                <strong>Zwierzę:</strong> {visit?.petKind}{" "}
                 {visit?.petName || ""}
               </p>
               <p>
-                <strong>Rasa:</strong> {visit?.petType || "Brak danych"}
+                <strong>Rasa:</strong> {visit?.petType}
               </p>
               <p>
-                <strong>Wiek:</strong>{" "}
-                {visit?.petAge ? formatAge(visit.petAge) : "Brak danych"}
+                <strong>Wiek:</strong> {formatAge(visit?.petAge)}
               </p>
 
               <VisitButton

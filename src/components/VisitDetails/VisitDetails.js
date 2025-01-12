@@ -22,19 +22,16 @@ const VisitDetails = ({ visit, onClick, userType }) => {
       {userType === "admin" && (
         <div>
           <p>
-            Weterynarz: {visit?.vet?.name} {visit?.vet?.surname}
+            Weterynarz: {visit?.vetName} {visit?.vetSurname}
           </p>
           <p>
-            Właściciel: {visit?.pet?.ownerID?.name}{" "}
-            {visit?.pet?.ownerID?.surname}
+            Właściciel: {visit?.ownerName} {visit?.ownerSurname}
           </p>
         </div>
       )}
       {userType === "owner" && (
         <div>
-          <p>
-            Pupil: {visit?.pet} {visit?.pet}
-          </p>
+          <p>Pupil: {visit?.petName}</p>
         </div>
       )}
     </div>

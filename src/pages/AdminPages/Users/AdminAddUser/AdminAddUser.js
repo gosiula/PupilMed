@@ -5,18 +5,18 @@ import AdminHeader from "../../../../components/AdminHeader/AdminHeader";
 import "./AdminAddUser.css";
 
 const AdminAddUser = () => {
-  const fields = ["imie", "nazwisko", "numer_telefonu"];
+  const fields = ["name", "surname", "phoneNumber"];
 
   const fieldLabels = {
-    imie: "Imię użytkownika",
-    nazwisko: "Nazwisko użytkownika",
-    numer_telefonu: "Numer telefonu użytkownika",
+    name: "Imię użytkownika",
+    surname: "Nazwisko użytkownika",
+    phoneNumber: "Numer telefonu użytkownika",
   };
 
   const fieldErrors = {
-    imie: "imię",
-    nazwisko: "nazwisko",
-    numer_telefonu: "numer telefonu",
+    name: "imię",
+    surname: "nazwisko",
+    phoneNumber: "numer telefonu",
   };
 
   return (

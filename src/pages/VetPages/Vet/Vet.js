@@ -46,8 +46,14 @@ function Vet() {
         throw new Error("Token not found");
       }
 
-      const startDateFormatted = formatDateForBackend(startDate);
-      const endDateFormatted = formatDateForBackend(endDate);
+      const adjustedStartDate = new Date(startDate);
+      adjustedStartDate.setDate(adjustedStartDate.getDate() + 1);
+
+      const adjustedEndDate = new Date(endDate);
+      adjustedEndDate.setDate(adjustedEndDate.getDate() + 1);
+
+      const startDateFormatted = formatDateForBackend(adjustedStartDate);
+      const endDateFormatted = formatDateForBackend(adjustedEndDate);
 
       const resp = await fetch(
         `http://localhost:8080/vet/visits-by-date?startDate=${startDateFormatted}&endDate=${endDateFormatted}`,

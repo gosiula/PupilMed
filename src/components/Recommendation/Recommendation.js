@@ -4,10 +4,10 @@ import "./Recommendation.css";
 
 const Recommendation = ({
   recommendation_info,
-  visitDate,
-  visitHour,
   formData,
   visitID,
+  visitHour,
+  visitDate,
   addPath,
   modifyPath,
   deletePath,
@@ -16,7 +16,7 @@ const Recommendation = ({
 
   return (
     <div className="visit-info3">
-      <p className="visit-date-info2">Zalecenia:</p>
+      <p className="visit-date-info2">Zalecenie:</p>
       {recommendation_info != null ? (
         <>
           <p>{recommendation_info}</p>
@@ -26,11 +26,11 @@ const Recommendation = ({
               onClick={() =>
                 navigate(modifyPath, {
                   state: {
-                    visitDate,
-                    visitHour,
                     formData,
                     visitID,
                     recommendation_info,
+                    visitDate,
+                    visitHour,
                   },
                 })
               }
@@ -41,7 +41,7 @@ const Recommendation = ({
               className="recommendation-button"
               onClick={() =>
                 navigate(deletePath, {
-                  state: { visitDate, visitHour, visitID },
+                  state: { visitID, visitDate, visitHour },
                 })
               }
             >
@@ -57,7 +57,7 @@ const Recommendation = ({
               className="recommendation-button"
               onClick={() =>
                 navigate(addPath, {
-                  state: { visitDate, visitHour, visitID },
+                  state: { visitID, visitDate, visitHour },
                 })
               }
             >
