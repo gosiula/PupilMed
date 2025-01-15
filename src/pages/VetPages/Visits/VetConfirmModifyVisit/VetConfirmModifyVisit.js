@@ -68,7 +68,7 @@ const VetConfirmModifyVisit = () => {
         },
       });
     } catch (error) {
-      alert(`Nie udało się zmodyfikować wizyty: ${error.message}`);
+      alert(`${error.message}`);
     }
   };
 

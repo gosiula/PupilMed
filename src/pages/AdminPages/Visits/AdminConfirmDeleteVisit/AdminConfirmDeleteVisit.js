@@ -37,6 +37,8 @@ const AdminConfirmDeleteVisit = () => {
         }
       );
 
+      console.log(response)
+
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(`Nie udało się usunąć wizyty: ${errorText}`);
@@ -49,7 +51,7 @@ const AdminConfirmDeleteVisit = () => {
         },
       });
     } catch (error) {
-      alert(`Nie udało się usunąć wizyty: ${error.message}`);
+      alert(`${error.message}`);
     }
   };
 

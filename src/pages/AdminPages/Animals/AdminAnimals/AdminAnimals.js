@@ -33,6 +33,7 @@ function AdminAnimals() {
   const [loading, setLoading] = useState(true);
   const [searchPhone, setSearchPhone] = useState("");
   const [searchPetName, setSearchPetName] = useState("");
+  const [searchPetSpecies, setSearchPetSpecies] = useState("");
   const [filteredPets, setFilteredPets] = useState([]);
 
   useEffect(() => {
@@ -75,7 +76,7 @@ function AdminAnimals() {
         });
 
         setPets(transformedPets);
-        setFilteredPets(transformedPets); // Początkowo pokaż wszystkie zwierzęta
+        setFilteredPets(transformedPets);
       } catch (error) {
         console.error("Error fetching pets data:", error);
       } finally {
@@ -88,21 +89,23 @@ function AdminAnimals() {
 
   const filterPets = () => {
     const filtered = pets.filter((pet) => {
-      const matchesPhone = pet.ownerPhoneNumber
+      const matchesPhone = pet?.ownerPhoneNumber
         .toLowerCase()
         .includes(searchPhone.toLowerCase());
-      const matchesPetName = pet.name
+      const matchesPetName = pet?.name
         .toLowerCase()
         .includes(searchPetName.toLowerCase());
-      return matchesPhone && matchesPetName;
+      const matchesPetSpecies = pet?.species
+        .toLowerCase()
+        .includes(searchPetSpecies.toLowerCase());
+      return matchesPhone && matchesPetName && matchesPetSpecies;
     });
     setFilteredPets(filtered);
   };
 
-  // Wywołanie filtrowania przy każdej zmianie wartości w polach wyszukiwania
   useEffect(() => {
     filterPets();
-  }, [searchPhone, searchPetName, pets]);
+  }, [searchPhone, searchPetName, searchPetSpecies, pets]);
 
   return (
     <div className="main-container" style={{ position: "relative" }}>
@@ -126,6 +129,13 @@ function AdminAnimals() {
               placeholder="Imię zwierzęcia"
               value={searchPetName}
               onChange={(e) => setSearchPetName(e.target.value)}
+              className="animal-search-input"
+            />
+            <input
+              type="text"
+              placeholder="Gatunek zwierzęcia"
+              value={searchPetSpecies}
+              onChange={(e) => setSearchPetSpecies(e.target.value)}
               className="animal-search-input"
             />
           </div>

@@ -50,7 +50,7 @@ const AdminConfirmDeleteAnimal = () => {
         },
       });
     } catch (error) {
-      alert(`Nie udało się usunąć zwierzęcia: ${error.message}`);
+      alert(`${error.message}`);
     }
   };
 

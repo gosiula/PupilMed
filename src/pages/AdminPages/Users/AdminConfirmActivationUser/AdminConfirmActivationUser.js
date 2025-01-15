@@ -2,24 +2,22 @@ import React, { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import BackArrow from "../../../../components/BackArrow/BackArrow";
 import Confirmation from "../../../../components/Confirmation/Confirmation";
-import OwnerHeader from "../../../../components/OwnerHeader/OwnerHeader";
-import "./OwnerConfirmChangePassword.css";
+import AdminHeader from "../../../../components/AdminHeader/AdminHeader";
+import "./AdminConfirmActivationUser.css";
 
-const OwnerConfirmChangePassword = () => {
+const AdminConfirmActivationUser = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const currentPassword = location?.state?.currentPassword;
-  const newPassword = location?.state?.newPassword;
-
-  console.log(currentPassword);
-  console.log(newPassword);
+  const formData = location?.state?.formData;
+  const userID = location?.state?.userID;
+  const isActive = location?.state?.isActive;
 
   useEffect(() => {
-    if (!currentPassword || !newPassword) {
+    if (!formData || !userID || isActive === null) {
       navigate("/error");
     }
-  }, [currentPassword, newPassword]);
+  }, [formData, userID, isActive]);
 
   const handleConfirm = async () => {
     try {
@@ -31,12 +29,12 @@ const OwnerConfirmChangePassword = () => {
       }
 
       const payload = {
-        oldPassword: currentPassword,
-        newPassword: newPassword,
+        isActive: !isActive,
+        id: userID,
       };
 
       const response = await fetch(
-        `http://localhost:8080/owner/change-password`,
+        `http://localhost:8080/admin/change-is-active`,
         {
           method: "PUT",
           headers: {
@@ -49,13 +47,15 @@ const OwnerConfirmChangePassword = () => {
 
       if (!response.ok) {
         const errorText = await response.text();
-        throw new Error(`Nie udało się zmodyfikować hasła: ${errorText}`);
+        throw new Error(`Nie udało się modyfikować użytkownika: ${errorText}`);
       }
 
-      navigate("/owner/success", {
+      navigate("/admin/success", {
         state: {
-          message: "Sukces! Hasło zostało zmienione!",
-          navigateTo: "/owner/account",
+          message: `Sukces! Użytkownik został ${
+            isActive ? "deaktywowany" : "aktywowany"
+          }!`,
+          navigateTo: "/admin/users",
         },
       });
     } catch (error) {
@@ -65,14 +65,16 @@ const OwnerConfirmChangePassword = () => {
 
   return (
     <div>
-      <OwnerHeader />
+      <AdminHeader />
       <BackArrow title="Potwierdzenie" />
       <Confirmation
         onConfirm={handleConfirm}
-        title={`Czy na pewno chcesz zmienić hasło?`}
+        title={`Czy na pewno chcesz ${
+          isActive ? "deaktywować" : "aktywować"
+        } użytkownika o numerze telefonu ${formData?.phoneNumber}?`}
       />
     </div>
   );
 };
 
-export default OwnerConfirmChangePassword;
+export default AdminConfirmActivationUser;

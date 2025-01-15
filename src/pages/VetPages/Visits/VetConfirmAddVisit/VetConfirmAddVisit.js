@@ -64,7 +64,7 @@ const VetConfirmAddVisit = () => {
         },
       });
     } catch (error) {
-      alert(`Nie udało się dodać wizyty: ${error.message}`);
+      alert(`${error.message}`);
     }
   };
 

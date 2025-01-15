@@ -25,6 +25,7 @@ import AdminConfirmAddUser from "../pages/AdminPages/Users/AdminConfirmAddUser/A
 import AdminModifyUser from "../pages/AdminPages/Users/AdminModifyUser/AdminModifyUser";
 import AdminConfirmModifyUser from "../pages/AdminPages/Users/AdminConfirmModifyUser/AdminConfirmModifyUser";
 import AdminConfirmDeleteUser from "../pages/AdminPages/Users/AdminConfirmDeleteUser/AdminConfirmDeleteUser";
+import AdminConfirmActivationUser from "../pages/AdminPages/Users/AdminConfirmActivationUser/AdminConfirmActivationUser";
 import AdminSuccess from "../pages/AdminPages/AdminSuccess/AdminSuccess";
 import AdminLogout from "../pages/AdminPages/AdminLogout/AdminLogout";
 
@@ -37,18 +38,12 @@ const AdminRoutes = () => (
       path="/visits/admin-add-visit/confirm"
       element={<AdminConfirmAddVisit />}
     />
-    <Route
-      path="/visits/visit/modify"
-      element={<AdminModifyVisit />}
-    />
+    <Route path="/visits/visit/modify" element={<AdminModifyVisit />} />
     <Route
       path="/visits/visit/modify/confirm"
       element={<AdminConfirmModifyVisit />}
     />
-    <Route
-      path="/visits/visit/delete"
-      element={<AdminConfirmDeleteVisit />}
-    />
+    <Route path="/visits/visit/delete" element={<AdminConfirmDeleteVisit />} />
     <Route
       path="/visits/recommendation/add"
       element={<AdminAddRecommendation />}
@@ -70,19 +65,13 @@ const AdminRoutes = () => (
       element={<AdminConfirmDeleteRecommendation />}
     />
     <Route path="/animals" element={<AdminAnimals />} />
-    <Route
-      path="/animals/animal"
-      element={<AdminAnimalRecommendations />}
-    />
+    <Route path="/animals/animal" element={<AdminAnimalRecommendations />} />
     <Route path="/animals/add-animal" element={<AdminAddAnimal />} />
     <Route
       path="/animals/add-animal/confirm"
       element={<AdminConfirmAddAnimal />}
     />
-    <Route
-      path="/animals/delete"
-      element={<AdminConfirmDeleteAnimal />}
-    />
+    <Route path="/animals/delete" element={<AdminConfirmDeleteAnimal />} />
     <Route path="/animals/modify" element={<AdminModifyAnimal />} />
     <Route
       path="/animals/modify/confirm"
@@ -91,17 +80,15 @@ const AdminRoutes = () => (
     <Route path="/users" element={<AdminUsers />} />
     <Route path="/users/add-user" element={<AdminAddUser />} />
     <Route path="/users/add-user/confirm" element={<AdminConfirmAddUser />} />
-    <Route
-      path="/users/user/modify"
-      element={<AdminModifyUser />}
-    />
+    <Route path="/users/user/modify" element={<AdminModifyUser />} />
     <Route
       path="/users/user/modify/confirm"
       element={<AdminConfirmModifyUser />}
     />
+    <Route path="/users/user/delete" element={<AdminConfirmDeleteUser />} />
     <Route
-      path="/users/user/delete"
-      element={<AdminConfirmDeleteUser />}
+      path="/users/user/activation"
+      element={<AdminConfirmActivationUser />}
     />
     <Route path="/success" element={<AdminSuccess />} />
     <Route path="/logout" element={<AdminLogout />} />

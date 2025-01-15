@@ -62,7 +62,7 @@ const AdminConfirmAddUser = () => {
         },
       });
     } catch (error) {
-      alert(`Nie udało się dodać użytkownika: ${error.message}`);
+      alert(`${error.message}`);
     }
   };
 

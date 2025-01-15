@@ -35,7 +35,7 @@ const AdminConfirmModifyAnimal = () => {
         petDob: formatDateForBackend(formData.petDob),
         petSpecies: formData.petSpecies,
         petBreed: formData.petBreed,
-        additionalInfo: formData.additionalInfo,
+        additionalInfo: formData.additionalInfo ? formData.additionalInfo : null,
       };
 
       const response = await fetch(
@@ -64,7 +64,7 @@ const AdminConfirmModifyAnimal = () => {
         },
       });
     } catch (error) {
-      alert(`Nie udało się zmodyfikować zwierzęcia: ${error.message}`);
+      alert(`${error.message}`);
     }
   };
 

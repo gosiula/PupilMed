@@ -46,6 +46,7 @@ const AdminConfirmAddRecommendation = () => {
         }
       );
 
+      console.log(response)
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(`Nie udało się dodać zalecenia: ${errorText}`);
@@ -60,7 +61,7 @@ const AdminConfirmAddRecommendation = () => {
         },
       });
     } catch (error) {
-      alert(`Nie udało się dodać zalecenia: ${error.message}`);
+      alert(`${error.message}`);
     }
   };
 

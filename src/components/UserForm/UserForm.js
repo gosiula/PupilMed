@@ -52,8 +52,8 @@ const UserForm = ({
       if (savedForm?.role === "VET") {
         setUserType("VET");
         setClinicData({
-          name: savedForm.nazwa_kliniki || "",
-          address: savedForm.adres_kliniki || "",
+          name: savedForm.clinicName || "",
+          address: savedForm.clinicAddress || "",
         });
       } else if (savedForm?.role === "OWNER") {
         setUserType("OWNER");
@@ -172,7 +172,7 @@ const UserForm = ({
               name="userType"
               value="OWNER"
               checked={userType === "OWNER"}
-              onChange={() => handleUserTypeChange("OWNEER")}
+              onChange={() => handleUserTypeChange("OWNER")}
               disabled={!(type === "add")}
             />
             Właściciel

@@ -28,7 +28,7 @@ const VetConfirmChangePassword = () => {
       }
 
       const payload = {
-        currentPassword: currentPassword,
+        oldPassword: currentPassword,
         newPassword: newPassword,
       };
 
@@ -49,14 +49,14 @@ const VetConfirmChangePassword = () => {
         throw new Error(`Nie udało się zmodyfikować hasła: ${errorText}`);
       }
 
-      navigate("/admin/success", {
+      navigate("/vet/success", {
         state: {
           message: "Sukces! Hasło zostało zmienione!",
           navigateTo: "/vet/account",
         },
       });
     } catch (error) {
-      alert(`Nie udało się zmodyfikować hasła: ${error.message}`);
+      alert(`${error.message}`);
     }
   };
 

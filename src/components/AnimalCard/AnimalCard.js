@@ -54,7 +54,11 @@ const AnimalCard = ({
         {fields.map((field) => (
           <p key={field}>
             {fieldLabels[field]}:{" "}
-            {field === "age" ? formatAge(pet[field]) : pet[field]}
+            {field === "age"
+              ? formatAge(pet[field])
+              : field === "additionalInfo"
+              ? pet?.additionalInfo || "Brak."
+              : pet[field]}
           </p>
         ))}
 

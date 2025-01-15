@@ -64,7 +64,7 @@ const AdminConfirmModifyUser = () => {
         },
       });
     } catch (error) {
-      alert(`Nie udało się zmodyfikować użytkownika: ${error.message}`);
+      alert(`${error.message}`);
     }
   };
 

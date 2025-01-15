@@ -11,6 +11,7 @@ const UserCard = ({
   fieldLabels,
   modifyPath,
   deletePath,
+  activationPath,
 }) => {
   const navigate = useNavigate();
 
@@ -25,15 +26,14 @@ const UserCard = ({
     }
   };
 
-  console.log(user?.id)
+  console.log(user?.id);
 
   return (
     <div className="user-item">
-      <div className="user-details">
+      <div className={`user-details ${user?.active ? "" : "inactive"}`}>
         <div className="user-header">
           <p className="user-name-field">
-            Użytkownik -{" "}
-            {user?.role === "OWNER" ? "właściciel" : "weterynarz"}
+            Użytkownik - {user?.role === "OWNER" ? "właściciel" : "weterynarz"}
           </p>
           {getUserIcon(user?.role)}
         </div>
@@ -53,7 +53,10 @@ const UserCard = ({
                   state: { formData: user, userID: user?.id },
                 });
               }}
-              className="user-modify-btn"
+              className={`user-modify-btn ${
+                user?.active ? "active" : "inactive"
+              }`}
+              disabled={!user?.active}
             >
               Modyfikuj użytkownika
             </button>
@@ -64,9 +67,26 @@ const UserCard = ({
                   state: { formData: user, userID: user?.id },
                 });
               }}
-              className="user-delete-btn"
+              className={"user-delete-btn"}
             >
               Usuń użytkownika
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate(activationPath, {
+                  state: {
+                    formData: user,
+                    userID: user?.id,
+                    isActive: user?.active,
+                  },
+                });
+              }}
+              className={`user-activation-btn ${
+                user?.active ? "active" : "inactive"
+              }`}
+            >
+              {user?.active ? "Deaktywuj" : "Aktywuj"}
             </button>
           </div>
         )}

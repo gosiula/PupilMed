@@ -49,7 +49,7 @@ const AdminConfirmDeleteUser = () => {
         },
       });
     } catch (error) {
-      alert(`Nie udało się usunąć użytkownika: ${error.message}`);
+      alert(`${error.message}`);
     }
   };
 

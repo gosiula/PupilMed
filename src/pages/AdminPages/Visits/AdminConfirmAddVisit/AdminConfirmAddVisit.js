@@ -66,7 +66,7 @@ const AdminConfirmAddVisit = () => {
         },
       });
     } catch (error) {
-      alert(`Nie udało się dodać wizyty: ${error.message}`);
+      alert(`${error.message}`);
     }
   };
 

@@ -60,7 +60,7 @@ const AdminConfirmModifyRecommendation = () => {
         },
       });
     } catch (error) {
-      alert(`Nie udało się zmodyfikować zalecenia: ${error.message}`);
+      alert(`${error.message}`);
     }
   };
 

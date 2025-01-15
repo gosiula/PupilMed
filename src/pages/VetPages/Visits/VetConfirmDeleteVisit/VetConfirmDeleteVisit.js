@@ -49,7 +49,7 @@ const VetConfirmDeleteVisit = () => {
         },
       });
     } catch (error) {
-      alert(`Nie udało się usunąć wizyty: ${error.message}`);
+      alert(`${error.message}`);
     }
   };
 

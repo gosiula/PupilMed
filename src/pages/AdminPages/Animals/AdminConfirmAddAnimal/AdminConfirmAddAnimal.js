@@ -34,7 +34,7 @@ const AdminConfirmAddAnimal = () => {
         petDob: formatDateForBackend(formData.petDob),
         petSpecies: formData.petSpecies,
         petBreed: formData.petBreed,
-        additionalInfo: formData.additionalInfo,
+        additionalInfo: formData.additionalInfo ? formData.additionalInfo : null,
       };
 
       const response = await fetch("http://localhost:8080/admin/add-pet", {
@@ -60,7 +60,7 @@ const AdminConfirmAddAnimal = () => {
         },
       });
     } catch (error) {
-      alert(`Nie udało się dodać zwierzęcia: ${error.message}`);
+      alert(`${error.message}`);
     }
   };
 

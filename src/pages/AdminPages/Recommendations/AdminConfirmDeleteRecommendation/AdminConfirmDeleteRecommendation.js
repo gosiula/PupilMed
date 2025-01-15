@@ -50,7 +50,7 @@ const AdminConfirmDeleteRecommendation = () => {
         },
       });
     } catch (error) {
-      alert(`Nie udało się usunąć zalecenia: ${error.message}`);
+      alert(`${error.message}`);
     }
   };
 

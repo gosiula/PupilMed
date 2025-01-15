@@ -33,7 +33,6 @@ const AnimalForm = ({
     numer_telefonu_wlasciciela:
       /^(\+48\s?\d{3}\s?\d{3}\s?\d{3}|\+48\d{9}|\d{9}|\d{3}\s?\d{3}\s?\d{3})$/,
     imie_zwierzecia: /^.+$/,
-    dodatkowe_informacje: /^.*$/,
   };
 
   useEffect(() => {
@@ -89,7 +88,7 @@ const AnimalForm = ({
 
     fields.forEach((field) => {
       const value = formData[field] || "";
-      if (!value && field !== "dodatkowe_informacje") {
+      if (!value && field !== "additionalInfo") {
         newErrors[field] = `Podaj ${fieldErrors[field] || field}.`;
       } else if (regexMap[field] && !regexMap[field].test(value)) {
         newErrors[field] = `Nieprawidłowe dane.`;
@@ -241,26 +240,26 @@ const AnimalForm = ({
             );
           }
 
-          if (field === "dodatkowe_informacje") {
+          if (field === "additionalInfo") {
             return (
               <div key={index} className="animal-input-container">
                 <label
-                  htmlFor="dodatkowe_informacje"
+                  htmlFor="additionalInfo"
                   className="animal-input-label"
                 >
                   Dodatkowe informacje:
                 </label>
                 <textarea
-                  id="dodatkowe_informacje"
-                  value={formData.dodatkowe_informacje || ""}
+                  id="additionalInfo"
+                  value={formData?.additionalInfo || ""}
                   onChange={handleInputChange}
                   className={`animal-input-field ${
-                    errors.dodatkowe_informacje ? "animal-error-input" : ""
+                    errors.additionalInfo ? "animal-error-input" : ""
                   }`}
                 />
-                {errors.dodatkowe_informacje && (
+                {errors.additionalInfo && (
                   <p className="animal-error-text visible">
-                    {errors.dodatkowe_informacje}
+                    {errors.additionalInfo}
                   </p>
                 )}
               </div>

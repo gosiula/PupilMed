@@ -22,6 +22,8 @@ function AdminUsers() {
   const [searchSurname, setSearchSurname] = useState("");
   const [showVets, setShowVets] = useState(true);
   const [showOwners, setShowOwners] = useState(true);
+  const [showActive, setShowActive] = useState(true);
+  const [showNotActive, setShowNotActive] = useState(true);
   const [filteredUsers, setFilteredUsers] = useState([]);
 
   useEffect(() => {
@@ -68,14 +70,18 @@ function AdminUsers() {
       const matchesRole =
         (showVets && user.role === "VET") ||
         (showOwners && user.role === "OWNER");
-      return matchesSurname && matchesRole;
+      const matchesActiveState =
+        (showActive && user?.active) || (showNotActive && !user?.active);
+
+
+      return matchesSurname && matchesRole && matchesActiveState;
     });
     setFilteredUsers(filtered);
   };
 
   useEffect(() => {
     filterUsers();
-  }, [searchSurname, showVets, showOwners, users]);
+  }, [searchSurname, showVets, showOwners, showActive, showNotActive, users]);
 
   return (
     <div className="main-container-users" style={{ position: "relative" }}>
@@ -86,7 +92,7 @@ function AdminUsers() {
         </div>
       ) : (
         <div>
-          <div className="checkbox-container">
+          <div className="checkbox-container1">
             <label>
               <input
                 type="checkbox"
@@ -105,6 +111,25 @@ function AdminUsers() {
             </label>
           </div>
 
+          <div className="checkbox-container2">
+            <label>
+              <input
+                type="checkbox"
+                checked={showActive}
+                onChange={() => setShowActive(!showActive)}
+              />
+              Aktywni
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={showNotActive}
+                onChange={() => setShowNotActive(!showNotActive)}
+              />
+              Nieaktywni
+            </label>
+          </div>
+
           <div className="search-container">
             <input
               type="text"
@@ -115,7 +140,6 @@ function AdminUsers() {
             />
           </div>
 
-          {/* User cards */}
           {filteredUsers.map((user, index) => (
             <UserCard
               userType={"admin"}
@@ -125,6 +149,7 @@ function AdminUsers() {
               fieldLabels={fieldLabels}
               modifyPath={`/admin/users/user/modify`}
               deletePath={`/admin/users/user/delete`}
+              activationPath={`/admin/users/user/activation`}
             />
           ))}
 
