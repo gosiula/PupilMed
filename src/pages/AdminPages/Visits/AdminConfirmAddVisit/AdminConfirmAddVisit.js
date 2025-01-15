@@ -32,7 +32,7 @@ const AdminConfirmAddVisit = () => {
         ownerPhoneNumber: formData.ownerPhoneNumber,
         petName: formData.petName,
         date: formatDateForBackend(formData.date),
-        hour: formData.hour,
+        hour: `${formData.hour}:00`,
         visitType: formData.visitType,
         price: formData.price,
       };

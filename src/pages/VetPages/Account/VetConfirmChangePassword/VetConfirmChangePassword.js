@@ -28,7 +28,7 @@ const VetConfirmChangePassword = () => {
       }
 
       const payload = {
-        oldPassword: currentPassword,
+        currentPassword: currentPassword,
         newPassword: newPassword,
       };
 

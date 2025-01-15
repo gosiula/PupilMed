@@ -10,8 +10,8 @@ const AdminConfirmDeleteAnimal = () => {
   const location = useLocation();
 
   const ownerPhoneNumber = location?.state?.ownerPhoneNumber;
-  const petName = location?.state?.petID;
-  const petID = location?.state?.petName;
+  const petName = location?.state?.petName;
+  const petID = location?.state?.petID;
 
   useEffect(() => {
     if (!petID || !petName || !ownerPhoneNumber) {

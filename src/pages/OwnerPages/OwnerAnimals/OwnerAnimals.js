@@ -6,13 +6,13 @@ import "./OwnerAnimals.css";
 import "../../../App";
 
 function OwnerAnimals() {
-  const fieldsToDisplay = ["name", "age", "kind", "type", "additionalInfo"];
+  const fieldsToDisplay = ["name", "age", "species", "breed", "additionalInfo"];
 
   const fieldLabels = {
     name: "Imię zwierzęcia",
     age: "Wiek",
-    kind: "Typ zwierzęcia",
-    type: "Rasa",
+    species: "Typ zwierzęcia",
+    breed: "Rasa",
     additionalInfo: "Dodatkowe informacje",
   };
 

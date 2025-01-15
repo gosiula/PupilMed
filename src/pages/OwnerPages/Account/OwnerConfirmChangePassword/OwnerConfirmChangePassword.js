@@ -31,7 +31,7 @@ const OwnerConfirmChangePassword = () => {
       }
 
       const payload = {
-        oldPassword: currentPassword,
+        currentPassword: currentPassword,
         newPassword: newPassword,
       };
 
