@@ -7,12 +7,14 @@ import "./VetAddVisit.css";
 import "../../../../App.css";
 
 const VetAddVisit = () => {
+
   useEffect(() => {
     fetchVisit();
   }, []);
 
   const [visitTypes, setVisitTypes] = useState({});
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   const fetchVisit = async () => {
     try {
@@ -21,7 +23,7 @@ const VetAddVisit = () => {
       const token = authData?.token;
 
       if (!token) {
-        throw new Error("Token not found");
+        setError("Token not found");
       }
 
       const resp = await fetch(`http://localhost:8080/vet/get-visit-types`, {
@@ -34,9 +36,7 @@ const VetAddVisit = () => {
 
       if (!resp.ok) {
         const errorDetails = await resp.text();
-        throw new Error(
-          `Nie udało się pobrać wizyt: ${resp.status} - ${errorDetails}`
-        );
+        setError(`Nie udało się pobrać wizyt: ${resp.status} - ${errorDetails}`);
       }
 
       const json = await resp.json();
@@ -87,6 +87,9 @@ const VetAddVisit = () => {
           />
         </div>
       )}
+      <div className="error-container">
+        <p className="error-message">{error}</p>
+      </div>
     </div>
   );
 };

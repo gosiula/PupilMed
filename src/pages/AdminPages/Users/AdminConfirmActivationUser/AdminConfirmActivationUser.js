@@ -34,7 +34,7 @@ const AdminConfirmActivationUser = () => {
       };
 
       const response = await fetch(
-        `http://localhost:8080/admin/change-is-active`,
+        `http://localhost:8080/admin/deactivate-user`,
         {
           method: "PUT",
           headers: {

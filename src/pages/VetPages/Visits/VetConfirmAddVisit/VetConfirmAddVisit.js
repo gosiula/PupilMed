@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import BackArrow from "../../../../components/BackArrow/BackArrow";
 import Confirmation from "../../../../components/Confirmation/Confirmation";
@@ -9,6 +9,8 @@ import "./VetConfirmAddVisit.css";
 const VetConfirmAddVisit = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [error, setError] = useState("");
+
 
   const formData = location?.state?.formData;
 
@@ -47,7 +49,8 @@ const VetConfirmAddVisit = () => {
 
       if (!response.ok) {
         const errorText = await response.text();
-        throw new Error(`Nie udało się dodać wizyty: ${errorText}`);
+        setError(`Nie udało się dodać wizyty: ${errorText}`);
+        return;
       }
 
       localStorage.removeItem("date");
@@ -76,6 +79,9 @@ const VetConfirmAddVisit = () => {
         onConfirm={handleConfirm}
         title={`Czy na pewno chcesz dodać nową wizytę w dniu ${formData?.date} o godzinie ${formData?.hour} dla właściciela o numerze ${formData?.ownerPhoneNumber}?`}
       />
+      <div className="error-container">
+        <p className="error-message">{error}</p>
+      </div>
     </div>
   );
 };

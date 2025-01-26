@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import BackArrow from "../../../../components/BackArrow/BackArrow";
 import Confirmation from "../../../../components/Confirmation/Confirmation";
@@ -13,6 +13,7 @@ const AdminConfirmAddRecommendation = () => {
   const visitDate = location?.state?.visitDate;
   const visitHour = location?.state?.visitHour;
   const recommendation = location?.state?.recommendation;
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (!visitDate || !visitHour || !recommendation || !visitID) {
@@ -49,7 +50,8 @@ const AdminConfirmAddRecommendation = () => {
       console.log(response)
       if (!response.ok) {
         const errorText = await response.text();
-        throw new Error(`Nie udało się dodać zalecenia: ${errorText}`);
+        setError(`Nie udało się dodać zalecenia: ${errorText}`);
+        return;
       }
 
       localStorage.removeItem("recommendation");
@@ -73,7 +75,11 @@ const AdminConfirmAddRecommendation = () => {
         onConfirm={handleConfirm}
         title={`Czy na pewno chcesz dodać nowe zalecenie dla wizyty w dniu ${visitDate} o godzinie ${visitHour}?`}
       />
+      <div className="error-container">
+        <p className="error-message">{error}</p>
+      </div>
     </div>
+
   );
 };
 

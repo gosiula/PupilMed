@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import BackArrow from "../../../../components/BackArrow/BackArrow";
 import Confirmation from "../../../../components/Confirmation/Confirmation";
@@ -12,6 +12,7 @@ const AdminConfirmAddAnimal = () => {
   const location = useLocation();
 
   const formData = location?.state?.formData;
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (!formData) {
@@ -48,7 +49,8 @@ const AdminConfirmAddAnimal = () => {
 
       if (!response.ok) {
         const errorText = await response.text();
-        throw new Error(`Nie udało się dodać zwierzęcia: ${errorText}`);
+        setError(`Nie udało się dodać zwierzęcia: ${errorText}`);
+        return
       }
 
       localStorage.removeItem("animalForm");
@@ -72,6 +74,9 @@ const AdminConfirmAddAnimal = () => {
         onConfirm={handleConfirm}
         title={`Czy na pewno chcesz dodać nowe zwierzę ${formData?.petName} dla użytkownika o numerze ${formData?.ownerPhoneNumber}?`}
       />
+      <div className="error-container">
+        <p className="error-message">{error}</p>
+      </div>
     </div>
   );
 };
